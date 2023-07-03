@@ -4,9 +4,9 @@ Hi there! Known as 'Recycle Bin', we're [Lais de Jesus Moraes](https://github.co
 
 We're all members of the [La Fosse Academy](https://www.lafosseacademy.com/). And for our second group project we were tasked with creating a community app that utilises the citizens of Florin Council to make a safe and clean town!(full brief [here])(https://github.com/LaFosseAcademy/cohort_resources/blob/main/liskov/projects/lap2-project.md).
 
-We decided to make a waste management app called **WasteWise** where the residents of Florin will be able to organise their household waste into divided spaces via new bins provided by the local authority. Residents can now contribute to their hometown.  have to escape a ravenous Dino by answering questions correctly and getting points.
+We decided to make a waste management app called **WasteWise** where the residents of Florin will be able to organise their household waste into divided spaces via new bins provided by the local authority. Residents can now contribute to their hometown and relieve the desperate shortages on local services by doing their part!
 
-You can see it live at: [tester.com](http://blahblahsfs.com/)
+You can see it live at: [tester.com](http://blahblahsswerfs.com/)
 
 You can see a copy of our project presentation slides [here](https://github.com/SumeetChoat/RecycleBin).
 

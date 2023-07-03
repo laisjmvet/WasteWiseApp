@@ -19,16 +19,12 @@ async function login(req, res) {
         const data = req.body;
         const user = await User.getOneByUsername(data.username)
         const authenticated = await bcrypt.compare(data.password, user.password);
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAA")
         console.log(authenticated, "AUTHENTICATED" );
         if (!authenticated) {
             throw new Error("Incorrect credentials.");
         } else {
             const token = await Token.create(user.id);
-            console.log(token, "TOOOOOKEN", user.id)
-            //console.log( res.status(200).json({ authenticated: true, token: token.token }), "<<<<<<<<<<>>>>>>>>>>>>>>>")
             res.status(200).json({ authenticated: true, token: token.token });
-            //localStorage.setItem('token', token.token);
         }
     } catch (error) {
         res.status(403).json({"error": error.message})

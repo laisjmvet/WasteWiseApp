@@ -6,7 +6,7 @@ class User {
     this.username = username;
     this.password = password;
     this.isAdmin = isAdmin;
-}
+    }
 
     static async getOneById(id) {
         try {

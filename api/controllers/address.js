@@ -20,10 +20,20 @@ async function create (req, res) {
     }
 };
 
-async function showOne (req, res) {
+async function showOneById (req, res) {
     try {
         const id = parseInt(req.params.id);
         const address = await Address.getOneById(id);
+        res.status(200).json(address);
+    } catch (err) {
+        res.status(404).json({"error": err.message});
+    }
+};
+
+async function showOneByUserInput (req, res) {
+    try {
+        const data = req.body;
+        const address = await Address.getOneByUserInput(data);
         res.status(200).json(address);
     } catch (err) {
         res.status(404).json({"error": err.message});
@@ -53,4 +63,4 @@ async function update (req, res) {
     }
 }
 
-module.exports = {showAll, create, showOne, destroy, update}
+module.exports = {showAll, create, destroy, update, showOneByUserInput, showOneById} 

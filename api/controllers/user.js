@@ -1,28 +1,39 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const Token = require('../models/Token');
+const Address =  require("../models/Address");
 
 async function register(req, res) {
     try {
-        const data = req.body;
+        const data = req.body;          
+        console.log(data, "<<<<<<<<<<<<>>>>>>>>>>>>")      
+        const validAddress = await Address.getOneByUserInput(data);
+        console.log(validAddress, "aaaaaaaaaaaaa")
+        
+        if(validAddress) {
         const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
         data.password = await bcrypt.hash(data.password, salt);
-        const result = await User.create(data);
+        const result = await User.create(data, validAddress.id);
         res.status(201).json(result);
+        
+        }else {
+            console.log("ERROR!!!!!!!!!")
+        }
+        
     } catch (error) {
-        res.status(400).json({"error": err.message})
+        res.status(400).json({"error": error.message})
     }
 }
 
 async function login(req, res) {
     try {
         const data = req.body;
-        const user = await User.getOneByUsername(data.username)
-        const authenticated = await bcrypt.compare(data.password, user.password);
-        console.log(authenticated, "AUTHENTICATED" );
+        const user = await User.getOneByUsername(data.username);
+        const authenticated = await bcrypt.compare(data.password, user.password);        
         if (!authenticated) {
             throw new Error("Incorrect credentials.");
         } else {
+            console.log("AUTHORIZED" );
             const token = await Token.create(user.id);
             res.status(200).json({ authenticated: true, token: token.token });
         }

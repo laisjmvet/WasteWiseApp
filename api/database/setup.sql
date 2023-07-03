@@ -33,7 +33,7 @@ CREATE TABLE address_zones (
 CREATE TABLE addresses_Florin (
     address_id INT GENERATED ALWAYS AS IDENTITY,
     street_name VARCHAR NOT NULL,
-    street_number INT NOT NULL,
+    house_number INT NOT NULL,
     postcode VARCHAR NOT NULL,
     zone_id INT NOT NULL,
     PRIMARY KEY (address_id),
@@ -43,9 +43,9 @@ CREATE TABLE addresses_Florin (
 CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(30) UNIQUE NOT NULL,
-    password VARCHAR(8) NOT NULL,
-    points INT NOT NULL,
-    address_id INT NOT NULL,
+    password VARCHAR NOT NULL,
+    points INT DEFAULT 0  NOT NULL,
+    address_id INT,
     isAdmin BOOLEAN NOT NULL DEFAULT FALSE,
     PRIMARY KEY (user_id),
     FOREIGN KEY (address_id) REFERENCES addresses_Florin(address_id)
@@ -228,7 +228,7 @@ INSERT INTO collect_bulky_waste (price, weight_kg) VALUES
 INSERT INTO address_zones(zone_number) VALUES
 (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
 
-INSERT INTO addresses_Florin (street_name, street_number, postcode, zone_id)
+INSERT INTO addresses_Florin (street_name, house_number, postcode, zone_id)
 VALUES
 
 ('Apple Street', '1', 'GL1 1AB', 1),

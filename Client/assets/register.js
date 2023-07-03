@@ -7,7 +7,9 @@ async function createUser(e) {
     if(checkPasswordsMatch(e.target.password.value, e.target.password2.value)){
         const userData = {
             name: e.target.first_name.value + " " + e.target.last_name.value,
-            address: e.target.address.value,
+            house_number: e.target.number.value,
+            street_name: e.target.street_name.value,
+            postcode: e.target.postcode.value,
             username: e.target.username.value,
             password: e.target.password.value
         }

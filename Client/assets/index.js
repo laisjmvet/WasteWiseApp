@@ -3,12 +3,11 @@ const createAccount = () => {
 }
 
 const createAccountButton = document.getElementsByName("create_account")[0]
-console.log(createAccountButton)
 createAccountButton.addEventListener("click", createAccount)
 
 
 const loginForm = document.querySelector('form')
-loginForm.addEventListener("submit", verifyUser)
+loginForm.addEventListener("submit", goToPage)
 
 async function verifyUser(e) {
     e.preventDefault()
@@ -32,8 +31,14 @@ async function verifyUser(e) {
 
     if (response.status == 200) {
         localStorage.setItem("token", data.token)
-        window.location.assign("homepage.html")
+        window.location.assign(`homepage.html?username=${e.target.username.value}`)
     } else {
         alert(data.error);
     }
+}
+
+
+async function goToPage(e)  {
+    e.preventDefault()
+    window.location.assign(`homepage.html?username=${e.target.username.value}`)
 }

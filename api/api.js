@@ -5,6 +5,8 @@ const logRoutes = require('./middleware/logger');
 const objectRouter = require('./routers/recyclableObject');
 const addressRouter = require('./routers/address');
 const userRouter = require('./routers/user');
+const collectDaysRouter = require('./routers/collectDays');
+//const collectFurni
 
 const api = express();
 
@@ -22,5 +24,6 @@ api.get("/", (req, res) => {
 api.use("/address", addressRouter);
 api.use("/object", objectRouter);
 api.use("/users", userRouter);
+api.use("/collectDay", collectDaysRouter);
 
 module.exports = api;

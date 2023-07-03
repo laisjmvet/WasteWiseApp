@@ -46,7 +46,4 @@ class CollectDays {
         return new CollectDays(response.rows[0]);
     }
 }
-
-
-
 module.exports = CollectDays;

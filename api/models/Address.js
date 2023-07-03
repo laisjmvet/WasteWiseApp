@@ -43,24 +43,9 @@ class Address {
     }
 
     async update(data) {        
-        const {street_name, house_number, postcode} = data      
+        const {street_name, house_number, postcode} = data;      
         const response = await db.query("UPDATE addresses_Florin SET street_name = $1, house_number = $2, postcode = $3 RETURNING *;", [street_name, house_number, postcode]);
         return new Address(response.rows[0]);
     }
 }
-
-
-
-module.exports = Address
-
-
-
-
-
-// Define your Google Geocoding API key
-
-
-// Function to retrieve addresses from the Geocoding API
-
-// Call the function to retrieve addresses
-
+module.exports = Address;

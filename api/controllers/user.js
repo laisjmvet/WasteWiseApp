@@ -6,20 +6,15 @@ const Address =  require("../models/Address");
 async function register(req, res) {
     try {
         const data = req.body;          
-        console.log(data, "<<<<<<<<<<<<>>>>>>>>>>>>")      
-        const validAddress = await Address.getOneByUserInput(data);
-        console.log(validAddress, "aaaaaaaaaaaaa")
-        
+        const validAddress = await Address.getOneByUserInput(data);        
         if(validAddress) {
         const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
         data.password = await bcrypt.hash(data.password, salt);
         const result = await User.create(data, validAddress.id);
-        res.status(201).json(result);
-        
+        res.status(201).json(result);        
         }else {
             console.log("ERROR!!!!!!!!!")
-        }
-        
+        }        
     } catch (error) {
         res.status(400).json({"error": error.message})
     }
@@ -49,7 +44,6 @@ async function logout(req, res) {
             throw new Error('User not authenticated??');
         } else {
             const getToken = await Token.getOneByToken(token);
-            console.log(getToken)
             await getToken.deleteByToken();
             res.status(200).json({ message: 'Logged out!!!' });
         }
@@ -61,12 +55,10 @@ async function logout(req, res) {
 async function getUserByUsername(req, res) {
     try {
         const data = req.params;
-        console.log(data)
         const user = await User.getOneByUsername(data.username);
-        res.status(200).json(user);
-        
+        res.status(200).json(user);        
     } catch (error) {
-        res.status(404).json({"error": err.message})
+        res.status(404).json({"error": err.message});
     }
 }
     

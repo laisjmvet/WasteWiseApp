@@ -8,5 +8,6 @@ objectRouter.get("/:id", objectController.showOne);
 objectRouter.post("/", objectController.create);
 objectRouter.delete("/:id", objectController.destroy);
 objectRouter.patch("/:id", objectController.update);
+objectRouter.get("/input", objectController.findInput);
 
 module.exports = objectRouter;

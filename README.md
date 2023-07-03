@@ -1,10 +1,8 @@
-Hello everyone. Welcome to Florin 
-Staging created!
 # WasteWise
 
-Hi there! Known as the 'Recycle Bin', we're [Lais de Jesus Moraes](https://github.com/laisjmvet), [Sumeetpal Choat](https://github.com/SumeetChoat), [Guy Vernon](https://github.com/Gilheim) and [Marcell Batta](https://github.com/ioptyu2).
+Hi there! Known as 'Recycle Bin', we're [Lais de Jesus Moraes](https://github.com/laisjmvet), [Sumeetpal Choat](https://github.com/SumeetChoat), [Guy Vernon](https://github.com/Gilheim) and [Marcell Batta](https://github.com/ioptyu2).
 
-We're all members of the [La Fosse Academy](https://www.lafosseacademy.com/). And for our second group project we were tasked with creating a community app that utilises the citizens of Florin Council to make a safe and clean town!(full brief [here](https://github.com/LaFosseAcademy/cohort_resources/blob/main/liskov/projects/lap2-project.md).
+We're all members of the [La Fosse Academy](https://www.lafosseacademy.com/). And for our second group project we were tasked with creating a community app that utilises the citizens of Florin Council to make a safe and clean town!(full brief [here])(https://github.com/LaFosseAcademy/cohort_resources/blob/main/liskov/projects/lap2-project.md).
 
 We decided to make a waste management app called **WasteWise** where the residents of Florin will be able to organise their household waste into divided spaces via new bins provided by the local authority. Residents can now contribute to their hometown.  have to escape a ravenous Dino by answering questions correctly and getting points.
 
@@ -34,6 +32,13 @@ You can see a copy of our project presentation slides [here](https://github.com/
 
 ### Installation
 
+- Launch Terminal, GitBash or your Shell of choice.
+- Use `cd name-of-folder` to navigate to where you want to have the `RecycleBin` folder and repository saved.
+    - For example, the command `cd Dropbox/code` will result in the following folder structure `Dropbox/code/RecycleBin` once you've pulled the repository.
+- Clone into the repository: `git clone https://github.com/SumeetChoat/RecycleBin.git`
+- Navigate into the folder via `RecycleBin`
+- Open up the folder in Visual Studio Code via `code .`
+    - Skip the step above if you use a different code editor.
 
 
 ## Features and Usage

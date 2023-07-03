@@ -1,10 +1,11 @@
 const db =  require('../database/connect');
 
 class CollectDays {
-    constructor ({collect_days_id, zone_id, bin_type_id}) {
-        this.id = collect_days_id;
-        this.zone_id = zone_id
+    constructor ({collect_day_id, zone_id, bin_type_id, weekday_id}) {
+        this.id = collect_day_id;
+        this.zone_id = zone_id;
         this.bin_type_id = bin_type_id;
+        this.weekday_id = weekday_id;
     }
 
     static async getAll() {
@@ -13,7 +14,7 @@ class CollectDays {
     }
 
     static async getOneById(id) {
-        const response = await db.query("SELECT * FROM collect_days WHERE collect_days_id = $1", [id]);
+        const response = await db.query("SELECT * FROM collect_days WHERE collect_day_id = $1", [id]);
         if (response.rows.length != 1) {
             throw new Error("Unable to locate collect_day.");
         }
@@ -27,13 +28,13 @@ class CollectDays {
     }
 
     async destroy() {
-        let response = await db.query("DELETE FROM collect_days WHERE collect_days_id = $1 RETURNING *;", [this.id]);
+        let response = await db.query("DELETE FROM collect_days WHERE collect_day_id = $1 RETURNING *;", [this.id]);
         return new CollectDays(response.rows[0]);
     }
 
     async update(data) {        
-        const {zone_id, bin_type_id} = data;        
-        const response = await db.query("UPDATE collect_days SET zone_id = $1, bin_type_id =$2 RETURNING *;", [zone_id, bin_type_id]);
+        const {zone_id, bin_type_id, weekday_id} = data;        
+        const response = await db.query("UPDATE collect_days SET zone_id = $1, bin_type_id =$2, weekday_id = $3 RETURNING *;", [zone_id, bin_type_id, weekday_id]);
         return new CollectDays(response.rows[0]);
     }
 }

@@ -3,7 +3,7 @@ const Object = require('../models/RecyclableObject');
 async function showAll (req, res) {
     try {
         const objects = await Object.getAll();
-        res.json(objects);
+        res.status(200).json(objects);
     } catch (err) {
         res.status(500).json({"error": err.message});
     }
@@ -24,7 +24,7 @@ async function showOne (req, res) {
     try {
         const id = parseInt(req.params.id);
         const object = await Object.getOneById(id);
-        res.json(object);
+        res.status(200).json(object);
     } catch (err) {
         res.status(404).json({"error": err.message});
     }

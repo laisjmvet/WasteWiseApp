@@ -2,8 +2,8 @@ const Address = require('../models/Address');
 
 async function showAll (req, res) {
     try {
-        const addressess = await Address.getAll();
-        res.json(addressess);
+        const addresses = await Address.getAll();
+        res.status(200).json(addresses);
     } catch (err) {
         res.status(500).json({"error": err.message});
     }
@@ -24,7 +24,7 @@ async function showOne (req, res) {
     try {
         const id = parseInt(req.params.id);
         const address = await Address.getOneById(id);
-        res.json(address);
+        res.status(200).json(address);
     } catch (err) {
         res.status(404).json({"error": err.message});
     }

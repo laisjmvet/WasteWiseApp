@@ -23,7 +23,7 @@ CREATE TABLE address_zones (
     PRIMARY KEY(zone_id)
 );
 
-CREATE TABLE addresses_Abingdon (
+CREATE TABLE addresses_Florin (
     address_id INT GENERATED ALWAYS AS IDENTITY,
     street_name VARCHAR NOT NULL,
     street_number INT NOT NULL,
@@ -38,8 +38,10 @@ CREATE TABLE user_account (
     username VARCHAR(30) UNIQUE NOT NULL,
     password VARCHAR(8) NOT NULL,
     points INT NOT NULL,
+    address_id INT NOT NULL,
     isAdmin BOOLEAN NOT NULL DEFAULT FALSE,
-    PRIMARY KEY (user_id)
+    PRIMARY KEY (user_id),
+    FOREIGN KEY (address_id) REFERENCES addresses_Florin(address_id)
 );
 
 CREATE TABLE token (
@@ -220,9 +222,6 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 
 --!!!!!!!!!!NEEDS TO THIS DATABASE ABOUT THE RECYCLING
 
-INSERT INTO user_account (username, password, isAdmin) VALUES
-('laisjm', 'lais', true);
-
 INSERT INTO collect_furniture_price (price) VALUES
 (100);
 
@@ -230,30 +229,151 @@ INSERT INTO collect_furniture_weight (weight_kg, price_id) VALUES
 (20, 1);
 
 INSERT INTO address_zones(zone_number) VALUES
-(1), (2), (3), (4);
+(1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
 
-INSERT INTO addresses_Abingdon (street_name, street_number, postcode, zone_id)
+INSERT INTO addresses_Florin (street_name, street_number, postcode, zone_id)
 VALUES
-    ('Elm Street', 1, 'AB1 2CD', 1),
-    ('Oak Avenue', 2, 'AB2 3EF', 1),
-    ('Maple Close', 3, 'AB3 4GH', 1),
-    ('Beech Road', 4, 'AB4 5IJ', 1),
-    ('Cedar Lane', 5, 'AB5 6KL', 1),
-    ('Willow Court', 6, 'AB6 7MN', 2),
-    ('Pine Crescent', 7, 'AB7 8OP', 2),
-    ('Ash Drive', 8, 'AB8 9QR', 2),
-    ('Birch Terrace', 9, 'AB9 0ST', 2),
-    ('Holly Way', 10, 'AB1 1UV', 3),
-    ('Elm Street', 11, 'AB2 2WX', 3),
-    ('Oak Avenue', 12, 'AB3 3YZ', 3),
-    ('Maple Close', 13, 'AB4 4AB', 3),
-    ('Beech Road', 14, 'AB5 5CD', 3),
-    ('Cedar Lane', 15, 'AB6 6EF', 4),
-    ('Willow Court', 16, 'AB7 7GH', 4),
-    ('Pine Crescent', 17, 'AB8 8IJ', 4),
-    ('Ash Drive', 18, 'AB9 9KL', 4),
-    ('Birch Terrace', 19, 'AB0 0MN', 4),
-    ('Holly Way', 20, 'AB1 1OP', 4);
+
+('Apple Street', '1', 'GL1 1AB', 1),
+('Apple Street', '2', 'GL1 1AB', 1),
+('Apple Street', '3', 'GL1 1AB', 1),
+('Apple Street', '4', 'GL1 1AB', 1),
+('Cherry Lane', '10', 'GL2 2CD', 1),
+('Cherry Lane', '12', 'GL2 2CD', 1),
+('Cherry Lane', '14', 'GL2 2CD', 1),
+('Orange Avenue', '20', 'GL3 3EF', 1),
+('Orange Avenue', '21', 'GL3 3EF', 1),
+('Orange Avenue', '23', 'GL3 3EF', 1),
+('Orange Avenue', '25', 'GL3 3EF', 1),
+('Orange Avenue', '27', 'GL3 3EF', 1),
+('Orange Avenue', '28', 'GL3 3EF', 1),
+('Pear Road', '30', 'GL4 4GH', 1),
+('Pear Road', '32', 'GL4 4GH', 1),
+('Pear Road', '34', 'GL4 4GH', 1),
+('Pear Road', '36', 'GL4 4GH', 1),
+('Pear Road', '37', 'GL4 4GH', 1),
+('Pear Road', '38', 'GL4 4GH', 1),
+('Pear Road', '40', 'GL4 4GH', 1),
+('Blue Sky Boulevard', '50', 'GL5 5IJ', 2),
+('Blue Sky Boulevard', '51', 'GL5 5IJ', 2),
+('Blue Sky Boulevard', '52', 'GL5 5IJ', 2),
+('Blue Sky Boulevard', '54', 'GL5 5IJ', 2),
+('Blue Sky Boulevard', '55', 'GL5 5IJ', 2),
+('Starry Lane', '60', 'GL6 6KL', 2),
+('Starry Lane', '62', 'GL6 6KL', 2),
+('Starry Lane', '64', 'GL6 6KL', 2),
+('Starry Lane', '65', 'GL6 6KL', 2),
+('Starry Lane', '67', 'GL6 6KL', 2),
+('Starry Lane', '68', 'GL6 6KL', 2),
+('Starry Lane', '69', 'GL6 6KL', 2),
+('Galaxy Street', '70', 'GL7 7MN', 2),
+('Galaxy Street', '71', 'GL7 7MN', 2),
+('Galaxy Street', '73', 'GL7 7MN', 2),
+('Galaxy Street', '74', 'GL7 7MN', 2),
+('Galaxy Street', '76', 'GL7 7MN', 2),
+('Mountain View Road', '80', 'GL8 8OP',3),
+('Mountain View Road', '82', 'GL8 8OP',3),
+('Mountain View Road', '83', 'GL8 8OP',3),
+('Mountain View Road', '85', 'GL8 8OP',3),
+('Mountain View Road', '86', 'GL8 8OP',3),
+('Mountain View Road', '88', 'GL8 8OP',3),
+('Sunset Avenue', '90', 'GL9 9QR',3),
+('Sunset Avenue', '92', 'GL9 9QR',3),
+('Sunset Avenue', '94', 'GL9 9QR',3),
+('Sunset Avenue', '95', 'GL9 9QR',3),
+('Sunset Avenue', '97', 'GL9 9QR',3),
+('Sunset Avenue', '98', 'GL9 9QR',3),
+('Sunset Avenue', '100', 'GL9 9QR',3),
+('Sunset Avenue', '101', 'GL9 9QR',3),
+('Sunset Avenue', '103', 'GL9 9QR', 4),
+('Sunset Avenue', '104', 'GL9 9QR', 4),
+('Sunset Avenue', '106', 'GL9 9QR', 4),
+('Sunset Avenue', '108', 'GL9 9QR', 4),
+('Meadow Lane', '110', 'GL10 10ST', 4),
+('Meadow Lane', '112', 'GL10 10ST', 4),
+('Meadow Lane', '114', 'GL10 10ST', 4),
+('Meadow Lane', '116', 'GL10 10ST', 4),
+('Meadow Lane', '118', 'GL10 10ST', 4),
+('Meadow Lane', '120', 'GL10 10ST', 4),
+('Meadow Lane', '122', 'GL10 10ST', 4),
+('Meadow Lane', '124', 'GL10 10ST', 4),
+('Meadow Lane', '126', 'GL10 10ST', 4),
+('Meadow Lane', '128', 'GL10 10ST', 4),
+('Greenwood Drive', '130', 'GL11 11UV', 4),
+('Greenwood Drive', '132', 'GL11 11UV', 4),
+('Greenwood Drive', '134', 'GL11 11UV', 4),
+('Greenwood Drive', '136', 'GL11 11UV', 4),
+('Greenwood Drive', '138', 'GL11 11UV', 4),
+('Greenwood Drive', '140', 'GL11 11UV', 4),
+('Greenwood Drive', '142', 'GL11 11UV', 4),
+('Greenwood Drive', '144', 'GL11 11UV', 4),
+('Greenwood Drive', '146', 'GL11 11UV', 4),
+('Greenwood Drive', '148', 'GL11 11UV', 4),
+('Greenwood Drive', '150', 'GL11 11UV', 4),
+('Greenwood Drive', '152', 'GL11 11UV', 4),
+('Maple Court', '160', 'GL12 12WX', 5),
+('Maple Court', '162', 'GL12 12WX', 5),
+('Maple Court', '164', 'GL12 12WX', 5),
+('Maple Court', '166', 'GL12 12WX', 5),
+('Maple Court', '168', 'GL12 12WX', 5),
+('Maple Court', '170', 'GL12 12WX', 5),
+('Maple Court', '172', 'GL12 12WX', 5),
+('Maple Court', '174', 'GL12 12WX', 5),
+('Maple Court', '176', 'GL12 12WX', 5),
+('Maple Court', '178', 'GL12 12WX', 5),
+('Maple Court', '180', 'GL12 12WX', 6),
+('Maple Court', '182', 'GL12 12WX', 6),
+('Maple Court', '184', 'GL12 12WX', 6),
+('Maple Court', '186', 'GL12 12WX', 6),
+('Maple Court', '188', 'GL12 12WX', 6),
+('Maple Court', '190', 'GL12 12WX', 6),
+('Maple Court', '192', 'GL12 12WX', 6),
+('Maple Court', '194', 'GL12 12WX', 6),
+('Maple Court', '196', 'GL12 12WX', 6),
+('Maple Court', '198', 'GL12 12WX', 6),
+('Maple Court', '200', 'GL12 12WX', 6),
+('Maple Court', '202', 'GL12 12WX', 7),
+('Willow Lane', '204', 'GL13 13YZ', 7),
+('Willow Lane', '206', 'GL13 13YZ', 7),
+('Willow Lane', '208', 'GL13 13YZ', 7),
+('Willow Lane', '210', 'GL13 13YZ', 7),
+('Willow Lane', '212', 'GL13 13YZ', 7),
+('Willow Lane', '214', 'GL13 13YZ', 7),
+('Willow Lane', '216', 'GL13 13YZ', 7),
+('Willow Lane', '218', 'GL13 13YZ', 7),
+('Willow Lane', '220', 'GL13 13YZ', 7),
+('Willow Lane', '222', 'GL13 13YZ', 7),
+('Willow Lane', '224', 'GL13 13YZ', 8),
+('Willow Lane', '226', 'GL13 13YZ', 8),
+('Willow Lane', '228', 'GL13 13YZ', 8),
+('Willow Lane', '230', 'GL13 13YZ', 8),
+('Willow Lane', '232', 'GL13 13YZ', 8),
+('Willow Lane', '234', 'GL13 13YZ', 8),
+('Willow Lane', '236', 'GL13 13YZ', 8),
+('Willow Lane', '238', 'GL13 13YZ', 8),
+('Willow Lane', '240', 'GL13 13YZ', 8),
+('Willow Lane', '242', 'GL13 13YZ', 8),
+('Willow Lane', '244', 'GL13 13YZ', 9),
+('Willow Lane', '246', 'GL13 13YZ', 9),
+('Willow Lane', '248', 'GL13 13YZ', 9),
+('Willow Lane', '250', 'GL13 13YZ', 9),
+('Willow Lane', '252', 'GL13 13YZ', 9),
+('Willow Lane', '254', 'GL13 13YZ', 9),
+('Willow Lane', '256', 'GL13 13YZ', 9),
+('Willow Lane', '258', 'GL13 13YZ', 9),
+('Willow Lane', '260', 'GL13 13YZ', 9),
+('Willow Lane', '262', 'GL13 13YZ', 10),
+('Willow Lane', '264', 'GL13 13YZ', 10),
+('Willow Lane', '266', 'GL13 13YZ', 10),
+('Willow Lane', '268', 'GL13 13YZ', 10),
+('Willow Lane', '270', 'GL13 13YZ', 10),
+('Willow Lane', '272', 'GL13 13YZ', 10),
+('Willow Lane', '274', 'GL13 13YZ', 10),
+('Willow Lane', '276', 'GL13 13YZ', 10),
+('Willow Lane', '278', 'GL13 13YZ', 10);
+
+INSERT INTO user_account (username, password, isAdmin, points, address_id) VALUES
+('laisjm', 'lais', true, 0, 1);
 
 INSERT INTO collect_days (bin_type_id, weekday_id, zone_id) VALUES
 (1, 3, 4), (2, 3, 4), (2, 3, 2);

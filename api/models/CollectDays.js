@@ -21,6 +21,14 @@ class CollectDays {
         return new CollectDays(response.rows[0]);
     }
 
+    static async getOneByZoneId(zone_id) {
+        const response = await db.query("SELECT * FROM collect_days WHERE zone_id = $1", [zone_id]);
+        if (response.rows.length != 1) {
+            throw new Error("Unable to locate collect_day.");
+        }
+        return new CollectDays(response.rows[0]);
+    }
+
     static async create(data) {
         const { zone_id, bin_type_id } = data;
         let response = await db.query("INSERT INTO collect_days (zone_id, bin_type_id) VALUES ($1, $2) RETURNING *;", [zone_id, bin_type_id]);

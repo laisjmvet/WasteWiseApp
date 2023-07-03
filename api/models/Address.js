@@ -1,10 +1,10 @@
 const db =  require('../database/connect');
 
 class Address {
-    constructor ({address_id, street_name, street_number, postcode}) {
+    constructor ({address_id, street_name, house_number, postcode}) {
         this.id = address_id;
         this.street_name = street_name;
-        this.street_number = street_number;
+        this.house_number = house_number;
         this.postcode = postcode;
     }
 
@@ -22,8 +22,9 @@ class Address {
     }
 
     static async getOneByUserInput(input) {
-        const {street_number, postcode} = input;
-        const response = await db.query("SELECT * FROM addresses_Florin WHERE postcode = $1 AND street_number = $1", [parseInt(street_number), postcode]);
+        const house_number = parseInt(input.house_number);
+        const postcode = input.postcode;
+        const response = await db.query("SELECT * FROM addresses_Florin WHERE postcode = $1 AND house_number = $2", [postcode, house_number]);
         if (response.rows.length != 1) {
             throw new Error("Unable to locate address.");
         }
@@ -31,8 +32,8 @@ class Address {
     }
 
     static async create(data) {
-        const { street_name, street_number, postcode } = data;
-        let response = await db.query("INSERT INTO addresses_Florin (street_name, street_number, postcode) VALUES ($1, $2, $3) RETURNING *", [street_name, street_number, postcode]);
+        const { street_name, house_number, postcode } = data;
+        let response = await db.query("INSERT INTO addresses_Florin (street_name, house_number, postcode) VALUES ($1, $2, $3) RETURNING *", [street_name, house_number, postcode]);
         return new Address(response.rows[0]);        
     }
 
@@ -42,8 +43,8 @@ class Address {
     }
 
     async update(data) {        
-        const {street_name, street_number, postcode} = data      
-        const response = await db.query("UPDATE addresses_Florin SET street_name = $1, street_number = $2, postcode = $3 RETURNING *;", [street_name, street_number, postcode]);
+        const {street_name, house_number, postcode} = data      
+        const response = await db.query("UPDATE addresses_Florin SET street_name = $1, house_number = $2, postcode = $3 RETURNING *;", [street_name, house_number, postcode]);
         return new Address(response.rows[0]);
     }
 }

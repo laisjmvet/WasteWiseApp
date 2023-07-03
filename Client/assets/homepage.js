@@ -47,3 +47,4 @@ async function setUpPage(userData) {
 const displayBins = (data) => {
     //Code to create and display bins
 }
+

@@ -2,7 +2,6 @@ const Token = require("../models/Token");
 const User = require("../controllers/user.js");
 
 async function authenticator(req, res, next) {
-  console.log("run");
   try {
     const userToken = req.headers.authorization;
 

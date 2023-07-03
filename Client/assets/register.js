@@ -72,3 +72,8 @@ const checkValidPostcode = (str) => {
         return false
     }
 }
+
+const backButton = document.getElementsByName("back_button")[0]
+backButton.addEventListener("click", () => {
+    window.location.assign("index.html")
+})

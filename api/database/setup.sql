@@ -1,15 +1,22 @@
+ALTER TABLE addresses_Florin DROP CONSTRAINT IF EXISTS addresses_Florin_zone_id_fkey;
+ALTER TABLE user_account DROP CONSTRAINT IF EXISTS user_account_address_id_fkey;
+ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_bin_type_id_fkey;
+ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_weekday_id_fkey;
+ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_zone_id_fkey;
+ALTER TABLE recycling_object DROP CONSTRAINT IF EXISTS recycling_object_bin_type_id_fkey;
+ALTER TABLE recycling_object DROP CONSTRAINT IF EXISTS recycling_object_material_type_id_fkey;
+
 -- drop tables if they exist
-DROP TABLE IF EXISTS addresses_Abingdon;
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS user_account;
 DROP TABLE IF EXISTS recycling_object;
 DROP TABLE IF EXISTS materials_type; 
 DROP TABLE IF EXISTS collect_days;
-DROP TABLE IF EXISTS address_zones;
-DROP TABLE IF EXISTS collect_furniture_weight;
-DROP TABLE IF EXISTS collect_furniture_price;
+DROP TABLE IF EXISTS collect_bulky_waste;
 DROP TABLE IF EXISTS weekdays;
 DROP TABLE IF EXISTS bin_types;
+DROP TABLE IF EXISTS address_zones;
+DROP TABLE IF EXISTS addresses_Florin;
 
 CREATE TABLE weekdays (
     weekday_id INT GENERATED ALWAYS AS IDENTITY,
@@ -367,4 +374,5 @@ INSERT INTO user_account (username, password, isAdmin, points, address_id) VALUE
 
 INSERT INTO collect_days (bin_type_id, weekday_id, zone_id) VALUES
 (1, 3, 4), (2, 3, 4), (2, 3, 2);
+
 

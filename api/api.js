@@ -6,7 +6,7 @@ const objectRouter = require('./routers/recyclableObject');
 const addressRouter = require('./routers/address');
 const userRouter = require('./routers/user');
 const collectDaysRouter = require('./routers/collectDays');
-//const collectFurni
+const collectBulkyWasteRouter = require('./routers/collectBulkyWaste');
 
 const api = express();
 
@@ -25,5 +25,6 @@ api.use("/address", addressRouter);
 api.use("/object", objectRouter);
 api.use("/users", userRouter);
 api.use("/collectDay", collectDaysRouter);
+api.use("/collectBulkyWaste", collectBulkyWasteRouter);
 
 module.exports = api;

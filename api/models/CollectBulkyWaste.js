@@ -1,8 +1,8 @@
 const db =  require('../database/connect');
 
 class CollectBulkyWaste {
-    constructor ({collect_bulky_waste_id, weight_kg, price}) {
-        this.id = collect_bulky_waste_id;
+    constructor ({bulky_waste_id, weight_kg, price}) {
+        this.id = bulky_waste_id;
         this.weight_kg = weight_kg;
         this.price = price;
     }
@@ -13,7 +13,7 @@ class CollectBulkyWaste {
     }
 
     static async getOneById(id) {
-        const response = await db.query("SELECT * FROM collect_bulky_waste WHERE collect_bulky_waste_id = $1", [id]);
+        const response = await db.query("SELECT * FROM collect_bulky_waste WHERE bulky_waste_id = $1", [id]);
         if (response.rows.length != 1) {
             throw new Error("Unable to locate collect_bulky_waste_id.");
         }
@@ -27,7 +27,7 @@ class CollectBulkyWaste {
     }
 
     async destroy() {
-        let response = await db.query("DELETE FROM collect_bulky_waste WHERE collect_bulky_waste_id = $1 RETURNING *;", [this.id]);
+        let response = await db.query("DELETE FROM collect_bulky_waste WHERE bulky_waste_id = $1 RETURNING *;", [this.id]);
         return new CollectBulkyWaste(response.rows[0]);
     }
 

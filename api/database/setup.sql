@@ -59,7 +59,6 @@ CREATE TABLE token (
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 );
 
-
 CREATE TABLE bin_types (
     bin_type_id INT GENERATED ALWAYS AS IDENTITY,
     bin_type_name VARCHAR UNIQUE NOT NULL, 

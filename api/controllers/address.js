@@ -63,4 +63,4 @@ async function update (req, res) {
     }
 }
 
-module.exports = {showAll, create, destroy, update, showOneByUserInput, showOneById} 
+module.exports = {showAll, create, destroy, update, showOneByUserInput, showOneById}; 

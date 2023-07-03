@@ -30,6 +30,16 @@ async function showOne (req, res) {
     }
 };
 
+async function findInput (req, res) {
+    try {
+        const input = req.body.input
+        const object = await Object.findInput(input);
+        res.status(200).json(object);
+    } catch (err) {
+        res.status(404).json({"error": err.message});
+    }
+}
+
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
@@ -45,7 +55,7 @@ async function update (req, res) {
     try {
         const id = parseInt(req.params.id);
         const data = req.body;
-        const recyclableObject = await Object.getOneById(id)   ;     
+        const recyclableObject = await Object.getOneById(id);     
         const result = await recyclableObject.update(data);
         res.status(200).json(result);
     } catch (err) {
@@ -53,4 +63,4 @@ async function update (req, res) {
     }
 }
 
-module.exports = {showAll, create, showOne, destroy, update};
+module.exports = {showAll, create, showOne, destroy, update, findInput};

@@ -9,7 +9,7 @@ class CollectDays {
 
     static async getAll() {
         const response = await db.query("SELECT * FROM collect_days");
-        return response.rows.map(o => new CollectDays(o));
+        return response.rows.map(c => new CollectDays(c));
     }
 
     static async getOneById(id) {

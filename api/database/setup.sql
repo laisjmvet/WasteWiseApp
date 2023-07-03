@@ -87,18 +87,11 @@ CREATE TABLE recycling_object (
     FOREIGN KEY (material_type_id) REFERENCES materials_type(material_type_id)  
 );
 
-CREATE TABLE collect_furniture_price (
-    price_id INT GENERATED ALWAYS AS IDENTITY,
-    price INT NOT NULL,   
-    PRIMARY KEY (price_id)
-);
-
-CREATE TABLE collect_furniture_weight (
-    weight_id INT GENERATED ALWAYS AS IDENTITY,
+CREATE TABLE collect_bulky_waste(
+    bulky_waste_id INT GENERATED ALWAYS AS IDENTITY,
     weight_kg INT NOT NULL, 
-    price_id INT NOT NULL,  
-    PRIMARY KEY (weight_id),
-    FOREIGN KEY (price_id) REFERENCES collect_furniture_price(price_id)
+    price INT NOT NULL,  
+    PRIMARY KEY (bulky_waste_id)
 );
 
 INSERT INTO weekdays (weekday)
@@ -222,11 +215,8 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 
 --!!!!!!!!!!NEEDS TO THIS DATABASE ABOUT THE RECYCLING
 
-INSERT INTO collect_furniture_price (price) VALUES
-(100);
-
-INSERT INTO collect_furniture_weight (weight_kg, price_id) VALUES
-(20, 1);
+INSERT INTO collect_bulky_waste (price, weight_kg) VALUES
+(100, 10);
 
 INSERT INTO address_zones(zone_number) VALUES
 (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);

@@ -1,5 +1,5 @@
 const express = require("express");
-const collectDaysController = require("../controllers/collecDays.js");
+const collectDaysController = require("../controllers/collectDays");
 const authenticator = require("../middleware/authenticator");
 const collectDaysRouter = express.Router();
 

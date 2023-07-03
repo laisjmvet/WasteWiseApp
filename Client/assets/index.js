@@ -7,7 +7,7 @@ createAccountButton.addEventListener("click", createAccount)
 
 
 const loginForm = document.querySelector('form')
-loginForm.addEventListener("submit", goToPage)
+loginForm.addEventListener("submit", verifyUser)
 
 async function verifyUser(e) {
     e.preventDefault()
@@ -35,10 +35,4 @@ async function verifyUser(e) {
     } else {
         alert(data.error);
     }
-}
-
-
-async function goToPage(e)  {
-    e.preventDefault()
-    window.location.assign(`homepage.html?username=${e.target.username.value}`)
 }

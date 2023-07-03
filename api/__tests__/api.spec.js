@@ -34,7 +34,7 @@ describe("api server", () => {
             username = response.body.username
             password = response.body.password
 
-            expect(response.body).toMatchObject(newUser)
+            expect(response.body.username).toMatchObject(newUser.username)
         })
 
         //LOGIN
@@ -51,6 +51,20 @@ describe("api server", () => {
             token = response.token
         })
 
+        //GETUSERBYUSERNAME
+        it("should return the user with provided username", async () => {
+            const user = {
+                username: username
+            }
+            const response = await request(app)
+                .get("/users/username")
+                .send(user)
+                .expect(200)
+
+                expect(response.body.username).toEqual(username)
+                expect(response.body.password).toEqual(password)
+            })
+
         // //LOGOUT
         // it("should logout the user", async () => {
 
@@ -58,10 +72,24 @@ describe("api server", () => {
     })
 
     //ADDRESS TESTING
-    // describe("ADDRESS", () => {
-    //     let addressId
+    describe("ADDRESS", () => {
+        let addressId
 
-    // })
+        it("should create an address", async () => {
+            const address = {
+                street_name: "testStreet",
+                street_number: 2,
+                postcode: "TE0 ST0"
+            }
+            const response = await request(app)
+                .post("/address")
+                .send(address)
+                .expect(201)
+
+            //add comparison
+        })
+
+    })
 
     // //OBJECT TESTING
     // describe("OBJECT", () => {

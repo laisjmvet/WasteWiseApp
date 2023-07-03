@@ -60,7 +60,8 @@ async function logout(req, res) {
 
 async function getUserByUsername(req, res) {
     try {
-        const data = req.body;
+        const data = req.params;
+        console.log(data)
         const user = await User.getOneByUsername(data.username);
         res.status(200).json(user);
         

@@ -9,6 +9,7 @@ class User {
     this.address_id = address_id;
 }
 
+
     static async getOneById(id) {
         try {
             const response = await db.query('SELECT * from user_account WHERE user_id = $1', [id]); 

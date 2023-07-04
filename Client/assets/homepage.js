@@ -40,9 +40,13 @@ async function setUpPage(userData) {
     } catch(e) {
         console.log(e)
     }
-    console.log(userData)
-    if(isAdmin) {
-        //code to generate admin button 
+    if(userData.isAdmin) {
+        const adminButton = document.createElement("button")
+        adminButton.name = "admin_button"
+        adminButton.textContent= "admin"
+        
+        const body = document.querySelector('body')
+        body.appendChild(adminButton)   
     }
 }
 

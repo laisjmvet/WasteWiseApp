@@ -30,7 +30,6 @@ async function login(req, res) {
         } else {
             console.log("AUTHORIZED" );
             const token = await Token.create(user.id);
-            console.log("TOOKEN", token);
             res.status(200).json({ authenticated: true, token: token.token });
         }
     } catch (error) {

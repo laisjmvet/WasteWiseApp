@@ -132,7 +132,7 @@ async function obtainRecycleItems() {
     const searchContents = document.getElementsByName("search_bar")[0].value
     if(searchContents.length>=3){
         try {
-            const data = await fetch(`http://localhost:3000/object/${searchContents}`)
+            const data = await fetch(`http://localhost:3000/object/search/${searchContents}`)
             if(data.ok) {
                 const searchItems = await data.json()
                 console.log(searchItems)
@@ -147,7 +147,7 @@ async function disposeItem(e) {
     e.preventDefault()
     const searchContents = document.getElementsByName("search_bar")[0].value
     try {
-        const response = await fetch(`http://localhost:3000/object/${searchContents}`)
+        const response = await fetch(`http://localhost:3000/object/search/${searchContents}`)
         if(response.status == 404) {
             alert("Error: this is an unrecognised item.")
         } else {

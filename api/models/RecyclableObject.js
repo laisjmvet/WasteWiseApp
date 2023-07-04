@@ -28,11 +28,13 @@ class RecyclableObject {
     }
 
     static async searchInput(input) {
-        const response = await db.query("SELECT * FROM recycling_object WHERE name = %$1%", [input]);
-        if (response.rows.length != 1) {
-            throw new Error("Unable to locate object.");
-        }
-        return new RecyclableObject(response.rows[0]);
+        
+        try {
+            const response = await db.query("SELECT name FROM recycling_object WHERE name ILIKE '%' || $1 || '%'", [input]);       
+            return response.rows;
+        } catch (error) {
+            console.log(error);
+        }        
     }
 
     async destroy() {

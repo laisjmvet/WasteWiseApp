@@ -1,4 +1,4 @@
-ALTER TABLE addresses_Florin DROP CONSTRAINT IF EXISTS addresses_Florin_zone_id_fkey;
+ALTER TABLE addresses_florin DROP CONSTRAINT IF EXISTS addresses_florin_zone_id_fkey;
 ALTER TABLE user_account DROP CONSTRAINT IF EXISTS user_account_address_id_fkey;
 ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_bin_type_id_fkey;
 ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_weekday_id_fkey;
@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS collect_bulky_waste;
 DROP TABLE IF EXISTS weekdays;
 DROP TABLE IF EXISTS bin_types;
 DROP TABLE IF EXISTS address_zones;
-DROP TABLE IF EXISTS addresses_Florin;
+DROP TABLE IF EXISTS addresses_florin;
 
 CREATE TABLE weekdays (
     weekday_id INT GENERATED ALWAYS AS IDENTITY,
@@ -30,7 +30,7 @@ CREATE TABLE address_zones (
     PRIMARY KEY(zone_id)
 );
 
-CREATE TABLE addresses_Florin (
+CREATE TABLE addresses_florin (
     address_id INT GENERATED ALWAYS AS IDENTITY,
     street_name VARCHAR NOT NULL,
     house_number INT NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE user_account (
     address_id INT,
     isAdmin BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (user_id),
-    FOREIGN KEY (address_id) REFERENCES addresses_Florin(address_id)
+    FOREIGN KEY (address_id) REFERENCES addresses_florin(address_id)
 );
 
 CREATE TABLE token (
@@ -227,7 +227,7 @@ INSERT INTO collect_bulky_waste (price, weight_kg) VALUES
 INSERT INTO address_zones(zone_number) VALUES
 (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
 
-INSERT INTO addresses_Florin (street_name, house_number, postcode, zone_id)
+INSERT INTO addresses_florin (street_name, house_number, postcode, zone_id)
 VALUES
 
 ('Apple Street', '1', 'GL1 1AB', 1),

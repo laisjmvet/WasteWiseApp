@@ -1,10 +1,10 @@
-ALTER TABLE addresses_florin DROP CONSTRAINT IF EXISTS addresses_florin_zone_id_fkey;
-ALTER TABLE user_account DROP CONSTRAINT IF EXISTS user_account_address_id_fkey;
-ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_bin_type_id_fkey;
-ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_weekday_id_fkey;
-ALTER TABLE collect_days DROP CONSTRAINT IF EXISTS collect_days_zone_id_fkey;
-ALTER TABLE recycling_object DROP CONSTRAINT IF EXISTS recycling_object_bin_type_id_fkey;
-ALTER TABLE recycling_object DROP CONSTRAINT IF EXISTS recycling_object_material_type_id_fkey;
+ALTER TABLE IF EXISTS addresses_florin DROP CONSTRAINT IF EXISTS addresses_florin_zone_id_fkey;
+ALTER TABLE IF EXISTS user_account DROP CONSTRAINT IF EXISTS user_account_address_id_fkey;
+ALTER TABLE IF EXISTS collect_days DROP CONSTRAINT IF EXISTS collect_days_bin_type_id_fkey;
+ALTER TABLE IF EXISTS collect_days DROP CONSTRAINT IF EXISTS collect_days_weekday_id_fkey;
+ALTER TABLE IF EXISTS collect_days DROP CONSTRAINT IF EXISTS collect_days_zone_id_fkey;
+ALTER TABLE IF EXISTS recycling_object DROP CONSTRAINT IF EXISTS recycling_object_bin_type_id_fkey;
+ALTER TABLE IF EXISTS recycling_object DROP CONSTRAINT IF EXISTS recycling_object_material_type_id_fkey;
 
 -- drop tables if they exist
 DROP TABLE IF EXISTS token;

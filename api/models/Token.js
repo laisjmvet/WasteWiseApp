@@ -2,10 +2,10 @@ const db =  require('../database/connect');
 const { v4: uuidv4 } = require("uuid");
 
 class Token {
-    constructor(token_id, token, user_id) {
+    constructor({token_id, user_id, token}) {
+        this.user_id = user_id; 
         this.token_id = token_id;
         this.token = token;
-        this.user_id = user_id; 
     }
 
     static async create(user_id) {

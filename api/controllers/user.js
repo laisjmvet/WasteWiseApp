@@ -30,6 +30,7 @@ async function login(req, res) {
         } else {
             console.log("AUTHORIZED" );
             const token = await Token.create(user.id);
+            console.log("TOOKEN", token);
             res.status(200).json({ authenticated: true, token: token.token });
         }
     } catch (error) {
@@ -58,29 +59,29 @@ async function getUserByUsername(req, res) {
         const user = await User.getOneByUsername(data.username);
         res.status(200).json(user);        
     } catch (error) {
-        res.status(404).json({"error": err.message});
+        res.status(404).json({"error": error.message});
     }
 }
 
 async function getUserById(req, res) {
     try {
-        const id = parseInt(req.params.id);
-        console.log(id, "<<<<<<<<<<<")
+        const id = parseInt(req.params.id);       
         const user = await User.getOneById(id);
         res.status(200).json(user);        
     } catch (error) {
-        res.status(404).json({"error": err.message});
+        res.status(404).json({"error": error.message});
     }
 }
 
 async function updateIsAdmin(req, res) {
     try {
         const data = req.params;
+        const body = req.body;
         const user = await User.getOneByUsername(data.username);
-        const result = await user.updateIsAdmin(data.isAdmin);
+        const result = await user.updateIsAdmin(body.isadmin);
         res.status(200).json(result);        
     } catch (error) {
-        res.status(404).json({"error": err.message});
+        res.status(404).json({"error": error.message});
     }
 }
 
@@ -88,12 +89,11 @@ async function updatePoints(req, res) {
     try {
         const data = req.params;
         const body = req.body;
-        //console.log(body);
         const user = await User.getOneByUsername(data.username);
         const result = await user.updatePoints(parseInt(body.points));
         res.status(200).json(result);        
     } catch (error) {
-        res.status(404).json({"error": err.message});
+        res.status(404).json({"error": error.message});
     }
 }
 
@@ -105,11 +105,9 @@ async function updateAddressId(req, res) {
         const result = await user.updateAddressId(parseInt(body.address_id));
         res.status(200).json(result);        
     } catch (error) {
-        res.status(404).json({"error": err.message});
+        res.status(404).json({"error": error.message});
     }
-}    
-
-
+}  
     
 
 module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById};

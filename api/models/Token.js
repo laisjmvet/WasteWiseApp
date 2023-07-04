@@ -27,6 +27,16 @@ class Token {
         }    
     }
 
+    static async getOneByUserId(user_id) {
+        try {
+            const response =  await db.query("SELECT * FROM token WHERE user_id = $1", [user_id]);
+            return new Token(response.rows[0]);            
+        } catch (error) {
+            console.log(error);
+        }    
+    }
+
+
     static async getOneByToken(token) {
         try {
             const response =  await db.query("SELECT * FROM token WHERE token = $1", [token]);
@@ -37,7 +47,15 @@ class Token {
     }
 
     async deleteByToken() {
-        await db.query('DELETE FROM token WHERE token_id = $1', [this.id]);
+        try {
+            await db.query('DELETE FROM token WHERE user_id = $1', [this.user_id]);
+            await db.query('DELETE FROM token WHERE token_id = $1', [this.id]);
+            console.log('token deleted!!!!!')
+            
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 }
 module.exports = Token;

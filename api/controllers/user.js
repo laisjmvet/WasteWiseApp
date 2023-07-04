@@ -34,7 +34,8 @@ async function login(req, res) {
         }
     } catch (error) {
         res.status(403).json({"error": error.message})
-    }}
+    }
+}
 
 async function logout(req, res) {
     try {
@@ -105,8 +106,30 @@ async function updateAddressId(req, res) {
         res.status(200).json(result);        
     } catch (error) {
         res.status(404).json({"error": error.message});
+    }    
+}
+
+async function showAll (req, res) {
+    try {
+        const users = await User.getAll();
+        res.status(200).json(users);
+    } catch (err) {
+        res.status(500).json({"error": err.message});
     }
-}  
+};
+
+async function destroy (req, res) {
+    try {
+        const id = parseInt(req.params.id);
+        const user = await User.getOneById(id);     
+        const token = await Token.getOneByUserId(id);
+            await token.deleteByToken();  
+            const result = await user.destroy();
+            res.status(204).json(result);       
+    } catch (err) {
+        res.status(404).json({"error": err.message});
+    }
+}
     
 
-module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById};
+module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById, destroy, showAll};

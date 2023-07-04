@@ -5,7 +5,9 @@ const userController = require('../controllers/user.js');
 
 const userRouter = Router();
 
+userRouter.get("/", userController.showAll);
 userRouter.get("/:id", userController.getUserById);
+userRouter.delete("/:id", userController.destroy);
 userRouter.post("/register", userController.register);
 userRouter.post("/login", userController.login);
 userRouter.get("/logout", userController.logout);

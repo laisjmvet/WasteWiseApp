@@ -88,6 +88,7 @@ async function updatePoints(req, res) {
     try {
         const data = req.params;
         const body = req.body;
+        //console.log(body);
         const user = await User.getOneByUsername(data.username);
         const result = await user.updatePoints(parseInt(body.points));
         res.status(200).json(result);        

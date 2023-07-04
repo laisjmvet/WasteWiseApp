@@ -19,6 +19,7 @@ describe("api server", () => {
         let username = ""
         let password = ""
         let token = ""
+        let user_id = ""
 
         //REGISTER
         it("should create a new user", async () => {
@@ -35,7 +36,7 @@ describe("api server", () => {
                 .send(newUser)
                 .expect(201)
             username = response.body.username
-            password = response.body.password
+            password = response.body.password            
             expect(username).toEqual(newUser.username)
         })
 
@@ -45,7 +46,6 @@ describe("api server", () => {
                 username: username,
                 password: "testpassword"
             }
-            console.log(user.password)
             const response = await request(app)
                 .post("/users/login")
                 .send(user)
@@ -63,14 +63,29 @@ describe("api server", () => {
                 .get(`/users/username/${username}`)
                 .send(user)
                 .expect(200)
-
-                expect(response.body.username).toEqual(username)
-                expect(response.body.password).toEqual(password)
+            
+            user_id = response.body.id
+            expect(response.body.username).toEqual(username)
+            expect(response.body.password).toEqual(password)
             })
 
         //GETUSERBYID
         it("should return the user with provided ID", async () => {
-            
+            const response = await request(app)
+                .get(`/users/${user_id}`)
+                .expect(200)
+
+            expect(response.body.username).toEqual(username)
+        })
+
+        //SHOW ALL
+        it("should return all users", async () => {
+            const response = await request(app)
+                .get("/users")
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
         })
 
         // //LOGOUT

@@ -30,6 +30,7 @@ async function login(req, res) {
         } else {
             console.log("AUTHORIZED" );
             const token = await Token.create(user.id);
+            console.log("TOOKEN", token);
             res.status(200).json({ authenticated: true, token: token.token });
         }
     } catch (error) {
@@ -56,7 +57,6 @@ async function getUserByUsername(req, res) {
     try {
         const data = req.params;
         const user = await User.getOneByUsername(data.username);
-        console.log(user)
         res.status(200).json(user);        
     } catch (error) {
         res.status(404).json({"error": error.message});
@@ -86,11 +86,9 @@ async function updateIsAdmin(req, res) {
 }
 
 async function updatePoints(req, res) {
-    console.log("<<<<<<<<")
     try {
         const data = req.params;
         const body = req.body;
-        console.log(body);
         const user = await User.getOneByUsername(data.username);
         const result = await user.updatePoints(parseInt(body.points));
         res.status(200).json(result);        
@@ -109,9 +107,7 @@ async function updateAddressId(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }
-}    
-
-
+}  
     
 
 module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById};

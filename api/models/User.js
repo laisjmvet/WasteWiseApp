@@ -13,8 +13,8 @@ class User {
 
     static async getOneById(id) {
         try {
-            const response = await db.query('SELECT * from user_account WHERE user_id = $1', [id]); 
-            console.log(response) 
+            console.log(id, "IDDDDDDDD")
+            const response = await db.query('SELECT * from user_account WHERE user_id = $1', [id]);          
             return new User(response.rows[0]);      
         } catch (error) {
             console.log(error);

@@ -73,3 +73,24 @@ div[name="whole_page"] {
     flex-direction: column;
     justify-content: space-between;
 }
+
+div[name="pop_up_container"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000a1;
+
+    display: grid;
+    place-items: center;
+}
+
+div[name="pop_up"] {
+    display: grid;
+    min-height: 20%;
+    width: 20%; 
+    background-color: white;
+    border-radius: 25px;
+    border: 1px solid black;
+}

@@ -4,6 +4,7 @@ const authenticator = require("../middleware/authenticator");
 const weekdayRouter = express.Router();
 
 weekdayRouter.get("/", weekdayController.showAll);
-weekdayRouter.get("/:weekday", weekdayController.showOneByName);
+weekdayRouter.get("/weekday/:weekday", weekdayController.showOneByName);
+weekdayRouter.get("/:id", weekdayController.showOneById);
 
 module.exports = weekdayRouter;

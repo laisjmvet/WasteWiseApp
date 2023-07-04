@@ -18,5 +18,13 @@ class Weekday {
         }
         return new Weekday(response.rows[0]);
     }
+
+    static async getOneById(id) {
+        const response = await db.query("SELECT * FROM weekdays WHERE weekday_id = $1", [id]);
+        if (response.rows.length != 1) {
+            throw new Error("Unable to locate weekday.");
+        }
+        return new Weekday(response.rows[0]);
+    }
 }
 module.exports = Weekday;

@@ -20,4 +20,15 @@ async function showOneByName (req, res) {
     }
 };
 
-module.exports = {showAll, showOneByName}; 
+async function showOneById (req, res) {
+    try {
+        const id = parseInt(req.params.id);        
+        const weekday = await Weekday.getOneById(id);
+        console.log(weekday)
+        res.status(200).json(weekday);
+    } catch (err) {
+        res.status(404).json({"error": err.message});
+    }
+};
+
+module.exports = {showAll, showOneByName, showOneById}; 

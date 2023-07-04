@@ -8,7 +8,7 @@ window.onload = () => {
 
 async function getUserData(username) {
     try {
-        const data = await fetch(`http://localhost:3000/users/${username}`)
+        const data = await fetch(`http://localhost:3000/users/username/${username}`)
         if(data.ok){
             const userData = await data.json()
             setUpPage(userData)

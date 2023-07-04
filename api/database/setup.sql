@@ -44,9 +44,9 @@ CREATE TABLE user_account (
     user_id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(30) UNIQUE NOT NULL,
     password VARCHAR NOT NULL,
-    points INT DEFAULT 0  NOT NULL,
+    points INT DEFAULT 0 NOT NULL,
     address_id INT,
-    isAdmin BOOLEAN NOT NULL DEFAULT FALSE,
+    isAdmin BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (user_id),
     FOREIGN KEY (address_id) REFERENCES addresses_Florin(address_id)
 );

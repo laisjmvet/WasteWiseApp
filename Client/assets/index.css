@@ -1,63 +1,23 @@
 /* Reset default browser styles */
-body, h1, h2, h3, h4, h5, h6, p, ul, ol {
-    margin: 0;
-    padding: 0;
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
   }
   
-  /* Set a nice font for the website */
-  body {
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
+  @media (min-width: 768px) {
+  .gradient-form {
+  height: 100vh !important;
   }
-  
-  /* Set a background color for the entire page */
-  body {
-    background-color: #172E08;
   }
-  
-  /* Center the content on the page */
-  .container {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
+  @media (min-width: 769px) {
+  .gradient-custom-2 {
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
   }
-  
-  /* Style headings */
-  h1, h2, h3 {
-    margin-bottom: 20px;
-    color: #333;
   }
-  
-
-  /* Style paragraphs */
-  p {
-    margin-bottom: 400px;
-    color: #555;
-  }
-  
-  /* Style links */
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  /* Style buttons */
-  .button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  

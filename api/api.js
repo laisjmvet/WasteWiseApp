@@ -7,6 +7,7 @@ const addressRouter = require('./routers/address');
 const userRouter = require('./routers/user');
 const collectDaysRouter = require('./routers/collectDays');
 const collectBulkyWasteRouter = require('./routers/collectBulkyWaste');
+const weekdayRouter = require('./routers/weekday')
 
 const api = express();
 
@@ -26,5 +27,6 @@ api.use("/object", objectRouter);
 api.use("/users", userRouter);
 api.use("/collectDay", collectDaysRouter);
 api.use("/collectBulkyWaste", collectBulkyWasteRouter);
+api.use('/weekday', weekdayRouter);
 
 module.exports = api;

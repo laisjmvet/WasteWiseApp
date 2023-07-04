@@ -16,10 +16,11 @@ describe("api server", () => {
     })
     //USER TESTING
     describe("USER", () => {
-        //REGISTER
         let username = ""
         let password = ""
         let token = ""
+
+        //REGISTER
         it("should create a new user", async () => {
             const newUser = {
                 username: "testusername",
@@ -75,19 +76,35 @@ describe("api server", () => {
     describe("ADDRESS", () => {
         let addressId
 
+        //READ ALL
+        it("should get all address", async () => {
+            const response = await request(app)
+                .get("/address")
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE ADDRESS
         it("should create an address", async () => {
-            const address = {
+            const newAddress = {
                 street_name: "testStreet",
                 street_number: 2,
                 postcode: "TE0 ST0"
             }
             const response = await request(app)
                 .post("/address")
-                .send(address)
+                .send(newAddress)
                 .expect(201)
 
-            //add comparison
+            const {address_id} = response.body
+            addressId = address_id
+
+            expect(response.body).toMatchObject(newAddress)
         })
+
+
 
     })
 

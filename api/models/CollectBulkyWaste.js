@@ -37,7 +37,4 @@ class CollectBulkyWaste {
         return new CollectBulkyWaste(response.rows[0]);
     }
 }
-
-
-
 module.exports = CollectBulkyWaste;

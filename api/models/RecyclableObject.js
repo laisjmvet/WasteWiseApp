@@ -24,8 +24,14 @@ class RecyclableObject {
     static async create(data) {
         const { name, material_type_id, bin_type_id } = data;
         let response = await db.query("INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES ($1, $2, $3) RETURNING *;", [name, material_type_id, bin_type_id]);
-        // const newId = response.rows[0].object_id;
-        // const newObject = await Object.getOneById(newId);
+        return new RecyclableObject(response.rows[0]);
+    }
+
+    static async searchInput(input) {
+        const response = await db.query("SELECT * FROM recycling_object WHERE name = %$1%", [input]);
+        if (response.rows.length != 1) {
+            throw new Error("Unable to locate object.");
+        }
         return new RecyclableObject(response.rows[0]);
     }
 
@@ -40,7 +46,4 @@ class RecyclableObject {
         return new RecyclableObject(response.rows[0]);
     }
 }
-
-
-
 module.exports = RecyclableObject;

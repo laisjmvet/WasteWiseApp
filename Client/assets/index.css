@@ -13,10 +13,118 @@
   .gradient-form {
   height: 100vh !important;
   }
+  
+  /* Center the content on the page */
+  .container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: green;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: ;
   }
   @media (min-width: 769px) {
   .gradient-custom-2 {
   border-top-right-radius: .3rem;
   border-bottom-right-radius: .3rem;
   }
+
+  
+
+  /* Style paragraphs */
+  p {
+    text-align: center;
+    margin-bottom: 400px;
+    color: #E0B1A9;
   }
+
+  /* Style links */
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Style buttons */
+  .button {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #E0B1A9;
+    color: #fff;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .button:hover {
+    background-color: #172E08;
+  }
+  
+  input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-top: -50px; /* Adjust the value as needed */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+
+
+
+
+
+
+
+  /* body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+  }
+   */
+
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 5px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .error-message {
+    color: red;
+    margin-bottom: 10px;
+  }
+  

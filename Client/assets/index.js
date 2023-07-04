@@ -1,5 +1,5 @@
 const createAccount = () => {
-    window.location = "http://127.0.0.1:5500/Client/register.html"
+    window.location.assign('register.html')
 }
 
 const createAccountButton = document.getElementsByName("create_account")[0]

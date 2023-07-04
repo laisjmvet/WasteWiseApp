@@ -1,11 +1,12 @@
 const db =  require('../database/connect');
 
 class Address {
-    constructor ({address_id, street_name, house_number, postcode}) {
+    constructor ({address_id, street_name, house_number, postcode, zone_id}) {
         this.id = address_id;
         this.street_name = street_name;
         this.house_number = house_number;
         this.postcode = postcode;
+        this.zone_id = zone_id
     }
 
     static async getAll() {

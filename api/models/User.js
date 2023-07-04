@@ -13,7 +13,6 @@ class User {
 
     static async getOneById(id) {
         try {
-            console.log(id, "IDDDDDDDD")
             const response = await db.query('SELECT * from user_account WHERE user_id = $1', [id]);          
             return new User(response.rows[0]);      
         } catch (error) {
@@ -33,7 +32,7 @@ class User {
     static async create(data, address_id) {    
         try {
             const {username, password, isAdmin = false} = data;
-            const response = await db.query('INSERT INTO user_account (username, password, isAdmin, address_id) VALUES ($1, $2, $3, $4) RETURNING user_id', [username, password, isAdmin, address_id]); 
+            const response = await db.query('INSERT INTO user_account (username, password, isAdmin, address_id) VALUES ($1, $2, $3, $4) RETURNING *', [username, password, isAdmin, address_id]); 
             return new User(response.rows[0]);      
         } catch (error) {
             console.log(error);

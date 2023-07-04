@@ -23,27 +23,29 @@ describe("api server", () => {
         //REGISTER
         it("should create a new user", async () => {
             const newUser = {
+                name: "test name",
+                house_number: 1,
+                street_name: "Apple Street",
+                postcode: "GL1 1AB",
                 username: "testusername",
-                password: "testpassword",
-                isAdmin: "false"
+                password: "testpassword"
             }
             const response = await request(app)
                 .post("/users/register")
                 .send(newUser)
                 .expect(201)
-            
             username = response.body.username
             password = response.body.password
-
-            expect(response.body.username).toMatchObject(newUser.username)
+            expect(username).toEqual(newUser.username)
         })
 
         //LOGIN
         it("should login the user", async () => {
             const user = {
                 username: username,
-                password: password
+                password: "testpassword"
             }
+            console.log(user.password)
             const response = await request(app)
                 .post("/users/login")
                 .send(user)
@@ -58,13 +60,18 @@ describe("api server", () => {
                 username: username
             }
             const response = await request(app)
-                .get("/users/username")
+                .get(`/users/username/${username}`)
                 .send(user)
                 .expect(200)
 
                 expect(response.body.username).toEqual(username)
                 expect(response.body.password).toEqual(password)
             })
+
+        //GETUSERBYID
+        it("should return the user with provided ID", async () => {
+            
+        })
 
         // //LOGOUT
         // it("should logout the user", async () => {
@@ -90,8 +97,9 @@ describe("api server", () => {
         it("should create an address", async () => {
             const newAddress = {
                 street_name: "testStreet",
-                street_number: 2,
-                postcode: "TE0 ST0"
+                house_number: "2",
+                postcode: "AA1 AA1"
+                //ADD ZONE ID
             }
             const response = await request(app)
                 .post("/address")

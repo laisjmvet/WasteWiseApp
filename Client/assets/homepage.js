@@ -40,8 +40,9 @@ async function setUpPage(userData) {
     } catch(e) {
         console.log(e)
     }
+    console.log(userData)
     if(isAdmin) {
-        //code to generate admin button
+        //code to generate admin button 
     }
 }
 
@@ -75,6 +76,5 @@ async function displayBins (data) {
 
     const body = document.querySelector('body')
     body.appendChild(binCollectionBox)
-
 }
 

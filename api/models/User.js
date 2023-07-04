@@ -21,7 +21,7 @@ class User {
 
     static async getOneByUsername(username) {
         try {
-            const response = await db.query('SELECT * from user_account WHERE username = $1', [username]); 
+            const response = await db.query('SELECT * from user_account WHERE username = $1', [username]);
             return new User(response.rows[0]);      
         } catch (error) {
             console.log(error);

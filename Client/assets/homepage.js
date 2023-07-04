@@ -105,9 +105,16 @@ async function openRecyclingMenu() {
     searchBar.type = "text"
     searchBar.placeholder = "Search..."
     searchBar.name = "search_bar"
-    searchBar.addEventListener('keydown', obtainRecycleItems)
+    searchBar.addEventListener('keyup', obtainRecycleItems)
+
+    const disposeButton = document.createElement("button")
+    disposeButton.textContent = "WasteWise this item"
+    disposeButton.value = "submit"
+    disposeButton.name = "dispose_button"
+    recyclingForm.addEventListener("submit", disposeItem)
 
     recyclingForm.appendChild(searchBar)
+    recyclingForm.appendChild(disposeButton)
     recyclingMenu.appendChild(recyclingForm)
 
     const body = document.querySelector('body')
@@ -119,7 +126,7 @@ async function obtainRecycleItems() {
     const searchContents = document.getElementsByName("search_bar")[0].value
     if(searchContents.length>=3){
         try {
-            const data = await fetch(`http://localhost:3000/object/input/${searchContents}`)
+            const data = await fetch(`http://localhost:3000/object/${searchContents}`)
             if(data.ok) {
                 const searchItems = await data.json()
                 console.log(searchItems)
@@ -128,5 +135,28 @@ async function obtainRecycleItems() {
             console.log(e)
         }
     }
+}
+
+async function disposeItem(e) {
+    e.preventDefault()
+    const searchContents = document.getElementsByName("search_bar")[0].value
+    try {
+        const response = await fetch(`http://localhost:3000/object/${searchContents}`)
+        if(response.status == 404) {
+            alert("Error: this is an unrecognised item.")
+        } else {
+            const searchItem = await data.json()
+            checkIfTheyMeanIt(searchItem)
+        }
+    } catch(e){
+        console.log(e)
+    }
+}
+
+async function checkIfTheyMeanIt(itemData) {
+    const popUpContainer = document.createElement("div")
+    popUpContainer.name = "popUpContainer"
+
+    const popUp = document.createElement("div")
 }
 

@@ -53,16 +53,16 @@ async function setUpPage(userData) {
 async function displayBins (data) {
     const weekdayData = await fetch(`http://localhost:3000/weekday/${data.weekday_id}`)
     let weekday = ""
+    let bin = ""
     if(weekdayData.ok) {
          const usableWeekdayData = await weekdayData.json()
          weekday = usableWeekdayData.weekday
     }
-    // const binData = await fetch(`http://localhost:3000/bin_types/${data.bin_type_id}`)
-    // if(binData.ok) {
-    //     const usefulBinData = await binData.json()
-    //     const bin = usefulBinData.bin_type_name
-    // }
-    let bin = "Recycling"
+    const binData = await fetch(`http://localhost:3000/bin/${data.bin_type_id}`)
+    if(binData.ok) {
+        const usefulBinData = await binData.json()
+        bin = usefulBinData.bin
+    }
 
     const binCollectionBox = document.createElement("div")
     binCollectionBox.id = "bin_box"

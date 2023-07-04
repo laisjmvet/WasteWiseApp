@@ -37,7 +37,7 @@ CREATE TABLE addresses_florin (
     postcode VARCHAR NOT NULL,
     zone_id INT NOT NULL,
     PRIMARY KEY (address_id),
-    FOREIGN KEY (zone_id) REFERENCES address_zones(zone_id)
+    FOREIGN KEY (zone_id) REFERENCES address_zones(zone_id) ON DELETE RESTRICT
 );
 
 CREATE TABLE user_account (
@@ -48,7 +48,7 @@ CREATE TABLE user_account (
     address_id INT,
     isAdmin BOOLEAN DEFAULT FALSE NOT NULL,
     PRIMARY KEY (user_id),
-    FOREIGN KEY (address_id) REFERENCES addresses_florin(address_id)
+    FOREIGN KEY (address_id) REFERENCES addresses_florin(address_id) ON DELETE RESTRICT
 );
 
 CREATE TABLE token (
@@ -56,7 +56,7 @@ CREATE TABLE token (
     user_id INT NOT NULL,
     token CHAR(36) UNIQUE NOT NULL,
     PRIMARY KEY (token_id),
-    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id) ON DELETE RESTRICT
 );
 
 CREATE TABLE bin_types (
@@ -77,9 +77,9 @@ CREATE TABLE collect_days (
     weekday_id INT NOT NULL,
     zone_id INT NOT NULL,
     PRIMARY KEY (collect_day_id),
-    FOREIGN KEY (bin_type_id) REFERENCES bin_types(bin_type_id),
+    FOREIGN KEY (bin_type_id) REFERENCES bin_types(bin_type_id ),
     FOREIGN KEY (weekday_id) REFERENCES weekdays(weekday_id),
-    FOREIGN KEY (zone_id) REFERENCES address_zones(zone_id)
+    FOREIGN KEY (zone_id) REFERENCES address_zones(zone_id) 
 );
 
 CREATE TABLE recycling_object (

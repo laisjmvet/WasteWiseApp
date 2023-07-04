@@ -51,12 +51,30 @@ async function displayBins (data) {
     //      const usableWeekdayData = await weekdayData.json()
     //      const weekday = usableWeekdayData.weekday
     // }
-    let weekday = wednesday
+    let weekday = "wednesday"
     // const binData = await fetch(`http://localhost:3000/bin_types/${data.bin_type_id}`)
     // if(binData.ok) {
     //     const usefulBinData = await binData.json()
     //     const bin = usefulBinData.bin_type_name
     // }
     let bin = "Recycling"
+
+    const binCollectionBox = document.createElement("div")
+    binCollectionBox.id = "bin_box"
+
+    const binInfo = document.createElement("p")
+    binInfo.id= "bin_info"
+    binInfo.textContent = `Your bins will be collected on ${weekday}`
+    binCollectionBox.appendChild(binInfo)
+
+    const binImg = document.createElement("img")
+    binImg.alt = `${bin}`
+    binImg.src = `./assets/images/${bin}.png`
+    binImg.id = "bin_img"
+    binCollectionBox.appendChild(binImg)
+
+    const body = document.querySelector('body')
+    body.appendChild(binCollectionBox)
+
 }
 

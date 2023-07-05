@@ -8,6 +8,6 @@ collectDaysRouter.get("/:id", collectDaysController.showOne);
 collectDaysRouter.post("/", collectDaysController.create);
 collectDaysRouter.delete("/:id", collectDaysController.destroy);
 collectDaysRouter.patch("/:id", collectDaysController.update);
-collectDaysRouter.get("/zone/:id", collectDaysController.showOneByZoneId);
+collectDaysRouter.get("/zone/:id", collectDaysController.showByZoneId);
 
 module.exports = collectDaysRouter;

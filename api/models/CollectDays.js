@@ -21,12 +21,12 @@ class CollectDays {
         return new CollectDays(response.rows[0]);
     }
 
-    static async getOneByZoneId(zone_id) {
+    static async getByZoneId(zone_id) {
         const response = await db.query("SELECT * FROM collect_days WHERE zone_id = $1", [zone_id]);
         if (response.rows.length != 1) {
             throw new Error("Unable to locate collect_day.");
         }
-        return new CollectDays(response.rows[0]);
+        return response.rows;
     }
 
     static async create(data) {

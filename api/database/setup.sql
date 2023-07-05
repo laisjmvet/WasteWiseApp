@@ -37,7 +37,7 @@ CREATE TABLE addresses_florin (
     postcode VARCHAR NOT NULL,
     zone_id INT NOT NULL,
     PRIMARY KEY (address_id),
-    FOREIGN KEY (zone_id) REFERENCES address_zones(zone_id) ON DELETE RESTRICT
+    FOREIGN KEY (zone_id) REFERENCES address_zones(zone_id)
 );
 
 CREATE TABLE user_account (
@@ -86,7 +86,7 @@ CREATE TABLE recycling_object (
     object_id INT GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
     material_type_id INT NOT NULL,
-    bin_type_id INT DEFAULT 0 NOT NULL,
+    bin_type_id INT NOT NULL,
     PRIMARY KEY (object_id),
     FOREIGN KEY (bin_type_id) REFERENCES bin_types(bin_type_id),
     FOREIGN KEY (material_type_id) REFERENCES materials_type(material_type_id)  
@@ -100,12 +100,12 @@ CREATE TABLE collect_bulky_waste(
 );
 
 INSERT INTO weekdays (weekday)
-VALUES ('Sunday'), ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday'), ('UNDEFINED');
+VALUES ('UNDEFINED'), ('Sunday'), ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday');
 
-INSERT INTO bin_types (bin_type_name) VALUES('General Waste'), ('Recycling'), ('Food Waste'), ('Garden Waste'), ('Clear bag'), ('Large Supermarkets'), ('Needs Collection'), ('UNDEFINED');
+INSERT INTO bin_types (bin_type_name) VALUES ('UNDEFINED'), ('General Waste'), ('Recycling'), ('Food Waste'), ('Garden Waste'), ('Clear bag'), ('Large Supermarkets'), ('Needs Collection');
 
 INSERT INTO materials_type (name) VALUES
-('Plastic'), ('Paper'), ('Glass'), ('Metal'), ('Small Electronics'), ('Food'), ('Textiles'), ('Batteries'), ('Garden'), ('Bulky waste'), ('UNDEFINED');
+('UNDEFINED'), ('Plastic'), ('Paper'), ('Glass'), ('Metal'), ('Small Electronics'), ('Food'), ('Textiles'), ('Batteries'), ('Garden'), ('Bulky waste');
 
 INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 ('Plastic water bottle', 1, 2),
@@ -224,7 +224,7 @@ INSERT INTO collect_bulky_waste (price, weight_kg) VALUES
 (100, 10);
 
 INSERT INTO address_zones(zone_number) VALUES
-(1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
+(0), (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
 
 INSERT INTO addresses_florin (street_name, house_number, postcode, zone_id)
 VALUES

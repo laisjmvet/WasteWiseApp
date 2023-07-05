@@ -235,7 +235,7 @@ describe("backend", () => {
         let objectId
         let newObject = {
             name: "testObject",
-            meterial_type_id: 1,
+            material_type_id: 1,
             bin_type_id: 2
         }
 
@@ -288,12 +288,84 @@ describe("backend", () => {
                 .send(newObject)
                 .expect(200)
         })
+
+        //DELETE INPUT
+        it("should delete an object", async () => {
+            const response = await request(app)
+                .delete(`/object/${objectId}`)
+                .expect(204)
+        })
     })
 
-    // //COLLECTDAYS TESTING
-    // describe("COLLECTDAYS", () => {
-        
-    // })
+    //COLLECTDAYS TESTING
+    describe("COLLECTDAYS", () => {
+        let collectId
+        let newCollectDay = {
+            bin_type_id: 2,
+            weekday_id: 5,
+            zone_id: 2
+        }
+
+        //GET ALL
+        it("should return all collection days", async () => {
+            const response = await request(app)
+                .get(`/collectDay`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE NEW COLLECTDAY
+        it("should create a new collection day", async () => {
+            const response = await request(app)
+                .post(`/collectDay`)
+                .send(newCollectDay)
+                .expect(201)
+
+            collectId = response.body.collect_day_id
+            expect(response.body).toMatchObject(newCollectDay)
+        })
+
+        //SHOW BY ZONE ID
+        it("should return by zone id", async () => {
+            const response = await request(app)
+                .get(`/collectDay/zone/${newCollectDay.zone_id}`)
+                .expect(200)
+
+            expect(response.body).toMatchObject(newCollectDay)
+        })
+
+        //SHOW BY ID
+        it("should return by collectId", async () => {
+            const response = await request(app)
+                .get(`/collectDay/${collectId}`)
+                .expect(200)
+
+            expect(response.body).toMatchObject(newCollectDay)
+        })
+
+        //UPDATE COLLECT DAY
+        it("should update the collection day", async () => {
+            newCollectDay.weekday_id = 3
+            newCollectDay.zone_id = 4
+            newCollectDay.bin_type_id = 1
+
+            const response = await request(app)
+                .patch(`/collectDay/${collectId}`)
+                .send(newCollectDay)
+                .expect(200)
+
+            expect(response.body).toMatchObject(newCollectDay)
+        })
+
+        //DELETE COLLECT DAY
+        it("should delete the collection day", async () => {
+            const response = await request(app)
+                .delete(`/collectDay/${collectId}`)
+                .expect(204)
+        })
+    })
 
     // //BULKYWASTE TESTING
     // describe("BULKYWASTE", () => {

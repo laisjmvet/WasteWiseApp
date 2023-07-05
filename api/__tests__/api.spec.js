@@ -1,5 +1,6 @@
 const request = require("supertest")
 const app = require("../api")
+const db = require("../database/connect")
 
 describe("api server", () => {
     let api
@@ -132,7 +133,16 @@ describe("api server", () => {
 
         // //LOGOUT
         it("should logout the user", async () => {
-
+            const res = await db.query("SELECT token FROM token WHERE user_id = $1", [user_id])
+            const token = res.rows[0]
+            headers = {
+                authorization: token
+            }
+            
+            const response = await request(app)
+                .get("/users/logout")
+                .set(headers)
+                .expect(200)
         })
     })
 

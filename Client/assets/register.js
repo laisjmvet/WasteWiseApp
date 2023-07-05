@@ -14,7 +14,7 @@ async function createUser(e) {
                 username: e.target.username.value,
                 password: e.target.password.value
             }
-
+            
             const options = {
                 method: "POST",
                 headers: {

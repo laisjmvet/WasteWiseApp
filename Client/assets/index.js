@@ -11,7 +11,7 @@ loginForm.addEventListener("submit", verifyUser)
 
 async function verifyUser(e) {
     e.preventDefault()
-
+    
     const userData = {
         username: e.target.username.value,
         password: e.target.password.value

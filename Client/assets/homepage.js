@@ -644,7 +644,7 @@ async function loadUserSettings(e) {
     const passwordFormInput2 = document.createElement("input")
     passwordFormInput2.type = "password"
     passwordFormInput2.placeholder = "repeat password"
-    passwordFormInput2.name = "password_form_input"
+    passwordFormInput2.name = "password_form_input2"
     passwordForm.appendChild(passwordFormInput2)
 
     const passwordFormButton = document.createElement("button")
@@ -665,7 +665,7 @@ async function loadUserSettings(e) {
 
     const numberInput = document.createElement("input")
     numberInput.type = "text"
-    numberInput.placeholder = "60"
+    numberInput.placeholder = "House Number"
     numberInput.name = "house_number"
 
     const streetName = document.createElement("input")
@@ -704,12 +704,146 @@ const returnHome3 = () => {
 
 async function changeUsername(e) {
     e.preventDefault()
-    console.log("changing")
+    const popUpContainer = document.createElement("div")
+    popUpContainer.setAttribute("name", "pop_up_container")
+
+    const popUp = document.createElement("div")
+    popUp.setAttribute("name", "pop_up")
+
+    const areYouSure = document.createElement("p")
+    areYouSure.setAttribute("name", "title")
+    areYouSure.textContent = "Are You Sure?"
+
+    const popUpText = document.createElement("p")
+    popUpText.setAttribute("name", "body")
+    popUpText.textContent = `Your username will be changed to ${e.target.user_form_input.value}.`
+
+    const backButton = document.createElement("button")
+    backButton.name = "back_button_popup"
+    backButton.textContent = "Back"
+    backButton.addEventListener("click", deletePopUp)
+
+    const confirmButton = document.createElement("button")
+    confirmButton.name = "confirm_button_popup"
+    confirmButton.textContent = "Confirm"
+    confirmButton.addEventListener("click", async function () {
+        const username = [...new URLSearchParams(window.location.search).values()][0]
+        try {
+            const usernameObj = {
+                username: e.target.user_form_input.value
+            }
+
+            const options  = {
+                method:"PATCH",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(usernameObj)
+            }
+
+            const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
+                const data = response.json()
+
+                if (response.status == 200) {
+                    let popUp = document.getElementsByName('pop_up_container')[0]
+                    popUp.remove()
+                    document.getElementsByName("username_form")[0].reset()
+                    alert("Username Changed Successfully")
+                }
+        } catch (e) {
+            console.log(e)
+        }
+    })
+
+    const buttonSection = document.createElement("div")
+    buttonSection.setAttribute("name", "popup_buttons")
+    buttonSection.appendChild(backButton)
+    buttonSection.appendChild(confirmButton)
+
+    popUp.appendChild(areYouSure)
+    popUp.appendChild(popUpText)
+    popUp.appendChild(buttonSection)
+    popUpContainer.appendChild(popUp)
+
+    const body = document.querySelector('body')
+    body.appendChild(popUpContainer)
+}
+
+const checkPasswordsMatch = (str1, str2) => {
+    return str1 === str2
 }
 
 async function changePassword(e) {
     e.preventDefault()
-    console.log("changing")
+    if(checkPasswordsMatch(e.target.password_form_input.value, e.target.password_form_input2.value)){
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `Your password will be changed.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const passwordObj = {
+                    password: e.target.password_form_input2.value
+                }
+
+                const options  = {
+                    method:"PATCH",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(passwordObj)
+                }
+
+                const response = await fetch(`http://localhost:3000/users/password/${username}`, options) 
+                    const data = response.json()
+
+                    if (response.status == 200) {
+                        let popUp = document.getElementsByName('pop_up_container')[0]
+                        popUp.remove()
+                        document.getElementsByName("password_form")[0].reset()
+                        alert("Password Changed Successfully")
+                    }
+            } catch (e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Passwords must match")
+    }
 }
 
 async function changeAddress(e) {

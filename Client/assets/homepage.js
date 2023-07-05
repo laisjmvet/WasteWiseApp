@@ -31,7 +31,6 @@ async function setUpPage(userData) {
                 const zoneData = await fetch(`http://localhost:3000/collectDay/zone/${zoneId}`)
                 if(zoneData.ok) {
                     collectionDayData = await zoneData.json()
-                    console.log(collectionDayData)
                     displayBins(collectionDayData)
                 }
             }catch(e) {
@@ -62,7 +61,7 @@ async function displayBins (data) {
     const binData = await fetch(`http://localhost:3000/bin/${data.bin_type_id}`)
     if(binData.ok) {
         const usefulBinData = await binData.json()
-        bin = usefulBinData.bin
+        bin = usefulBinData.bin_type_name
     }
 
     const binCollectionBox = document.createElement("div")
@@ -184,6 +183,10 @@ const checkForDuplicates = () => {
             buttons[j].remove()
         }
     }
+}
+
+const fillItem = () => {
+
 }
 
 

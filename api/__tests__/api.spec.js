@@ -92,15 +92,14 @@ describe("api server", () => {
         it("should change admin status", async () => {
             const admin = true
             const body = {
-                admin: admin
+                isadmin: admin
             }
             const response = await request(app)
                 .patch(`/users/admin/${username}`)
                 .send(body)
                 .expect(200)
-            //FIX THISSSSSSSSSS OR SOMETHING
-            console.log(response.body.isAdmin + "<><><><><><><><><><><>><><<<<")
-            //expect()
+
+            expect(response.body.isAdmin).toEqual(admin)
         })
 
         //UPDATE POINTS
@@ -119,7 +118,16 @@ describe("api server", () => {
 
         //UPDATE USERS ADDRESS
         it("should update a users address", async () => {
+            const addressId = 2
+            const body = {
+                address_id: addressId
+            }
+            const response = await request(app)
+                .patch(`/users/address/${username}`)
+                .send(body)
+                .expect(200)
 
+            expect(response.body.address_id).toEqual(addressId)
         })
 
         // //LOGOUT
@@ -146,9 +154,9 @@ describe("api server", () => {
         it("should create an address", async () => {
             const newAddress = {
                 street_name: "testStreet",
-                house_number: "2",
-                postcode: "AA1 AA1"
-                //ADD ZONE ID WHEN FIXED
+                house_number: 2,
+                postcode: "AA1 AA1",
+                zone_id: 2
             }
             const response = await request(app)
                 .post("/address")

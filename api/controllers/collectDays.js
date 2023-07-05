@@ -30,10 +30,10 @@ async function showOne (req, res) {
     }
 };
 
-async function showOneByZoneId (req, res) {
+async function showByZoneId (req, res) {
     try {
         const id = parseInt(req.params.id);
-        const collectDays = await CollectDays.getOneByZoneId(id);
+        const collectDays = await CollectDays.getByZoneId(id);
         res.status(200).json(collectDays);
     } catch (err) {
         res.status(404).json({"error": err.message});
@@ -63,4 +63,4 @@ async function update (req, res) {
     }
 }
 
-module.exports = {showAll, create, showOne, destroy, update, showOneByZoneId };
+module.exports = {showAll, create, showOne, destroy, update, showByZoneId };

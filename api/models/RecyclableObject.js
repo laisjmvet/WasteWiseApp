@@ -44,7 +44,7 @@ class RecyclableObject {
 
     async update(data) {        
         const {name, material_type_id, bin_type_id} = data;        
-        const response = await db.query("UPDATE recycling_object SET name = $1, material_type_id = $2, bin_type_id =$3 RETURNING *;", [name, material_type_id, bin_type_id]);
+        const response = await db.query("UPDATE recycling_object SET name = $1, material_type_id = $2, bin_type_id =$3 WHERE object_id = $4 RETURNING *;", [name, material_type_id, bin_type_id, this.id]);
         return new RecyclableObject(response.rows[0]);
     }
 }

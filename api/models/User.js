@@ -41,7 +41,7 @@ class User {
 
     async updateIsAdmin(data) {
         try {
-            const response =  await db.query("UPDATE user_account SET isAdmin = $1 RETURNING *;", [data]);
+            const response =  await db.query("UPDATE user_account SET isAdmin = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);
             return new User(response.rows[0]);            
         } catch (error) {
             console.log(error);
@@ -50,7 +50,7 @@ class User {
 
     async updatePoints(data) {
         try {
-            const response =  await db.query("UPDATE user_account SET points = $1 RETURNING *;", [data]);
+            const response =  await db.query("UPDATE user_account SET points = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);
             return new User(response.rows[0]);            
         } catch (error) {
             console.log(error);
@@ -59,7 +59,7 @@ class User {
 
     async updateAddressId(data) {
         try {
-            const response =  await db.query("UPDATE user_account SET address_id = $1 RETURNING *;", [data]);
+            const response =  await db.query("UPDATE user_account SET address_id = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);
             return new User(response.rows[0]);            
         } catch (error) {
             console.log(error);

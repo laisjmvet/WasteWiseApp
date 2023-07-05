@@ -61,21 +61,21 @@ CREATE TABLE token (
 
 CREATE TABLE bin_types (
     bin_type_id INT GENERATED ALWAYS AS IDENTITY,
-    bin_type_name VARCHAR UNIQUE NOT NULL, 
+    bin_type_name VARCHAR NOT NULL, 
     PRIMARY KEY (bin_type_id)
 );
 
 CREATE TABLE materials_type (
     material_type_id INT GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR UNIQUE NOT NULL,
+    name VARCHAR NOT NULL,
     PRIMARY KEY (material_type_id)
 );
 
 CREATE TABLE collect_days (
     collect_day_id INT GENERATED ALWAYS AS IDENTITY,
-    bin_type_id INT NOT NULL,
-    weekday_id INT NOT NULL,
-    zone_id INT NOT NULL,
+    bin_type_id INT DEFAULT 0 NOT NULL,
+    weekday_id INT DEFAULT 0 NOT NULL,
+    zone_id INT DEFAULT 0 NOT NULL,
     PRIMARY KEY (collect_day_id),
     FOREIGN KEY (bin_type_id) REFERENCES bin_types(bin_type_id ),
     FOREIGN KEY (weekday_id) REFERENCES weekdays(weekday_id),
@@ -85,7 +85,6 @@ CREATE TABLE collect_days (
 CREATE TABLE recycling_object (
     object_id INT GENERATED ALWAYS AS IDENTITY,
     name VARCHAR NOT NULL,
-    --NEEDS TO MAKE THE NAME UNIQUE
     material_type_id INT NOT NULL,
     bin_type_id INT NOT NULL,
     PRIMARY KEY (object_id),

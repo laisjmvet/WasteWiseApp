@@ -11,6 +11,7 @@ async function getUserData(username) {
         const data = await fetch(`http://localhost:3000/users/username/${username}`)
         if(data.ok){
             const userData = await data.json()
+            console.log(userData)
             setUpPage(userData)
         }
     } catch(e) {
@@ -96,6 +97,7 @@ async function openRecyclingMenu() {
     const backButton = document.createElement("button")
     backButton.textContent = "Back"
     backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome)
     recyclingMenu.appendChild(backButton)
 
     const recyclingForm = document.createElement("form")
@@ -121,12 +123,16 @@ async function openRecyclingMenu() {
     body.appendChild(recyclingMenuContainer)
 }
 
+const returnHome = () => {
+    const element = document.getElementById("recycling_menu_container")
+    element.remove()
+}
 
 async function obtainRecycleItems() {
     const searchContents = document.getElementsByName("search_bar")[0].value
     if(searchContents.length>=3){
         try {
-            const data = await fetch(`http://localhost:3000/object/${searchContents}`)
+            const data = await fetch(`http://localhost:3000/object/search/${searchContents}`)
             if(data.ok) {
                 const searchItems = await data.json()
                 console.log(searchItems)
@@ -141,11 +147,11 @@ async function disposeItem(e) {
     e.preventDefault()
     const searchContents = document.getElementsByName("search_bar")[0].value
     try {
-        const response = await fetch(`http://localhost:3000/object/${searchContents}`)
+        const response = await fetch(`http://localhost:3000/object/search/${searchContents}`)
         if(response.status == 404) {
             alert("Error: this is an unrecognised item.")
         } else {
-            const searchItem = await data.json()
+            const searchItem = await response.json()
             checkIfTheyMeanIt(searchItem)
         }
     } catch(e){
@@ -155,8 +161,76 @@ async function disposeItem(e) {
 
 async function checkIfTheyMeanIt(itemData) {
     const popUpContainer = document.createElement("div")
-    popUpContainer.name = "popUpContainer"
+    popUpContainer.name = "pop_up_container"
 
     const popUp = document.createElement("div")
+    popUp.name = "pop_up"
+
+    const areYouSure = document.createElement("p")
+    areYouSure.name = "title"
+    areYouSure.textContent = "Are You Sure?"
+
+    const moralCheck = document.createElement("p")
+    moralCheck.name = "body"
+    moralCheck.textContent = `By clicking 'Confirm' you confirm you disposed of this ${itemData.name} correctly.`
+
+    const backButton = document.createElement("button")
+    backButton.name = "back_button_popup"
+    backButton.textContent = "Back"
+    backButton.addEventListener("click", deletePopUp)
+
+    const confirmButton = document.createElement("button")
+    confirmButton.name = "confirm_button_popup"
+    confirmButton.textContent = "Confirm"
+    confirmButton.addEventListener("Click", submitItem)
+
+    popUp.appendChild(areYouSure)
+    popUp.appendChild(moralCheck)
+    popUp.appendChild(backButton)
+    popUp.appendChild(confirmButton)
+    popUpContainer.appendChild(popUp)
+
+    const body = document.querySelector('body')
+    body.appendChild(popUpContainer)
+}
+
+const deletePopUp = () => {
+    const element = document.getElementsByName('pop_up_container')[0]
+    element.remove()
+}
+
+async function submitItem(e) {
+    e.preventDefault()
+    const username = [...new URLSearchParams(window.location.search).values()][0]
+    try {
+        const response = await fetch(`http://localhost:3000/users/username/${username}`)
+        if(response.ok){
+            data = await response.json()
+            let currentPoints = parseInt(data.points)
+            currentPoints++
+            let pointsObject = {
+                points: currentPoints
+            }
+            const options = {
+                method: "PATCH",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(pointsObject)
+            }
+
+            const updateRes = await fetch(`http://localhost:3000/users/points/${username}`, options) 
+            const updateData = await updateRes.json()
+
+            if(updateRes.status == 200) {
+                alert("Thank you for correctly disposing of your waste!")
+                let popUp = document.getElementsByName('pop_up_container')
+                popUp.remove
+            }
+        }    
+    } catch(e) {
+        console.log(e)
+    }
 }
 

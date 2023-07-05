@@ -6,7 +6,7 @@ class Address {
         this.street_name = street_name;
         this.house_number = house_number;
         this.postcode = postcode;
-        this.zone_id = zone_id
+        this.zone_id = zone_id;
     }
 
     static async getAll() {
@@ -33,8 +33,8 @@ class Address {
     }
 
     static async create(data) {
-        const { street_name, house_number, postcode } = data;
-        let response = await db.query("INSERT INTO addresses_florin (street_name, house_number, postcode) VALUES ($1, $2, $3) RETURNING *", [street_name, house_number, postcode]);
+        const { street_name, house_number, postcode, zone_id} = data;
+        let response = await db.query("INSERT INTO addresses_florin (street_name, house_number, postcode, zone_id) VALUES ($1, $2, $3, $4) RETURNING *", [street_name, house_number, postcode, zone_id]);
         return new Address(response.rows[0]);        
     }
 

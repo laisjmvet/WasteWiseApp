@@ -32,13 +32,13 @@ async function showOne (req, res) {
 
 async function findInput (req, res) {
     try {
-        const input = req.body.input
-        const object = await Object.findInput(input);
-        res.status(200).json(object);
+        const input = req.params.input;
+        let name = await Object.searchInput(input);
+        res.status(200).json(name);
     } catch (err) {
         res.status(404).json({"error": err.message});
     }
-}
+};
 
 async function destroy (req, res) {
     try {

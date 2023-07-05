@@ -2,8 +2,8 @@ const db =  require('../database/connect');
 
 class Bin {
     constructor ({bin_type_id, bin_type_name}) {
-        this.id = bin_type_id;
-        this.bin = bin_type_name;
+        this.bin_type_id = bin_type_id;
+        this.bin_type_name = bin_type_name;
     }
 
     static async getAll() {
@@ -24,6 +24,24 @@ class Bin {
         if (response.rows.length != 1) {
             throw new Error("Unable to locate bin.");
         }
+        return new Bin(response.rows[0]);
+    }
+
+    static async create(data) {
+        const {bin_type_name } = data;
+        let response = await db.query("INSERT INTO bin_types (bin_type_name) VALUES ($1) RETURNING *;", [bin_type_name]);
+        return new Bin(response.rows[0]);
+    }
+
+    async destroy() {
+        await db.query("DELETE FROM collect_days WHERE bin_type_id = $1 RETURNING *;", [this.id])
+        const response = await db.query("DELETE FROM bin_types WHERE bin_type_id = $1 RETURNING *;", [this.id]);
+        return new Bin(response.rows[0]);
+    }
+
+    async update(data) {        
+        const {bin_type_name} = data;        
+        const response = await db.query("UPDATE bin_types SET bin_type_name = $1 RETURNING *;", [bin_type_name]);
         return new Bin(response.rows[0]);
     }
 }

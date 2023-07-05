@@ -8,7 +8,12 @@ window.onload = () => {
 
 async function getUserData(username) {
     try {
-        const data = await fetch(`http://localhost:3000/users/username/${username}`)
+        const options = {
+            headers:  {
+                'Authorization': localStorage.getItem("token")
+            }
+        }
+        const data = await fetch(`http://localhost:3000/users/username/${username}`,options)
         if(data.ok){
             const userData = await data.json()
             console.log(userData)
@@ -155,9 +160,7 @@ async function obtainRecycleItems(e) {
     dropdownContent.style = "display:block;"
     const searchContents = document.getElementsByName("search_bar")[0].value
     if(searchContents == ""){
-        console.log("here")
         const buttonsForDelete = document.getElementsByName("dropdown_option")
-        console.log(buttonsForDelete.length)
         for(let j=buttonsForDelete.length-1; j>=0; j--){
             buttonsForDelete[j].remove()
         }
@@ -241,8 +244,7 @@ async function fillItem(e) {
                     } else {
                         whichBinText.textContent = `This item belongs in the ${bin.toLowerCase()} bin.`
                         document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
-                    }
-                    
+                    }  
                 }
             } catch(e){
                 console.log(e)
@@ -362,3 +364,63 @@ async function submitItem(e) {
     }
 }
 
+
+
+const bulkyWasteButton = document.getElementsByName("BulkyWaste")[0]
+bulkyWasteButton.addEventListener("click", openBulkyWastePopup)
+
+async function openBulkyWastePopup() {
+    const bulkyWasteMenuContainer = document.createElement("div")
+    bulkyWasteMenuContainer.id = "bulky_waste_menu_container"
+
+    const bulkyWasteMenu = document.createElement("main")
+    bulkyWasteMenu.id = "bulky_waste_menu"
+    bulkyWasteMenuContainer.appendChild(bulkyWasteMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome2)
+    bulkyWasteMenu.appendChild(backButton)
+
+    const bulkyWasteForm = document.createElement("form")
+    bulkyWasteForm.name = "bulky_waste_form"
+
+    const title = document.createElement("p")
+    title.setAttribute("name", "title")
+    title.textContent = "Book a collection for bulky waste"
+    bulkyWasteForm.appendChild(title)
+
+    const itemLabel = document.createElement("label")
+    itemLabel.setAttribute("name", "item_label")
+    itemLabel.textContent = "What item do you want to have collected?"
+    bulkyWasteForm.appendChild(itemLabel)
+
+    const itemInput = document.createElement("input")
+    itemInput.type = "text"
+    itemInput.placeholder = "fridge"
+    itemInput.name = "item_input"
+    bulkyWasteForm.appendChild(itemInput)
+
+    const weightLabel = document.createElement("label")
+    weightLabel.setAttribute("name", "weight_label")
+    weightLabel.textContent = `How heavy is the item? (kg)`
+    bulkyWasteForm.appendChild(weightLabel)
+
+    const weightInput = document.createElement("input")
+    weightInput.type = "text"
+    weightInput.placeholder = "80"
+    weightInput.name = "weight_input"
+    bulkyWasteForm.appendChild(weightInput)
+
+    bulkyWasteMenu.appendChild(bulkyWasteForm)
+
+    const body = document.querySelector('body')
+    body.appendChild(bulkyWasteMenuContainer)
+
+}
+
+const returnHome2 = () => {
+    const element = document.getElementById("bulky_waste_menu_container")
+    element.remove()
+}

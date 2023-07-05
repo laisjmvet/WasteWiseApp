@@ -99,6 +99,14 @@ CREATE TABLE collect_bulky_waste(
     PRIMARY KEY (bulky_waste_id)
 );
 
+CREATE TABLE appointments (
+    username VARCHAR NOT NULL,
+    object_name VARCHAR NOT NULL,
+    address VARCHAR NOT NULL,
+    weight_kg INT NOT NULL,
+    
+)
+
 INSERT INTO weekdays (weekday)
 VALUES ('UNDEFINED'), ('Sunday'), ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday');
 

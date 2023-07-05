@@ -3,7 +3,8 @@
 }
 
 #recycling_menu_container,
-#bulky_waste_menu_container {
+#bulky_waste_menu_container,
+#settings_menu_container {
 position: fixed;
   top: 0;
   left: 0;
@@ -16,12 +17,17 @@ position: fixed;
 }
 
 #recycling_menu, 
-#bulky_waste_menu {
+#bulky_waste_menu,
+#settings_menu {
     display: grid;
     min-height: 70%;
     width: 40%; 
     background-color: white;
     border-radius: 25px;
+}
+
+#settings_menu{
+    place-items: center;
 }
 
 button[name="back_button"] {
@@ -32,7 +38,10 @@ button[name="back_button"] {
 }
 
 form[name="recycling_form"],
-form[name="bulky_waste_form"] {
+form[name="bulky_waste_form"],
+form[name="username_form"],
+form[name="password_form"],
+form[name="address_form"] {
     display:grid;
     place-items: center;
 }

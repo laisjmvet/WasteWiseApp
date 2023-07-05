@@ -101,7 +101,9 @@ async function updatePoints(req, res) {
 async function updateAddressId(req, res) {
     try {
         const data = req.params;
+        console.log(data)
         const body = req.body;
+        console.log(body)
         const user = await User.getOneByUsername(data.username);
         const result = await user.updateAddressId(parseInt(body.address_id));
         res.status(200).json(result);        

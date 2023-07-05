@@ -8,7 +8,12 @@ window.onload = () => {
 
 async function getUserData(username) {
     try {
-        const data = await fetch(`http://localhost:3000/users/username/${username}`)
+        const options = {
+            headers:  {
+                'Authorization': localStorage.getItem("token")
+            }
+        }
+        const data = await fetch(`http://localhost:3000/users/username/${username}`,options)
         if(data.ok){
             const userData = await data.json()
             console.log(userData)
@@ -102,6 +107,11 @@ async function openRecyclingMenu() {
     const recyclingForm = document.createElement("form")
     recyclingForm.name = "recycling_form"
     recyclingForm.setAttribute("autocomplete", "off")
+    recyclingForm.addEventListener('keypress', function(e) {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+        }
+      });
 
     const autoComplete = document.createElement("input")
     autoComplete.type = "text"
@@ -114,6 +124,7 @@ async function openRecyclingMenu() {
     searchBar.placeholder = "Search..."
     searchBar.name = "search_bar"
     searchBar.addEventListener('keyup', obtainRecycleItems)
+    searchBar.addEventListener('focus', resetForm)
 
     const disposeButton = document.createElement("button")
     disposeButton.textContent = "WasteWise this item"
@@ -143,21 +154,31 @@ const returnHome = () => {
 }
 
 
-async function obtainRecycleItems() {
+async function obtainRecycleItems(e) {
+    e.preventDefault()
+    let dropdownContent = document.getElementsByName("dropdown_content")[0]
+    dropdownContent.style = "display:block;"
     const searchContents = document.getElementsByName("search_bar")[0].value
+    if(searchContents == ""){
+        const buttonsForDelete = document.getElementsByName("dropdown_option")
+        for(let j=buttonsForDelete.length-1; j>=0; j--){
+            buttonsForDelete[j].remove()
+        }
+    }
     if(searchContents.length>=3){
         try {
             const data = await fetch(`http://localhost:3000/object/search/${searchContents}`)
             if(data.ok) {
                 const searchItems = await data.json()
                 const buttonsForDelete = document.getElementsByName("dropdown_option")
-                for(let j=0; j<buttonsForDelete.length; j++){
+                for(let j=buttonsForDelete.length-1; j>=0; j--){
                     buttonsForDelete[j].remove()
                 }
                 for(let i=0; i<searchItems.length; i++) {
                     let dropdownOption = document.createElement('button')
                     dropdownOption.name = "dropdown_option"
                     dropdownOption.textContent = searchItems[i].name
+                    dropdownOption.id = searchItems[i].object_id
                     dropdownOption.addEventListener("click", fillItem)
                     let dropdownContent = document.getElementsByName("dropdown_content")[0]
                     dropdownContent.appendChild(dropdownOption)
@@ -185,10 +206,64 @@ const checkForDuplicates = () => {
     }
 }
 
-const fillItem = () => {
+async function fillItem(e) {
+    e.preventDefault()
+    let dropdownContent = document.getElementsByName("dropdown_content")[0]
+    dropdownContent.style = "display:none;"
+    let text = e.target.textContent
+    let id = e.target.id
+    let searchBar = document.getElementsByName("search_bar")
+    searchBar.id = id
+    document.getElementsByName("recycling_form")[0].search_bar.value = text
 
+    try {
+        const response = await fetch(`http://localhost:3000/object/${id}`)
+        if(response.ok){
+            const itemData = await response.json()
+            try {
+                const rawBinData = await fetch(`http://localhost:3000/bin/${itemData.bin_type_id}`)
+                if(rawBinData.ok) {
+                    const binData = await rawBinData.json()
+                    const bin = binData.bin_type_name
+
+                    let whichBinText = document.createElement("p")
+                    whichBinText.setAttribute("name", "which_bin_text")
+
+                    if(bin == "Needs Collection") {
+                        whichBinText.textContent = `This item belongs ${bin.toLowerCase()}.`
+                        document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
+                    } else if(bin == "Garden Waste") {
+                        whichBinText.textContent = `This item belongs with the ${bin.toLowerCase()}.`
+                        document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
+                    } else if(bin == "Clear bag") {
+                        whichBinText.textContent = `This item should be placed in a ${bin.toLowerCase()} and left with the other bin bags.`
+                        document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
+                    } else if(bin == "Large Supermarkets") {
+                        whichBinText.textContent = `This item needs to be recycled at ${bin.toLowerCase()}.`
+                        document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
+                    } else {
+                        whichBinText.textContent = `This item belongs in the ${bin.toLowerCase()} bin.`
+                        document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
+                    }  
+                }
+            } catch(e){
+                console.log(e)
+            }
+        }
+    } catch(e) {
+        console.log(e)
+    }
 }
 
+const resetForm = () => {
+    const searchContents = document.getElementsByName("search_bar")[0].value
+    if(searchContents != "") {
+        let dropdownContent = document.getElementsByName("dropdown_content")[0]
+        dropdownContent.style = "display:block;"
+        let binText = document.getElementsByName("which_bin_text")[0]
+        binText.remove()
+    } 
+}
 
 async function disposeItem(e) {
     e.preventDefault()
@@ -207,6 +282,7 @@ async function disposeItem(e) {
 }
 
 async function checkIfTheyMeanIt(itemData) {
+    console.log(itemData)
     const popUpContainer = document.createElement("div")
     popUpContainer.setAttribute("name", "pop_up_container")
 
@@ -219,7 +295,7 @@ async function checkIfTheyMeanIt(itemData) {
 
     const moralCheck = document.createElement("p")
     moralCheck.setAttribute("name", "body")
-    moralCheck.textContent = `By clicking 'Confirm' you confirm you disposed of this ${itemData.name} correctly.`
+    moralCheck.textContent = `By clicking 'Confirm' you confirm you disposed of this '${itemData[0].name.toLowerCase()}' correctly.`
 
     const backButton = document.createElement("button")
     backButton.name = "back_button_popup"
@@ -229,7 +305,7 @@ async function checkIfTheyMeanIt(itemData) {
     const confirmButton = document.createElement("button")
     confirmButton.name = "confirm_button_popup"
     confirmButton.textContent = "Confirm"
-    confirmButton.addEventListener("Click", submitItem)
+    confirmButton.addEventListener("click", submitItem)
 
     const buttonSection = document.createElement("div")
     buttonSection.setAttribute("name", "popup_buttons")
@@ -275,9 +351,12 @@ async function submitItem(e) {
             const updateData = await updateRes.json()
 
             if(updateRes.status == 200) {
-                alert("Thank you for correctly disposing of your waste!")
-                let popUp = document.getElementsByName('pop_up_container')
-                popUp.remove
+                let popUp = document.getElementsByName('pop_up_container')[0]
+                popUp.remove()
+                let binText = document.getElementsByName("which_bin_text")[0]
+                binText.remove()
+                document.getElementsByName("recycling_form")[0].search_bar.value = ""
+                alert("Thank you for correctly disposing of your waste!")  
             }
         }    
     } catch(e) {
@@ -285,3 +364,63 @@ async function submitItem(e) {
     }
 }
 
+
+
+const bulkyWasteButton = document.getElementsByName("BulkyWaste")[0]
+bulkyWasteButton.addEventListener("click", openBulkyWastePopup)
+
+async function openBulkyWastePopup() {
+    const bulkyWasteMenuContainer = document.createElement("div")
+    bulkyWasteMenuContainer.id = "bulky_waste_menu_container"
+
+    const bulkyWasteMenu = document.createElement("main")
+    bulkyWasteMenu.id = "bulky_waste_menu"
+    bulkyWasteMenuContainer.appendChild(bulkyWasteMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome2)
+    bulkyWasteMenu.appendChild(backButton)
+
+    const bulkyWasteForm = document.createElement("form")
+    bulkyWasteForm.name = "bulky_waste_form"
+
+    const title = document.createElement("p")
+    title.setAttribute("name", "title")
+    title.textContent = "Book a collection for bulky waste"
+    bulkyWasteForm.appendChild(title)
+
+    const itemLabel = document.createElement("label")
+    itemLabel.setAttribute("name", "item_label")
+    itemLabel.textContent = "What item do you want to have collected?"
+    bulkyWasteForm.appendChild(itemLabel)
+
+    const itemInput = document.createElement("input")
+    itemInput.type = "text"
+    itemInput.placeholder = "fridge"
+    itemInput.name = "item_input"
+    bulkyWasteForm.appendChild(itemInput)
+
+    const weightLabel = document.createElement("label")
+    weightLabel.setAttribute("name", "weight_label")
+    weightLabel.textContent = `How heavy is the item? (kg)`
+    bulkyWasteForm.appendChild(weightLabel)
+
+    const weightInput = document.createElement("input")
+    weightInput.type = "text"
+    weightInput.placeholder = "80"
+    weightInput.name = "weight_input"
+    bulkyWasteForm.appendChild(weightInput)
+
+    bulkyWasteMenu.appendChild(bulkyWasteForm)
+
+    const body = document.querySelector('body')
+    body.appendChild(bulkyWasteMenuContainer)
+
+}
+
+const returnHome2 = () => {
+    const element = document.getElementById("bulky_waste_menu_container")
+    element.remove()
+}

@@ -555,3 +555,26 @@ async function makeAppointment(e) {
     }    
 }
 
+const logoutButton = document.getElementsByName("Log_out")[0]
+logoutButton.addEventListener("click", logoutUser)
+
+async function logoutUser(e) {
+    e.preventDefault()
+    try {
+        const options = {
+            headers:  {
+                'Authorization': localStorage.getItem("token")
+            }
+        }
+        const response = await fetch("http://localhost:3000/users/logout", options)
+        const data = await response.json()
+
+        if(response.status == 200) {
+            localStorage.clear()
+            alert(data.message)
+            window.location.assign("index.html")
+        }
+    }catch(e){
+        console.log(e)
+    }
+}

@@ -1,23 +1,15 @@
-#bin_img {
-    width:100px;
-}
-
-#recycling_menu_container,
-#bulky_waste_menu_container,
 #settings_menu_container {
-position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #000000a1;
-
-  display: grid;
-  place-items: center;
+    position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #000000a1;
+    
+      display: grid;
+      place-items: center;
 }
 
-#recycling_menu, 
-#bulky_waste_menu,
 #settings_menu {
     display: grid;
     min-height: 70%;
@@ -37,8 +29,6 @@ button[name="back_button"] {
     left:31%;
 }
 
-form[name="recycling_form"],
-form[name="bulky_waste_form"],
 form[name="username_form"],
 form[name="password_form"],
 form[name="address_form"] {
@@ -46,21 +36,9 @@ form[name="address_form"] {
     place-items: center;
 }
 
-
-#bin_and_user {
-    display:flex;
-    flex-direction: column;
-}
-
 #florin_and_user {
     display: flex;
     justify-content: space-between;
-}
-
-#bin_box {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 div[name="main_buttons"] {
@@ -103,6 +81,11 @@ div[name="pop_up"] {
 
 p[name="title"] {
     font-size: 24px;
+
+}
+
+p[name="big_title"] {
+    font-size: 48px;
 
 }
 

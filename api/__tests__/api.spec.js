@@ -2,7 +2,7 @@ const request = require("supertest")
 const app = require("../api")
 const db = require("../database/connect")
 
-describe("api server", () => {
+describe("backend", () => {
     let api
 
     beforeAll(() => {
@@ -230,10 +230,65 @@ describe("api server", () => {
 
     })
 
-    // //OBJECT TESTING
-    // describe("OBJECT", () => {
-        
-    // })
+    //OBJECT TESTING
+    describe("OBJECT", () => {
+        let objectId
+        let newObject = {
+            name: "testObject",
+            meterial_type_id: 1,
+            bin_type_id: 2
+        }
+
+        //GET ALL
+        it("should return all objects", async () => {
+            const response = await request(app)
+                .get(`/object`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE
+        it("should create an object", async () => {
+            const response = await request(app)
+                .post(`/object`)
+                .send(newObject)
+                .expect(201)
+
+            objectId = response.body.id
+            expect(response.body).toMatchObject(newObject)
+        })
+
+        //GET ONE
+        it("should return one object", async () => {
+            const response = await request(app)
+                .get(`/object/${objectId}`)
+                .expect(200)
+
+            expect(response.body).toMatchObject(newObject)
+        })
+
+        //SEARCH INPUT
+        it("should return objects with similar names", async () => {
+            const input = "test"
+            const response = await request(app)
+                .get(`/object/search/${input}`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //UPDATE INPUT
+        it("should update an object", async () => {
+            newObject.name = "newtestobject"
+            const response = await request(app)
+                .patch(`/object/${objectId}`)
+                .send(newObject)
+                .expect(200)
+        })
+    })
 
     // //COLLECTDAYS TESTING
     // describe("COLLECTDAYS", () => {

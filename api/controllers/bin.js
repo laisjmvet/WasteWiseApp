@@ -44,7 +44,6 @@ async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
         const bin = await Bin.getOneById(id);
-        console.log(bin, "<<<<<<<<<<<<<<")
         const result = await bin.destroy();
         res.status(204).end();
     } catch (err) {

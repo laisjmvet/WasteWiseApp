@@ -42,7 +42,7 @@ class CollectDays {
 
     async update(data) {        
         const {zone_id, bin_type_id, weekday_id} = data;        
-        const response = await db.query("UPDATE collect_days SET zone_id = $1, bin_type_id =$2, weekday_id = $3 RETURNING *;", [zone_id, bin_type_id, weekday_id]);
+        const response = await db.query("UPDATE collect_days SET zone_id = $1, bin_type_id =$2, weekday_id = $3 WHERE collect_day_id = $4 RETURNING *;", [zone_id, bin_type_id, weekday_id, this.id]);
         return new CollectDays(response.rows[0]);
     }
 }

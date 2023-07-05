@@ -37,12 +37,12 @@ class Bin {
         await db.query("DELETE FROM collect_days WHERE bin_type_id = $1 RETURNING *;", [this.bin_type_id]);
         await db.query("UPDATE recycling_object SET bin_type_id = $1 RETURNING *;", [8]);
         const response = await db.query("DELETE FROM bin_types WHERE bin_type_id = $1 RETURNING *;", [this.bin_type_id]);
-        return new Bin(cd.rows[0]);
+        return new Bin(response.rows[0]);
     }
 
     async update(data) {        
         const {bin_type_name} = data;        
-        const response = await db.query("UPDATE bin_types SET bin_type_name = $1 RETURNING *;", [bin_type_name]);
+        const response = await db.query("UPDATE bin_types SET bin_type_name = $1 WHERE bin_type_id = $2 RETURNING *;", [bin_type_name, this.bin_type_id]);
         return new Bin(response.rows[0]);
     }
 }

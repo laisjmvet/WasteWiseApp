@@ -102,6 +102,13 @@ async function openRecyclingMenu() {
 
     const recyclingForm = document.createElement("form")
     recyclingForm.name = "recycling_form"
+    recyclingForm.setAttribute("autocomplete", "off")
+
+    const autoComplete = document.createElement("input")
+    autoComplete.type = "text"
+    autoComplete.style = "display:none;"
+    autoComplete.setAttribute("autocomplete", "false")
+    recyclingForm.appendChild(autoComplete)
 
     const searchBar = document.createElement("input")
     searchBar.type = "text"
@@ -115,7 +122,15 @@ async function openRecyclingMenu() {
     disposeButton.name = "dispose_button"
     recyclingForm.addEventListener("submit", disposeItem)
 
-    recyclingForm.appendChild(searchBar)
+    const dropdownSection = document.createElement("div")
+    dropdownSection.setAttribute("name", "dropdown_section")
+    dropdownSection.appendChild(searchBar)
+
+    const dropdownContent = document.createElement("div")
+    dropdownContent.setAttribute("name", "dropdown_content")
+    dropdownSection.appendChild(dropdownContent)
+
+    recyclingForm.appendChild(dropdownSection)
     recyclingForm.appendChild(disposeButton)
     recyclingMenu.appendChild(recyclingForm)
 
@@ -128,6 +143,7 @@ const returnHome = () => {
     element.remove()
 }
 
+
 async function obtainRecycleItems() {
     const searchContents = document.getElementsByName("search_bar")[0].value
     if(searchContents.length>=3){
@@ -135,13 +151,41 @@ async function obtainRecycleItems() {
             const data = await fetch(`http://localhost:3000/object/search/${searchContents}`)
             if(data.ok) {
                 const searchItems = await data.json()
-                console.log(searchItems)
+                const buttonsForDelete = document.getElementsByName("dropdown_option")
+                for(let j=0; j<buttonsForDelete.length; j++){
+                    buttonsForDelete[j].remove()
+                }
+                for(let i=0; i<searchItems.length; i++) {
+                    let dropdownOption = document.createElement('button')
+                    dropdownOption.name = "dropdown_option"
+                    dropdownOption.textContent = searchItems[i].name
+                    dropdownOption.addEventListener("click", fillItem)
+                    let dropdownContent = document.getElementsByName("dropdown_content")[0]
+                    dropdownContent.appendChild(dropdownOption)
+                }
+                checkForDuplicates()
             }
         } catch(e){
             console.log(e)
         }
     }
 }
+
+const checkForDuplicates = () => {
+    const buttons = document.getElementsByName("dropdown_option")
+    let textOfButtons = []
+    for(let i =0; i<buttons.length; i++) {
+        let text = buttons[i].textContent
+        textOfButtons.push(text)
+    }
+    for(let j = textOfButtons.length-1; j >=0; j--){
+        let testText = textOfButtons[j]
+        if(j!= textOfButtons.lastIndexOf(testText)) {
+            buttons[j].remove()
+        }
+    }
+}
+
 
 async function disposeItem(e) {
     e.preventDefault()
@@ -161,17 +205,17 @@ async function disposeItem(e) {
 
 async function checkIfTheyMeanIt(itemData) {
     const popUpContainer = document.createElement("div")
-    popUpContainer.name = "pop_up_container"
+    popUpContainer.setAttribute("name", "pop_up_container")
 
     const popUp = document.createElement("div")
-    popUp.name = "pop_up"
+    popUp.setAttribute("name", "pop_up")
 
     const areYouSure = document.createElement("p")
-    areYouSure.name = "title"
+    areYouSure.setAttribute("name", "title")
     areYouSure.textContent = "Are You Sure?"
 
     const moralCheck = document.createElement("p")
-    moralCheck.name = "body"
+    moralCheck.setAttribute("name", "body")
     moralCheck.textContent = `By clicking 'Confirm' you confirm you disposed of this ${itemData.name} correctly.`
 
     const backButton = document.createElement("button")
@@ -184,10 +228,14 @@ async function checkIfTheyMeanIt(itemData) {
     confirmButton.textContent = "Confirm"
     confirmButton.addEventListener("Click", submitItem)
 
+    const buttonSection = document.createElement("div")
+    buttonSection.setAttribute("name", "popup_buttons")
+    buttonSection.appendChild(backButton)
+    buttonSection.appendChild(confirmButton)
+
     popUp.appendChild(areYouSure)
     popUp.appendChild(moralCheck)
-    popUp.appendChild(backButton)
-    popUp.appendChild(confirmButton)
+    popUp.appendChild(buttonSection)
     popUpContainer.appendChild(popUp)
 
     const body = document.querySelector('body')

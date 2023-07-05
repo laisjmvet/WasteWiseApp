@@ -103,12 +103,12 @@ CREATE TABLE collect_bulky_waste(
 );
 
 CREATE TABLE appointments (
-    appointments_id INT GENERATED ALWAYS AS IDENTITY,
+    appointment_id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     object_name VARCHAR NOT NULL,
     weight_kg INT NOT NULL,
     weekday_id INT NOT NULL,
-    PRIMARY KEY (appointments_id),
+    PRIMARY KEY (appointment_id),
     FOREIGN KEY (weekday_id) REFERENCES weekdays(weekday_id),
     FOREIGN KEY (user_id) REFERENCES user_account(user_id)
 

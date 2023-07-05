@@ -11,7 +11,7 @@ const weekdayRouter = require('./routers/weekday');
 const binRouter = require('./routers/bin');
 const materialsTypeRouter = require('./routers/materialsType');
 const addressZonesRouter = require('./routers/addressZone');
-const appointmentsRouter = require('./routers/appointment');
+const appointmentRouter = require('./routers/appointment');
 
 const api = express();
 
@@ -35,6 +35,6 @@ api.use('/weekday', weekdayRouter);
 api.use('/bin', binRouter);
 api.use('/material', materialsTypeRouter);
 api.use('/zone', addressZonesRouter);
-api.use('/appointment', appointmentsRouter);
+api.use('/appointment', appointmentRouter);
 
 module.exports = api;

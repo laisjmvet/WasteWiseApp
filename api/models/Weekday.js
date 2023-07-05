@@ -34,8 +34,6 @@ class Weekday {
     }
 
     async destroy() {
-        // await db.query("DELETE FROM collect_days WHERE weekday_id = $1 RETURNING *;", [this.id]);
-        // await db.query("UPDATE recycling_object SET weekday_id = $1 RETURNING *;", [8]);
         const response = await db.query("DELETE FROM weekdays WHERE weekday_id = $1 RETURNING *;", [this.id]);
         return new Weekday(response.rows[0]);
     }

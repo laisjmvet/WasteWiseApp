@@ -13,6 +13,7 @@ describe("api server", () => {
 
     afterAll((done) => {
         console.log("Stopping test server")
+        db.end()
         api.close(done)
     })
     //USER TESTING
@@ -55,7 +56,7 @@ describe("api server", () => {
             token = response.token
         })
 
-        //GETUSERBYUSERNAME
+        //GET USER BY USERNAME
         it("should return the user with provided username", async () => {
             const user = {
                 username: username
@@ -70,7 +71,7 @@ describe("api server", () => {
             expect(response.body.password).toEqual(password)
             })
 
-        //GETUSERBYID
+        //GET USER BY ID
         it("should return the user with provided ID", async () => {
             const response = await request(app)
                 .get(`/users/${user_id}`)
@@ -103,7 +104,7 @@ describe("api server", () => {
             expect(response.body.isAdmin).toEqual(admin)
         })
 
-        //UPDATE POINTS
+        //UPDATE USERS POINTS
         it("should update the users points", async () => {
             const points = 5
             const body = {
@@ -131,24 +132,37 @@ describe("api server", () => {
             expect(response.body.address_id).toEqual(addressId)
         })
 
-        // //LOGOUT
+        //LOGOUT NEEDS FIXING??
         it("should logout the user", async () => {
             const res = await db.query("SELECT token FROM token WHERE user_id = $1", [user_id])
             const token = res.rows[0]
             headers = {
                 authorization: token
             }
-            
+
             const response = await request(app)
                 .get("/users/logout")
                 .set(headers)
                 .expect(200)
+        })
+
+        //DELETE USER
+        it("should delete the user", async () => {
+            const response = await request(app)
+                .delete(`/users/${user_id}`)
+                .expect(204)
         })
     })
 
     //ADDRESS TESTING
     describe("ADDRESS", () => {
         let addressId
+        let newAddress = {
+            street_name: "testStreet",
+            house_number: 2,
+            postcode: "AA1 AA1",
+            zone_id: 2
+        }
 
         //READ ALL
         it("should get all address", async () => {
@@ -162,24 +176,57 @@ describe("api server", () => {
 
         //CREATE ADDRESS
         it("should create an address", async () => {
-            const newAddress = {
-                street_name: "testStreet",
-                house_number: 2,
-                postcode: "AA1 AA1",
-                zone_id: 2
-            }
             const response = await request(app)
                 .post("/address")
                 .send(newAddress)
                 .expect(201)
 
-            const {address_id} = response.body
-            addressId = address_id
+            const {id} = response.body
+            addressId = id
 
             expect(response.body).toMatchObject(newAddress)
         })
 
+        //SHOW ADDRESS BY ID
+        it("should get address by id", async () => {
+            const response = await request(app)
+                .get(`/address/${addressId}`)
+                .expect(200)
 
+            expect(response.body).toMatchObject(newAddress)
+        })
+
+        //SHOW ADDRESS BY HOUSE NUMBER/POSTCODE
+        it("should get address by house number/postcode", async () => {
+            const body = {
+                house_number: newAddress.house_number,
+                postcode: newAddress.postcode
+            }
+            const response = await request(app)
+                .get(`/address/user/0`)
+                .send(body)
+                .expect(200)
+
+            expect(response.body).toMatchObject(newAddress)
+        })
+
+        //UPDATE ADDRESS
+        it("should update address", async () => {
+            newAddress.street_name = "newteststreet"
+            const response = await request(app)
+                .patch(`/address/${addressId}`)
+                .send(newAddress)
+                .expect(200)
+
+            expect(response.body).toMatchObject(newAddress)
+        })
+
+        //DELETE ADDRESS
+        it("should delete address", async () => {
+            const response = await request(app)
+                .delete(`/address/${addressId}`)
+                .expect(204)
+        })
 
     })
 

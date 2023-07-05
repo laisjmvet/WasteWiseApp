@@ -26,5 +26,24 @@ class Weekday {
         }
         return new Weekday(response.rows[0]);
     }
+
+    static async create(data) {
+        const {weekday} = data;
+        let response = await db.query("INSERT INTO weekdays (weekday) VALUES ($1) RETURNING *;", [weekday]);
+        return new Weekday(response.rows[0]);
+    }
+
+    async destroy() {
+        // await db.query("DELETE FROM collect_days WHERE weekday_id = $1 RETURNING *;", [this.id]);
+        // await db.query("UPDATE recycling_object SET weekday_id = $1 RETURNING *;", [8]);
+        const response = await db.query("DELETE FROM weekdays WHERE weekday_id = $1 RETURNING *;", [this.id]);
+        return new Weekday(response.rows[0]);
+    }
+
+    async update(data) {        
+        const {weekday} = data;        
+        const response = await db.query("UPDATE weekdays SET weekday = $1 WHERE weekday_id = $2 RETURNING *;", [weekday, this.id]);
+        return new Weekday(response.rows[0]);
+    }
 }
 module.exports = Weekday;

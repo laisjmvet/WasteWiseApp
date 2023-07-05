@@ -2,7 +2,8 @@
     width:100px;
 }
 
-#recycling_menu_container {
+#recycling_menu_container,
+#bulky_waste_menu_container {
 position: fixed;
   top: 0;
   left: 0;
@@ -14,7 +15,8 @@ position: fixed;
   place-items: center;
 }
 
-#recycling_menu {
+#recycling_menu, 
+#bulky_waste_menu {
     display: grid;
     min-height: 70%;
     width: 40%; 
@@ -29,7 +31,8 @@ button[name="back_button"] {
     left:31%;
 }
 
-form[name="recycling_form"] {
+form[name="recycling_form"],
+form[name="bulky_waste_form"] {
     display:grid;
     place-items: center;
 }

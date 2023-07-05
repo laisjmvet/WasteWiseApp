@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/20</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.52% </span>
+                <span class="strong">94.73% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/19</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -107,79 +107,79 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db =  require('../database/connect');
 &nbsp;
 class CollectBulkyWaste {
-<span class="fstat-no" title="function not covered" >    co</span>nstructor ({bulky_waste_id, weight_kg, price}) {
-<span class="cstat-no" title="statement not covered" >        this.id = bulky_waste_id;</span>
-<span class="cstat-no" title="statement not covered" >        this.weight_kg = weight_kg;</span>
-<span class="cstat-no" title="statement not covered" >        this.price = price;</span>
+    constructor ({bulky_waste_id, weight_kg, price}) {
+        this.id = bulky_waste_id;
+        this.weight_kg = weight_kg;
+        this.price = price;
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getAll() {
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM collect_bulky_waste");</span>
-<span class="cstat-no" title="statement not covered" >        return response.rows.map(<span class="fstat-no" title="function not covered" >o </span>=&gt; <span class="cstat-no" title="statement not covered" >new CollectBulkyWaste(o))</span>;</span>
+    static async getAll() {
+        const response = await db.query("SELECT * FROM collect_bulky_waste");
+        return response.rows.map(o =&gt; new CollectBulkyWaste(o));
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getOneById(id) {
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM collect_bulky_waste WHERE bulky_waste_id = $1", [id]);</span>
-<span class="cstat-no" title="statement not covered" >        if (response.rows.length != 1) {</span>
+    static async getOneById(id) {
+        const response = await db.query("SELECT * FROM collect_bulky_waste WHERE bulky_waste_id = $1", [id]);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.rows.length != 1) {
 <span class="cstat-no" title="statement not covered" >            throw new Error("Unable to locate collect_bulky_waste_id.");</span>
         }
-<span class="cstat-no" title="statement not covered" >        return new CollectBulkyWaste(response.rows[0]);</span>
+        return new CollectBulkyWaste(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async create(data) {
-        const { weight_kg, price } = <span class="cstat-no" title="statement not covered" >data;</span>
-        let response = <span class="cstat-no" title="statement not covered" >await db.query("INSERT INTO collect_bulky_waste (weight_kg, price) VALUES ($1, $2) RETURNING *;", [weight_kg, price]);</span>
-<span class="cstat-no" title="statement not covered" >        return new CollectBulkyWaste(response.rows[0]);</span>
+    static async create(data) {
+        const { weight_kg, price } = data;
+        let response = await db.query("INSERT INTO collect_bulky_waste (weight_kg, price) VALUES ($1, $2) RETURNING *;", [weight_kg, price]);
+        return new CollectBulkyWaste(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync destroy() {
-        let response = <span class="cstat-no" title="statement not covered" >await db.query("DELETE FROM collect_bulky_waste WHERE bulky_waste_id = $1 RETURNING *;", [this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new CollectBulkyWaste(response.rows[0]);</span>
+    async destroy() {
+        let response = await db.query("DELETE FROM collect_bulky_waste WHERE bulky_waste_id = $1 RETURNING *;", [this.id]);
+        return new CollectBulkyWaste(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync update(data) {        
-        const {weight_kg, price} = <span class="cstat-no" title="statement not covered" >data;        </span>
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("UPDATE collect_bulky_waste SET weight_kg = $1, price = $2 WHERE bulky_waste_id = $3 RETURNING *;", [weight_kg, price, this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new CollectBulkyWaste(response.rows[0]);</span>
+    async update(data) {        
+        const {weight_kg, price} = data;        
+        const response = await db.query("UPDATE collect_bulky_waste SET weight_kg = $1, price = $2 WHERE bulky_waste_id = $3 RETURNING *;", [weight_kg, price, this.id]);
+        return new CollectBulkyWaste(response.rows[0]);
     }
 }
 module.exports = CollectBulkyWaste;
@@ -190,7 +190,7 @@ module.exports = CollectBulkyWaste;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-05T15:52:08.757Z
+                at 2023-07-05T17:20:18.712Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

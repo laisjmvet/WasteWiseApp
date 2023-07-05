@@ -23,7 +23,6 @@ async function register(req, res) {
 async function login(req, res) {
     try {
         const data = req.body;
-        console.log(req.body)
         const user = await User.getOneByUsername(data.username);
         const authenticated = await bcrypt.compare(data.password, user.password);        
         if (!authenticated) {

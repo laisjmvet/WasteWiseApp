@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/25</span>
+                <span class='fraction'>20/25</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">79.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/24</span>
+                <span class='fraction'>19/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -116,19 +116,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,24 +148,16 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -178,18 +178,18 @@ class CollectDays {
 &nbsp;
     static async getOneById(id) {
         const response = await db.query("SELECT * FROM collect_days WHERE collect_day_id = $1", [id]);
-<span class="cstat-no" title="statement not covered" >        if (response.rows.length != 1) {</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.rows.length != 1) {
 <span class="cstat-no" title="statement not covered" >            throw new Error("Unable to locate collect_day.");</span>
         }
-<span class="cstat-no" title="statement not covered" >        return new CollectDays(response.rows[0]);</span>
+        return new CollectDays(response.rows[0]);
     }
 &nbsp;
-    static async getOneByZoneId(zone_id) {
-        const response = await db.query("SELECT * FROM collect_days WHERE zone_id = $1", [zone_id]);
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (response.rows.length != 1) {
-            throw new Error("Unable to locate collect_day.");
+<span class="fstat-no" title="function not covered" >    st</span>atic async getByZoneId(zone_id) {
+        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM collect_days WHERE zone_id = $1", [zone_id]);</span>
+<span class="cstat-no" title="statement not covered" >        if (response.rows.length &lt; 1) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new Error("Unable to locate collect_day.");</span>
         }
-<span class="cstat-no" title="statement not covered" >        return new CollectDays(response.rows[0]);</span>
+<span class="cstat-no" title="statement not covered" >        return response.rows;</span>
     }
 &nbsp;
     static async create(data) {
@@ -198,15 +198,15 @@ class CollectDays {
         return new CollectDays(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync destroy() {
-        let response = <span class="cstat-no" title="statement not covered" >await db.query("DELETE FROM collect_days WHERE collect_day_id = $1 RETURNING *;", [this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new CollectDays(response.rows[0]);</span>
+    async destroy() {
+        let response = await db.query("DELETE FROM collect_days WHERE collect_day_id = $1 RETURNING *;", [this.id]);
+        return new CollectDays(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync update(data) {        
-        const {zone_id, bin_type_id, weekday_id} = <span class="cstat-no" title="statement not covered" >data;        </span>
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("UPDATE collect_days SET zone_id = $1, bin_type_id =$2, weekday_id = $3 WHERE collect_day_id = $4 RETURNING *;", [zone_id, bin_type_id, weekday_id, this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new CollectDays(response.rows[0]);</span>
+    async update(data) {        
+        const {zone_id, bin_type_id, weekday_id} = data;        
+        const response = await db.query("UPDATE collect_days SET zone_id = $1, bin_type_id =$2, weekday_id = $3 WHERE collect_day_id = $4 RETURNING *;", [zone_id, bin_type_id, weekday_id, this.id]);
+        return new CollectDays(response.rows[0]);
     }
 }
 module.exports = CollectDays;
@@ -217,7 +217,7 @@ module.exports = CollectDays;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-05T15:52:08.757Z
+                at 2023-07-05T17:20:18.712Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

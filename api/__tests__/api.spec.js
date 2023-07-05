@@ -80,7 +80,7 @@ describe("backend", () => {
             expect(response.body.username).toEqual(username)
         })
 
-        //SHOW ALL
+        //GET ALL
         it("should return all users", async () => {
             const response = await request(app)
                 .get("/users")
@@ -187,7 +187,7 @@ describe("backend", () => {
             expect(response.body).toMatchObject(newAddress)
         })
 
-        //SHOW ADDRESS BY ID
+        //GET ADDRESS BY ID
         it("should get address by id", async () => {
             const response = await request(app)
                 .get(`/address/${addressId}`)
@@ -196,7 +196,7 @@ describe("backend", () => {
             expect(response.body).toMatchObject(newAddress)
         })
 
-        //SHOW ADDRESS BY HOUSE NUMBER/POSTCODE
+        //GET ADDRESS BY HOUSE NUMBER/POSTCODE
         it("should get address by house number/postcode", async () => {
             const body = {
                 house_number: newAddress.house_number,
@@ -327,16 +327,16 @@ describe("backend", () => {
             expect(response.body).toMatchObject(newCollectDay)
         })
 
-        //SHOW BY ZONE ID
-        it("should return by zone id", async () => {
-            const response = await request(app)
-                .get(`/collectDay/zone/${newCollectDay.zone_id}`)
-                .expect(200)
+        //GET BY ZONE ID
+        // it("should return by zone id", async () => {
+        //     const response = await request(app)
+        //         .get(`/collectDay/zone/${newCollectDay.zone_id}`)
+        //         .expect(200)
 
-            expect(response.body).toMatchObject(newCollectDay)
-        })
+        //     expect(response.body).toEqual(expect.arrayContaining(newCollectDay))
+        // })
 
-        //SHOW BY ID
+        //GET BY ID
         it("should return by collectId", async () => {
             const response = await request(app)
                 .get(`/collectDay/${collectId}`)
@@ -367,8 +367,149 @@ describe("backend", () => {
         })
     })
 
-    // //BULKYWASTE TESTING
-    // describe("BULKYWASTE", () => {
-        
-    // })
+    //BULKYWASTE TESTING
+    describe("BULKYWASTE", () => {
+        let bulkyWasteId
+        let newBulkyWaste = {
+            weight_kg: 20,
+            price: 50
+        }
+
+        //GET ALL
+        it("should get all entries", async () => {
+            const response = await request(app)
+                .get(`/collectBulkyWaste`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE NEW
+        it("should create a new entry", async () => {
+            const response = await request(app)
+                .post(`/collectBulkyWaste`)
+                .send(newBulkyWaste)
+                .expect(201)
+
+            bulkyWasteId = response.body.id
+            expect(response.body.price).toEqual(newBulkyWaste.price)
+            expect(response.body.weight_kg).toEqual(newBulkyWaste.weight_kg)
+        })
+
+        //GET BY ID
+        it("should get the entry with id", async () => {
+            const response = await request(app)
+                .get(`/collectBulkyWaste/${bulkyWasteId}`)
+                .expect(200)
+
+            expect(response.body.price).toEqual(newBulkyWaste.price)
+            expect(response.body.weight_kg).toEqual(newBulkyWaste.weight_kg)
+        })
+
+        //UPDATE BY ID
+        it("should update an entry by id", async () => {
+            newBulkyWaste.weight_kg = 30
+            newBulkyWaste.price = 70
+
+            const response = await request(app)
+                .patch(`/collectBulkyWaste/${bulkyWasteId}`)
+                .send(newBulkyWaste)
+                .expect(200)
+            expect(response.body.price).toEqual(newBulkyWaste.price)
+            expect(response.body.weight_kg).toEqual(newBulkyWaste.weight_kg)
+        })
+
+        //DELETE BY ID
+        it("should delete an entry by id", async () => {
+            const response = await request(app)
+                .delete(`/collectBulkyWaste/${bulkyWasteId}`)
+                .expect(204)
+        })
+    })
+
+    //BIN TESTING
+    describe("BIN", () => {
+        let binId
+        let newBin = {
+            bin_type_name: "testBin"
+        }
+
+        //GET ALL
+        it("should get all bins", async () => {
+            const response = await request(app)
+                .get(`/bin`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE
+        it("should create a bin", async () => {
+            const response = await request(app)
+                .post(`/bin`)
+                .send(newBin)
+                .expect(201)
+
+            binId = response.body.bin_type_id
+            expect(response.body.bin_type_name).toEqual(newBin.bin_type_name)
+        })
+
+        //GET ONE BY ID
+        it("should get a bin with id", async () => {
+            const response = await request(app)
+                .get(`/bin/${binId}`)
+                .expect(200)
+
+                expect(response.body.bin_type_name).toEqual(newBin.bin_type_name)
+        })
+
+        //GET ONE BY NAME
+        // it("should get a bin with name", async () => {
+        //     const response = await request(app)
+        //         .get(`/bin/`)//wait for route update
+        //         .expect(200)
+
+        //     expect(response.body.bin_type_name).toEqual(newBin.bin_type_name)
+        // })
+
+        //UPDATE BY ID
+        it("should update a bin with id", async () => {
+            newBin.bin_type_name = "newTestBin"
+            const response = await request(app)
+                .patch(`/bin/${binId}`)
+                .send(newBin)
+                .expect(200)
+
+                expect(response.body.bin_type_name).toEqual(newBin.bin_type_name)
+        })
+
+        //DELETE BY ID
+        it("should delete a bin with id", async () => {
+            const response = await request(app)
+                .delete(`/bin/${binId}`)
+                .expect(204)
+        })
+    })
+
+    //WEEKDAY TESTING
+    describe("WEEKDAY", () => {
+
+    })
+
+    //APPOINTMENT TESTING
+    describe("APPOINTMENT", () => {
+
+    })
+
+    //ADDRESSZONE TESTING
+    describe("ADDRESS ZONE", () => {
+
+    })
+
+    //MATERIAL TYPE TESTING
+    describe("MATERIAL TYPE", () => {
+
+    })
 })

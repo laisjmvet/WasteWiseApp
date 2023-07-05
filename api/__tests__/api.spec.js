@@ -323,7 +323,7 @@ describe("backend", () => {
                 .send(newCollectDay)
                 .expect(201)
 
-            collectId = response.body.collect_day_id
+            collectId = response.body.id
             expect(response.body).toMatchObject(newCollectDay)
         })
 

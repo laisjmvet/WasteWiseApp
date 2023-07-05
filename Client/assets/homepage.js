@@ -17,6 +17,7 @@ async function getUserData(username) {
         if(data.ok){
             const userData = await data.json()
             console.log(userData)
+            localStorage.setItem("id", userData.id)
             setUpPage(userData)
         }
     } catch(e) {
@@ -469,21 +470,40 @@ const returnHome2 = () => {
 
 async function makeAppointment(e) {
     e.preventDefault()
-    const appointmentData = {
-        item_name: e.target.item_input.value,
-        weight: e.target.weight_input.value,
-        weekday: e.target.date_input.value,
-        username: [...new URLSearchParams(window.location.search).values()][0]
+
+    try {
+        const rawWeekdayData = await fetch(`http://localhost:3000/weekday/weekday/${e.target.date_input.value}`)
+        if(rawWeekdayData.ok) {
+            const weekdayData = await rawWeekdayData.json()
+            console.log(weekdayData)
+            const appointmentData = {
+                user_id: localStorage.getItem("id"),
+                object_name: e.target.item_input.value,
+                weekday_id: weekdayData.id,
+                weight_kg: e.target.weight_input.value
+            }
+            //user_id, object_name, weekday_id, weight_kg
+            const options = {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(appointmentData)
+            }
+        
+            const response = await fetch("http://localhost:3000/appointment", options)
+            const data = await response.json()
+        
+            if(response.status == 201) {
+                alert("Appointment successfully created")
+            } else {
+                alert(data.error)
+            }
+        }
+        
+    } catch(e) {
+        console.log(e)
     }
     
-    const options = {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(appointmentData)
-    }
-
-    const response = await fetch("http://localhost:3000/users/register", options)
 }

@@ -45,7 +45,7 @@ class Address {
 
     async update(data) {        
         const {street_name, house_number, postcode} = data;      
-        const response = await db.query("UPDATE addresses_florin SET street_name = $1, house_number = $2, postcode = $3 RETURNING *;", [street_name, house_number, postcode]);
+        const response = await db.query("UPDATE addresses_florin SET street_name = $1, house_number = $2, postcode = $3 WHERE address_id = $4 RETURNING *;", [street_name, house_number, postcode, this.id]);
         return new Address(response.rows[0]);
     }
 }

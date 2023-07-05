@@ -368,7 +368,7 @@ VALUES
 ('Willow Lane', '278', 'GL13 13YZ', 10);
 
 INSERT INTO user_account (username, password, isAdmin, points, address_id) VALUES
-('laisjm', 'lais', true, 0, 1);
+('laisjm', 'lais', true, 0, 2), ('lais', 'lais', true, 0, 3);
 
 INSERT INTO collect_days (bin_type_id, weekday_id, zone_id) VALUES
 (1, 3, 4), (2, 3, 4), (2, 3, 2);

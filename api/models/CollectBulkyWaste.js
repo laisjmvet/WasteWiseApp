@@ -33,7 +33,7 @@ class CollectBulkyWaste {
 
     async update(data) {        
         const {weight_kg, price} = data;        
-        const response = await db.query("UPDATE collect_bulky_waste SET weight_kg = $1, price =$2 RETURNING *;", [weight_kg, price]);
+        const response = await db.query("UPDATE collect_bulky_waste SET weight_kg = $1, price = $2 WHERE bulky_waste_id = $3 RETURNING *;", [weight_kg, price, this.id]);
         return new CollectBulkyWaste(response.rows[0]);
     }
 }

@@ -30,7 +30,7 @@ class RecyclableObject {
     static async searchInput(input) {
         
         try {
-            const response = await db.query("SELECT name FROM recycling_object WHERE name ILIKE '%' || $1 || '%'", [input]);       
+            const response = await db.query("SELECT * FROM recycling_object WHERE name ILIKE '%' || $1 || '%'", [input]);       
             return response.rows;
         } catch (error) {
             console.log(error);

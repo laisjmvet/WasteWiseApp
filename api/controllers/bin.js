@@ -24,7 +24,6 @@ async function showOneById (req, res) {
     try {
         const id = parseInt(req.params.id);        
         const bin = await Bin.getOneById(id);
-        console.log(bin)
         res.status(200).json(bin);
     } catch (err) {
         res.status(404).json({"error": err.message});
@@ -45,6 +44,7 @@ async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
         const bin = await Bin.getOneById(id);
+        console.log(bin, "<<<<<<<<<<<<<<")
         const result = await bin.destroy();
         res.status(204).end();
     } catch (err) {

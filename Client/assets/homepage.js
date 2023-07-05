@@ -37,7 +37,7 @@ async function setUpPage(userData) {
                 const zoneData = await fetch(`http://localhost:3000/collectDay/zone/${zoneId}`)
                 if(zoneData.ok) {
                     collectionDayData = await zoneData.json()
-                    displayBins(collectionDayData)
+                    displayBins(collectionDayData[0])
                 }
             }catch(e) {
                 console.log(e)
@@ -408,18 +408,46 @@ async function openBulkyWastePopup() {
     itemInput.type = "text"
     itemInput.placeholder = "fridge"
     itemInput.name = "item_input"
+    itemInput.addEventListener('blur', checkFormFull)
     bulkyWasteForm.appendChild(itemInput)
+
+    const weightFormSection = document.createElement("div")
+    weightFormSection.setAttribute("name", "weight_form_section")
 
     const weightLabel = document.createElement("label")
     weightLabel.setAttribute("name", "weight_label")
     weightLabel.textContent = `How heavy is the item? (kg)`
-    bulkyWasteForm.appendChild(weightLabel)
+    weightFormSection.appendChild(weightLabel)
 
-    const weightInput = document.createElement("input")
-    weightInput.type = "text"
-    weightInput.placeholder = "80"
-    weightInput.name = "weight_input"
-    bulkyWasteForm.appendChild(weightInput)
+    // const weightInput = document.createElement("input")
+    // weightInput.type = "text"
+    // weightInput.placeholder = "80"
+    // weightInput.name = "weight_input"
+    // weightInput.addEventListener('blur', checkFormFull)
+    // bulkyWasteForm.appendChild(weightInput)
+    
+    const weights = [30, 60, 100, 101]
+    for(let i = 0; i<weights.length; i++) {
+        const weightDiv = document.createElement("div")
+        weightDiv.setAttribute("name", `${weights[i]}_radio_container`)
+
+        const weightInput = document.createElement("input")
+        weightInput.type = "radio"
+        weightInput.name = `weight_input`
+        weightInput.value = `${weights[i]}`
+        weightInput.addEventListener('blur', checkFormFull)
+
+        const weightLabel = document.createElement("label")
+        weightLabel.setAttribute("name", `${weights[i]}_label`)
+        weightLabel.textContent = `${weights[i]}`
+        weightLabel.setAttribute("for", `${weights[i]}`)
+
+        weightDiv.appendChild(weightInput)
+        weightDiv.appendChild(weightLabel)
+        weightFormSection.appendChild(weightDiv)
+    }
+
+    bulkyWasteForm.appendChild(weightFormSection)
 
     const dateFormSection = document.createElement("div")
     dateFormSection.setAttribute("name", "date_form_section")
@@ -430,7 +458,7 @@ async function openBulkyWastePopup() {
     dateFormSection.appendChild(dateLabel)
 
     let weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-    for(let i = 0; i<5; i++) {
+    for(let i = 0; i<weekdays.length; i++) {
         const weekdayDiv = document.createElement("div")
         weekdayDiv.setAttribute("name", `${weekdays[i]}_radio_container`)
 
@@ -438,6 +466,7 @@ async function openBulkyWastePopup() {
         dateInput.type = "radio"
         dateInput.name = `date_input`
         dateInput.value = `${weekdays[i]}`
+        dateInput.addEventListener('focus', checkFormFull)
 
         const weekdayLabel = document.createElement("label")
         weekdayLabel.setAttribute("name", `${weekdays[i]}_label`)
@@ -451,6 +480,7 @@ async function openBulkyWastePopup() {
 
     bulkyWasteForm.appendChild(dateFormSection)
 
+
     const bulkyWasteSubmit = document.createElement("button")
     bulkyWasteSubmit.name = "bulky_waste_submit_button"
     bulkyWasteSubmit.textContent = "Book Collection"
@@ -463,6 +493,32 @@ async function openBulkyWastePopup() {
 
 }
 
+async function checkFormFull() {
+    if(document.getElementsByName("bulky_waste_form")[0].itemInput.value != "" && document.getElementsByName("bulky_waste_form")[0].weightInput.value != "" && document.getElementsByName("bulky_waste_form")[0].dateInput.value != "") {
+        try {
+            const rawPriceData = await fetch(`http://localhost:3000/collectBulkyWaste/`)
+            if (rawPriceData.ok){
+                const priceData = await rawPriceData.json()
+                if(document.getElementsByName("cost_text").length == 0){
+                    const costText = document.createElement("p")
+                    costText.setAttribute("name", "cost_text")
+                    costText.textContent = `This will cost £${priceData.price} to collect.`
+                    document.getElementsByName("bulky_waste_form")[0].appendChild(costText)
+                } else if(document.getElementsByName("cost_text").length == 1) {
+                    let costText = document.getElementsByName("cost_text")[0]
+                    costText.textContent = `This will cost £${priceData.price} to collect.`
+                } else {
+                    console.log("This is getting out of hand, now there are two of them!")
+                }
+            }
+            
+        } catch(e) {
+            console.log(e)
+        }
+        
+    }
+}
+
 const returnHome2 = () => {
     const element = document.getElementById("bulky_waste_menu_container")
     element.remove()
@@ -470,12 +526,11 @@ const returnHome2 = () => {
 
 async function makeAppointment(e) {
     e.preventDefault()
-
+    console.log(e.target.date_input.value)
     try {
         const rawWeekdayData = await fetch(`http://localhost:3000/weekday/weekday/${e.target.date_input.value}`)
         if(rawWeekdayData.ok) {
             const weekdayData = await rawWeekdayData.json()
-            console.log(weekdayData)
             const appointmentData = {
                 user_id: localStorage.getItem("id"),
                 object_name: e.target.item_input.value,

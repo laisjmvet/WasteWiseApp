@@ -236,7 +236,7 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 --!!!!!!!!!!NEEDS TO THIS DATABASE ABOUT THE RECYCLING
 
 INSERT INTO collect_bulky_waste (price, weight_kg) VALUES
-(100, 10);
+(100, 101), (50,100), (30,60), (15,30);
 
 INSERT INTO address_zones(zone_number) VALUES
 (0), (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);

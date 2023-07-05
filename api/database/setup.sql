@@ -61,13 +61,13 @@ CREATE TABLE token (
 
 CREATE TABLE bin_types (
     bin_type_id INT GENERATED ALWAYS AS IDENTITY,
-    bin_type_name VARCHAR NOT NULL, 
+    bin_type_name VARCHAR UNIQUE NOT NULL, 
     PRIMARY KEY (bin_type_id)
 );
 
 CREATE TABLE materials_type (
     material_type_id INT GENERATED ALWAYS AS IDENTITY,
-    name VARCHAR NOT NULL,
+    name VARCHAR UNIQUE NOT NULL,
     PRIMARY KEY (material_type_id)
 );
 
@@ -100,12 +100,12 @@ CREATE TABLE collect_bulky_waste(
 );
 
 INSERT INTO weekdays (weekday)
-VALUES ('Sunday'), ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday');
+VALUES ('Sunday'), ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday'), ('UNDEFINED');
 
 INSERT INTO bin_types (bin_type_name) VALUES('General Waste'), ('Recycling'), ('Food Waste'), ('Garden Waste'), ('Clear bag'), ('Large Supermarkets'), ('Needs Collection'), ('UNDEFINED');
 
 INSERT INTO materials_type (name) VALUES
-('Plastic'), ('Paper'), ('Glass'), ('Metal'), ('Small Electronics'), ('Food'), ('Textiles'), ('Batteries'), ('Garden'), ('Bulky waste');
+('Plastic'), ('Paper'), ('Glass'), ('Metal'), ('Small Electronics'), ('Food'), ('Textiles'), ('Batteries'), ('Garden'), ('Bulky waste'), ('UNDEFINED');
 
 INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 ('Plastic water bottle', 1, 2),

@@ -413,6 +413,19 @@ async function openBulkyWastePopup() {
     weightInput.name = "weight_input"
     bulkyWasteForm.appendChild(weightInput)
 
+    const dateLabel = document.createElement("label")
+    dateLabel.setAttribute("name", "weight_label")
+    dateLabel.textContent = `When would you like it collected?`
+    bulkyWasteForm.appendChild(dateLabel)
+
+    const dateInput = document.createElement("input")
+    dateInput.type = "text"
+    dateInput.placeholder = "wednesday"
+    dateInput.name = "date_input"
+    bulkyWasteForm.appendChild(dateInput)
+
+    
+
     bulkyWasteMenu.appendChild(bulkyWasteForm)
 
     const body = document.querySelector('body')

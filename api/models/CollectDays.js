@@ -30,8 +30,8 @@ class CollectDays {
     }
 
     static async create(data) {
-        const { zone_id, bin_type_id } = data;
-        let response = await db.query("INSERT INTO collect_days (zone_id, bin_type_id) VALUES ($1, $2) RETURNING *;", [zone_id, bin_type_id]);
+        const { zone_id, bin_type_id, weekday_id } = data;
+        let response = await db.query("INSERT INTO collect_days (zone_id, bin_type_id, weekday_id) VALUES ($1, $2, $3) RETURNING *;", [zone_id, bin_type_id, weekday_id]);
         return new CollectDays(response.rows[0]);
     }
 

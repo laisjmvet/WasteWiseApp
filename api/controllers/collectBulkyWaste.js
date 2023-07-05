@@ -29,6 +29,17 @@ async function showOne (req, res) {
     };
 };
 
+async function showOneByWeight (req, res) {
+    try {
+        const weight = parseInt(req.params.weight);
+        console.log(weight)
+        const collectBulkyWaste = await CollectBulkyWaste.getOneByWeight(weight);
+        res.status(200).json(collectBulkyWaste);
+    } catch (err) {
+        res.status(404).json({"error": err.message});
+    };
+};
+
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
@@ -52,4 +63,4 @@ async function update (req, res) {
     };
 };
 
-module.exports = {showAll, create, showOne, destroy, update};
+module.exports = {showAll, create, showOne, destroy, update, showOneByWeight};

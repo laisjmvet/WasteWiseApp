@@ -5,6 +5,7 @@ const collectBulkyWasteRouter = express.Router();
 
 collectBulkyWasteRouter.get("/", collectBulkyWasteController.showAll);
 collectBulkyWasteRouter.get("/:id", collectBulkyWasteController.showOne);
+collectBulkyWasteRouter.get("/weight/:weight", collectBulkyWasteController.showOneByWeight);
 collectBulkyWasteRouter.post("/", collectBulkyWasteController.create);
 collectBulkyWasteRouter.delete("/:id", collectBulkyWasteController.destroy);
 collectBulkyWasteRouter.patch("/:id", collectBulkyWasteController.update);

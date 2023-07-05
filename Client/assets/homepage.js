@@ -385,6 +385,13 @@ async function openBulkyWastePopup() {
 
     const bulkyWasteForm = document.createElement("form")
     bulkyWasteForm.name = "bulky_waste_form"
+    bulkyWasteForm.addEventListener("submit", makeAppointment)
+    bulkyWasteForm.addEventListener('keypress', function(e) {
+        if (e.keyCode === 13) {
+          e.preventDefault();
+        }
+      });
+    
 
     const title = document.createElement("p")
     title.setAttribute("name", "title")
@@ -413,19 +420,41 @@ async function openBulkyWastePopup() {
     weightInput.name = "weight_input"
     bulkyWasteForm.appendChild(weightInput)
 
+    const dateFormSection = document.createElement("div")
+    dateFormSection.setAttribute("name", "date_form_section")
+
     const dateLabel = document.createElement("label")
-    dateLabel.setAttribute("name", "weight_label")
+    dateLabel.setAttribute("name", "date_label")
     dateLabel.textContent = `When would you like it collected?`
-    bulkyWasteForm.appendChild(dateLabel)
+    dateFormSection.appendChild(dateLabel)
 
-    const dateInput = document.createElement("input")
-    dateInput.type = "text"
-    dateInput.placeholder = "wednesday"
-    dateInput.name = "date_input"
-    bulkyWasteForm.appendChild(dateInput)
+    let weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    for(let i = 0; i<5; i++) {
+        const weekdayDiv = document.createElement("div")
+        weekdayDiv.setAttribute("name", `${weekdays[i]}_radio_container`)
 
+        const dateInput = document.createElement("input")
+        dateInput.type = "radio"
+        dateInput.name = `date_input`
+        dateInput.value = `${weekdays[i]}`
+
+        const weekdayLabel = document.createElement("label")
+        weekdayLabel.setAttribute("name", `${weekdays[i]}_label`)
+        weekdayLabel.textContent = `${weekdays[i]}`
+        weekdayLabel.setAttribute("for", `${weekdays[i]}`)
+
+        weekdayDiv.appendChild(dateInput)
+        weekdayDiv.appendChild(weekdayLabel)
+        dateFormSection.appendChild(weekdayDiv)
+    }
+
+    bulkyWasteForm.appendChild(dateFormSection)
+
+    const bulkyWasteSubmit = document.createElement("button")
+    bulkyWasteSubmit.name = "bulky_waste_submit_button"
+    bulkyWasteSubmit.textContent = "Book Collection"
+    bulkyWasteForm.appendChild(bulkyWasteSubmit)
     
-
     bulkyWasteMenu.appendChild(bulkyWasteForm)
 
     const body = document.querySelector('body')
@@ -436,4 +465,25 @@ async function openBulkyWastePopup() {
 const returnHome2 = () => {
     const element = document.getElementById("bulky_waste_menu_container")
     element.remove()
+}
+
+async function makeAppointment(e) {
+    e.preventDefault()
+    const appointmentData = {
+        item_name: e.target.item_input.value,
+        weight: e.target.weight_input.value,
+        weekday: e.target.date_input.value,
+        username: [...new URLSearchParams(window.location.search).values()][0]
+    }
+    
+    const options = {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(appointmentData)
+    }
+
+    const response = await fetch("http://localhost:3000/users/register", options)
 }

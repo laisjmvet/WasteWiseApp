@@ -88,10 +88,44 @@ describe("api server", () => {
             expect(response.body.length).toBeGreaterThan(0)
         })
 
-        // //LOGOUT
-        // it("should logout the user", async () => {
+        //UPDATE ADMIN
+        it("should change admin status", async () => {
+            const admin = true
+            const body = {
+                admin: admin
+            }
+            const response = await request(app)
+                .patch(`/users/admin/${username}`)
+                .send(body)
+                .expect(200)
+            //FIX THISSSSSSSSSS OR SOMETHING
+            console.log(response.body.isAdmin + "<><><><><><><><><><><>><><<<<")
+            //expect()
+        })
 
-        // })
+        //UPDATE POINTS
+        it("should update the users points", async () => {
+            const points = 5
+            const body = {
+                points: points
+            }
+            const response = await request(app)
+                .patch(`/users/points/${username}`)
+                .send(body)
+                .expect(200)
+            
+            expect(response.body.points).toEqual(points)
+        })
+
+        //UPDATE USERS ADDRESS
+        it("should update a users address", async () => {
+
+        })
+
+        // //LOGOUT
+        it("should logout the user", async () => {
+
+        })
     })
 
     //ADDRESS TESTING
@@ -114,7 +148,7 @@ describe("api server", () => {
                 street_name: "testStreet",
                 house_number: "2",
                 postcode: "AA1 AA1"
-                //ADD ZONE ID
+                //ADD ZONE ID WHEN FIXED
             }
             const response = await request(app)
                 .post("/address")

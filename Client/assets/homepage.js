@@ -48,10 +48,14 @@ async function setUpPage(userData) {
     } catch(e) {
         console.log(e)
     }
-    if(userData.isAdmin) {
+
+    if(userData.isAdmin == false) {
         const adminButton = document.createElement("button")
         adminButton.name = "admin_button"
         adminButton.textContent= "admin"
+        adminButton.addEventListener("click", () => {
+            window.location.assign(`admin.html?username=${userData.username}`)
+        })
         
         const buttonsDiv = document.getElementsByName("main_buttons")[0]
         buttonsDiv.appendChild(adminButton)   

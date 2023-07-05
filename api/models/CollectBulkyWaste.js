@@ -20,6 +20,15 @@ class CollectBulkyWaste {
         return new CollectBulkyWaste(response.rows[0]);
     }
 
+    static async getOneByWeight(weight) {
+        const response = await db.query("SELECT * FROM collect_bulky_waste WHERE weight_kg = $1", [weight]);
+        if (response.rows.length != 1) {
+            throw new Error("Unable to locate weight.");
+        }
+        return new CollectBulkyWaste(response.rows[0]);
+    }
+
+
     static async create(data) {
         const { weight_kg, price } = data;
         let response = await db.query("INSERT INTO collect_bulky_waste (weight_kg, price) VALUES ($1, $2) RETURNING *;", [weight_kg, price]);

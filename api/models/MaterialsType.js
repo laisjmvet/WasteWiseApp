@@ -34,7 +34,7 @@ class MaterialsType {
     }
 
     async destroy() {
-        await db.query()
+        await db.query("UPDATE recycling_object SET material_type_id = $1 WHERE material_type_id = $2 RETURNING *;", [1, this.id])
         const response = await db.query("DELETE FROM materials_type WHERE material_type_id = $1 RETURNING *;", [this.id]);
         return new MaterialsType(response.rows[0]);
     }

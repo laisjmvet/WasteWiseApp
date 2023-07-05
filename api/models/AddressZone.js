@@ -34,6 +34,8 @@ class AddressZone {
     }
 
     async destroy() {
+        await db.query("UPDATE addresses_florin SET zone_id = $1 WHERE zone_id = $2 RETURNING *;", [1, this.id]);
+        await db.query("UPDATE collect_days SET zone_id = $1 WHERE zone_id = $2 RETURNING *;", [1, this.id]);
         const response = await db.query("DELETE FROM address_zones WHERE zone_id = $1 RETURNING *;", [this.id]);
         return new AddressZone(response.rows[0]);
     }

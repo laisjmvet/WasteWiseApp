@@ -14,7 +14,7 @@ async function createUser(e) {
                 username: e.target.username.value,
                 password: e.target.password.value
             }
-            
+
             const options = {
                 method: "POST",
                 headers: {
@@ -50,6 +50,26 @@ const checkValidPostcode = (str) => {
     let halves = str.split(" ")
     if(halves[1].length == 3) {
         if(alphabet.includes(halves[1][1]) && alphabet.includes(halves[1][2]) && Number.isNaN(parseInt(halves[1][0])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else if(halves[1].length == 4) {
+        if(alphabet.includes(halves[1][2]) && alphabet.includes(halves[1][3]) && Number.isNaN(parseInt(halves[1][0])) == false && Number.isNaN(parseInt(halves[1][1])) == false){
             if(halves[0].length == 3) {
                 if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
                     return true

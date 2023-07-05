@@ -358,6 +358,8 @@ async function submitItem(e) {
                 popUp.remove()
                 let binText = document.getElementsByName("which_bin_text")[0]
                 binText.remove()
+                const pointsButton = document.getElementsByName("points_button")[0]
+                pointsButton.textContent = `Points: ${currentPoints}`
                 document.getElementsByName("recycling_form")[0].search_bar.value = ""
                 alert("Thank you for correctly disposing of your waste! You have gained a point.")  
             }

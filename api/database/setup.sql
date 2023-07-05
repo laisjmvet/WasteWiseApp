@@ -5,9 +5,12 @@ ALTER TABLE IF EXISTS collect_days DROP CONSTRAINT IF EXISTS collect_days_weekda
 ALTER TABLE IF EXISTS collect_days DROP CONSTRAINT IF EXISTS collect_days_zone_id_fkey;
 ALTER TABLE IF EXISTS recycling_object DROP CONSTRAINT IF EXISTS recycling_object_bin_type_id_fkey;
 ALTER TABLE IF EXISTS recycling_object DROP CONSTRAINT IF EXISTS recycling_object_material_type_id_fkey;
+ALTER TABLE IF EXISTS appointments DROP CONSTRAINT IF EXISTS appointments_user_id_fkey;
+ALTER TABLE IF EXISTS appointments DROP CONSTRAINT IF EXISTS appointments_weekday_id_fkey;
 
 -- drop tables if they exist
 DROP TABLE IF EXISTS token;
+DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS user_account;
 DROP TABLE IF EXISTS recycling_object;
 DROP TABLE IF EXISTS materials_type; 
@@ -100,12 +103,16 @@ CREATE TABLE collect_bulky_waste(
 );
 
 CREATE TABLE appointments (
-    username VARCHAR NOT NULL,
+    appointments_id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
     object_name VARCHAR NOT NULL,
-    address VARCHAR NOT NULL,
     weight_kg INT NOT NULL,
-    
-)
+    weekday_id INT NOT NULL,
+    PRIMARY KEY (appointments_id),
+    FOREIGN KEY (weekday_id) REFERENCES weekdays(weekday_id),
+    FOREIGN KEY (user_id) REFERENCES user_account(user_id)
+
+);
 
 INSERT INTO weekdays (weekday)
 VALUES ('UNDEFINED'), ('Sunday'), ('Monday'), ('Tuesday'), ('Wednesday'), ('Thursday'), ('Friday'), ('Saturday');
@@ -380,5 +387,8 @@ INSERT INTO user_account (username, password, isAdmin, points, address_id) VALUE
 
 INSERT INTO collect_days (bin_type_id, weekday_id, zone_id) VALUES
 (1, 3, 4), (2, 3, 4), (2, 3, 2);
+
+INSERT INTO appointments (user_id, object_name, weekday_id, weight_kg) VALUES
+(1, 'sofa', 2, 10);
 
 

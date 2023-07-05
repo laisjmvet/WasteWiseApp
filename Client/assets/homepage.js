@@ -17,6 +17,8 @@ async function getUserData(username) {
         if(data.ok){
             const userData = await data.json()
             console.log(userData)
+            const pointsButton = document.getElementsByName("points_button")[0]
+            pointsButton.textContent = `Points: ${userData.points}`
             localStorage.setItem("id", userData.id)
             setUpPage(userData)
         }
@@ -552,3 +554,4 @@ async function makeAppointment(e) {
         console.log(e)
     }    
 }
+

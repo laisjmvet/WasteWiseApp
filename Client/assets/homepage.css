@@ -38,13 +38,6 @@ form[name="bulky_waste_form"] {
 }
 
 
-
-
-div[name="user_dropdown"] {
-    display:flex;
-    flex-direction: column;
-}
-
 #bin_and_user {
     display:flex;
     flex-direction: column;
@@ -120,3 +113,15 @@ div[name = "dropdown_content"] {
     max-height:200px;
     overflow:scroll;
 }
+
+div[name="user_dropdown"] {
+    display:inline-block;
+}
+
+div[name="user_dropdown_content"] {
+    display:none;
+    position: absolute;
+    z-index: 1;
+}
+
+div[name="user_dropdown"]:hover div[name="user_dropdown_content"] {display:block;}

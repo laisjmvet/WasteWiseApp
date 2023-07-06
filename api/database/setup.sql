@@ -389,6 +389,6 @@ INSERT INTO collect_days (bin_type_id, weekday_id, zone_id) VALUES
 (1, 3, 4), (2, 3, 4), (2, 3, 2);
 
 INSERT INTO appointments (user_id, object_name, weekday_id, weight_kg) VALUES
-(1, 'sofa', 2, 10);
+(1, 'sofa', 2, 60);
 
 

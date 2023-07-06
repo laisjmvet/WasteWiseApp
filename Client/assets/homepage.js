@@ -31,7 +31,6 @@ async function getUserData(username) {
 
 async function setUpPage(userData) {
     userAddressId = userData.address_id
-    let isAdmin = userData.isAdmin
     try {
         const data = await fetch(`http://localhost:3000/address/${userAddressId}`)
         if (data.ok) {
@@ -128,6 +127,15 @@ async function openRecyclingMenu() {
     autoComplete.setAttribute("autocomplete", "false")
     recyclingForm.appendChild(autoComplete)
 
+    const recyclingTitle = document.createElement("p")
+    recyclingTitle.setAttribute("name", "title")
+    recyclingTitle.textContent = "Disposal Help"
+    recyclingForm.appendChild(recyclingTitle)
+
+    const searchLabel = document.createElement("label")
+    searchLabel.setAttribute("name", "search_label")
+    searchLabel.textContent = "Search for something"
+
     const searchBar = document.createElement("input")
     searchBar.type = "text"
     searchBar.placeholder = "Search..."
@@ -143,6 +151,7 @@ async function openRecyclingMenu() {
 
     const dropdownSection = document.createElement("div")
     dropdownSection.setAttribute("name", "dropdown_section")
+    dropdownSection.appendChild(searchLabel)
     dropdownSection.appendChild(searchBar)
 
     const dropdownContent = document.createElement("div")
@@ -430,7 +439,7 @@ async function openBulkyWastePopup() {
     weightFormSection.appendChild(weightLabel)
     
     const weights = [30, 60, 100, 101]
-    for(let i = 0; i<weights.length; i++) {
+    for(let i = 0; i<weights.length-1; i++) {
         const weightDiv = document.createElement("div")
         weightDiv.setAttribute("name", `${weights[i]}_radio_container`)
 
@@ -442,13 +451,30 @@ async function openBulkyWastePopup() {
 
         const weightLabel = document.createElement("label")
         weightLabel.setAttribute("name", `${weights[i]}_label`)
-        weightLabel.textContent = `${weights[i]}`
+        weightLabel.textContent = `<${weights[i]}`
         weightLabel.setAttribute("for", `${weights[i]}`)
 
         weightDiv.appendChild(weightInput)
         weightDiv.appendChild(weightLabel)
         weightFormSection.appendChild(weightDiv)
     }
+    
+    const weightDiv = document.createElement("div")
+    weightDiv.setAttribute("name", `${weights[3]}_radio_container`)
+
+    const weightInput = document.createElement("input")
+    weightInput.type = "radio"
+    weightInput.name = `weight_input`
+    weightInput.value = `${weights[3]}`
+    weightInput.addEventListener('click', checkFormFull)
+
+    const weightLabel2 = document.createElement("label")
+    weightLabel2.setAttribute("name", `${weights[3]}_label`)
+    weightLabel2.textContent = `>100`
+    weightLabel2.setAttribute("for", `${weights[3]}`)
+    weightDiv.appendChild(weightInput)
+    weightDiv.appendChild(weightLabel2)
+    weightFormSection.appendChild(weightDiv)
 
     bulkyWasteForm.appendChild(weightFormSection)
 

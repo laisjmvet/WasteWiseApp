@@ -8,8 +8,16 @@ class User {
     this.isAdmin = isadmin;
     this.address_id = address_id;
     this.points = points;
-}
+    };
 
+    static async getAll() {
+        try {
+            const response = await db.query("SELECT * FROM user_account");
+            return response.rows.map(a => new User(a));
+        } catch (error) {
+            console.log(error);
+        }        
+    };
 
     static async getOneById(id) {
         try {
@@ -18,19 +26,16 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     static async getOneByUsername(username) {
         try {
             const response = await db.query('SELECT * from user_account WHERE username = $1', [username]);
-            if (response.rows.length != 1) {
-                throw new Error("Unable to locate user.")
-            }
             return new User(response.rows[0]);      
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     static async create(data, address_id) {    
         try {
@@ -40,7 +45,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updateIsAdmin(data) {
         try {
@@ -49,7 +54,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updatePoints(data) {
         try {
@@ -58,7 +63,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updateAddressId(data) {
         try {
@@ -67,7 +72,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updatePassword(user, data) {
         try {
@@ -76,7 +81,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updateUsername(data) {
         try {
@@ -85,21 +90,15 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async destroy() {
         try {
             let response = await db.query("DELETE FROM user_account WHERE user_id = $1 RETURNING *;", [this.id]);
-        return new User(response.rows[0]);
+            return new User(response.rows[0]);
         } catch (error) {
-            console.log(error)
-        }
-        
-    }
-
-    static async getAll() {
-        const response = await db.query("SELECT * FROM user_account");
-        return response.rows.map(a => new User(a));
-    }
-}
+            console.log(error);
+        }        
+    };
+};
 module.exports = User;

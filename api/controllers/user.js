@@ -18,7 +18,7 @@ async function register(req, res) {
     } catch (error) {
         res.status(400).json({"error": error.message})
     }
-}
+};
 
 async function login(req, res) {
     try {
@@ -35,7 +35,7 @@ async function login(req, res) {
     } catch (error) {
         res.status(403).json({"error": error.message})
     }
-}
+};
 
 async function logout(req, res) {
     try {
@@ -51,7 +51,7 @@ async function logout(req, res) {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
-}
+};
 
 async function getUserByUsername(req, res) {
     try {
@@ -65,7 +65,7 @@ async function getUserByUsername(req, res) {
     } catch (error) {
         res.status(500).json({"error": error.message});
     }
-}
+};
 
 async function getUserById(req, res) {
     try {
@@ -75,7 +75,7 @@ async function getUserById(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }
-}
+};
 
 async function updateIsAdmin(req, res) {
     try {
@@ -87,7 +87,7 @@ async function updateIsAdmin(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }
-}
+};
 
 async function updatePoints(req, res) {
     try {
@@ -99,7 +99,7 @@ async function updatePoints(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }
-}
+};
 
 async function updateUsername(req, res) {
     try {
@@ -111,7 +111,7 @@ async function updateUsername(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }
-}
+};
 
 async function updatePassword(req, res) {
     try {
@@ -127,7 +127,7 @@ async function updatePassword(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }
-}
+};
 
 async function updateAddressId(req, res) {
     try {
@@ -141,7 +141,7 @@ async function updateAddressId(req, res) {
     } catch (error) {
         res.status(404).json({"error": error.message});
     }    
-}
+};
 
 async function showAll (req, res) {
     try {

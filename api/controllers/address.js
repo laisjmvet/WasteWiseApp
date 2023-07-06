@@ -6,7 +6,7 @@ async function showAll (req, res) {
         res.status(200).json(addresses);
     } catch (err) {
         res.status(500).json({"error": err.message});
-    };
+    }
 };
 
 async function create (req, res) {
@@ -16,7 +16,7 @@ async function create (req, res) {
         res.status(201).send(result);
     } catch (err) {
         res.status(400).json({"error": err.message});
-    };
+    }
 };
 
 async function showOneById (req, res) {
@@ -26,7 +26,7 @@ async function showOneById (req, res) {
         res.status(200).json(address);
     } catch (err) {
         res.status(404).json({"error": err.message});
-    };
+    }
 };
 
 async function showOneByUserInput (req, res) {
@@ -36,7 +36,7 @@ async function showOneByUserInput (req, res) {
         res.status(200).json(address);
     } catch (err) {
         res.status(404).json({"error": err.message});
-    };
+    }
 };
 
 async function destroy (req, res) {
@@ -47,7 +47,7 @@ async function destroy (req, res) {
         res.status(204).end();
     } catch (err) {
         res.status(404).json({"error": err.message});
-    };
+    }
 };
 
 async function update (req, res) {
@@ -59,7 +59,7 @@ async function update (req, res) {
         res.status(200).json(result);
     } catch (err) {
         res.status(404).json({"error": err.message});
-    };
+    }
 }
 
 module.exports = {showAll, create, destroy, update, showOneByUserInput, showOneById}; 

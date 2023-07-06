@@ -47,7 +47,7 @@ The website allows the user to login/register and will be shown relevant informa
 
 Users may input proposed waste, such as 'Cardboard pizza box' into a search box and the webpage will output information about which bin will be suitable for them.
 
-The website also allows the user to book a collection for large items which do not fit into the provided bins such as furniture. This will come as a cost extra. 
+The website also allows the user to book a collection for large items which do not fit into the provided bins such as furniture. This will come as an extra cost.  
 
 ### Key Features
 - There are now more bins per household in Florin than ever before. It can be tricky for our users to know when their bins are going so this app will help distinguish area codes and how this decides your collection days.

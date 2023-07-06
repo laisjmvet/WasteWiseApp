@@ -53,7 +53,7 @@ class User {
 
     async updatePoints(data) {
         try {
-            const response =  await db.query("UPDATE user_account SET points = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);
+            const response =  await db.query("UPDATE user_account SET points = $1 WHERE user_id = $2 RETURNING *;", [data + this.points, this.id]);
             return new User(response.rows[0]);            
         } catch (error) {
             console.log(error);

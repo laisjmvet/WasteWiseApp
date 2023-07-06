@@ -23,6 +23,9 @@ class User {
     static async getOneByUsername(username) {
         try {
             const response = await db.query('SELECT * from user_account WHERE username = $1', [username]);
+            if (response.rows.length != 1) {
+                throw new Error("Unable to locate user.")
+            }
             return new User(response.rows[0]);      
         } catch (error) {
             console.log(error);

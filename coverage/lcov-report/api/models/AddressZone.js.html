@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/25</span>
+                <span class='fraction'>20/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>7/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">79.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/24</span>
+                <span class='fraction'>19/24</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -116,21 +116,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,36 +134,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db =  require('../database/connect');
 &nbsp;
 class AddressZone {
-<span class="fstat-no" title="function not covered" >    co</span>nstructor ({zone_id, zone_number}) {
-<span class="cstat-no" title="statement not covered" >        this.id = zone_id;</span>
-<span class="cstat-no" title="statement not covered" >        this.zone_number = zone_number;</span>
+    constructor ({zone_id, zone_number}) {
+        this.id = zone_id;
+        this.zone_number = zone_number;
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getAll() {
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM address_zones");</span>
-<span class="cstat-no" title="statement not covered" >        return response.rows.map(<span class="fstat-no" title="function not covered" >a </span>=&gt; <span class="cstat-no" title="statement not covered" >new AddressZone(a))</span>;</span>
+    static async getAll() {
+        const response = await db.query("SELECT * FROM address_zones");
+        return response.rows.map(a =&gt; new AddressZone(a));
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    st</span>atic async getOneByNumber(number) {
@@ -182,31 +182,31 @@ class AddressZone {
 <span class="cstat-no" title="statement not covered" >        return new AddressZone(response.rows[0]);</span>
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getOneById(id) {
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM address_zones WHERE zone_id = $1", [id]);</span>
-<span class="cstat-no" title="statement not covered" >        if (response.rows.length != 1) {</span>
+    static async getOneById(id) {
+        const response = await db.query("SELECT * FROM address_zones WHERE zone_id = $1", [id]);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.rows.length != 1) {
 <span class="cstat-no" title="statement not covered" >            throw new Error("Unable to locate zone.");</span>
         }
-<span class="cstat-no" title="statement not covered" >        return new AddressZone(response.rows[0]);</span>
+        return new AddressZone(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async create(data) {
-        const {zone_number } = <span class="cstat-no" title="statement not covered" >data;</span>
-        let response = <span class="cstat-no" title="statement not covered" >await db.query("INSERT INTO address_zones (zone_number) VALUES ($1) RETURNING *;", [zone_number]);</span>
-<span class="cstat-no" title="statement not covered" >        return new AddressZone(response.rows[0]);</span>
+    static async create(data) {
+        const {zone_number } = data;
+        let response = await db.query("INSERT INTO address_zones (zone_number) VALUES ($1) RETURNING *;", [zone_number]);
+        return new AddressZone(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync destroy() {
-<span class="cstat-no" title="statement not covered" >        await db.query("UPDATE addresses_florin SET zone_id = $1 WHERE zone_id = $2 RETURNING *;", [1, this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        await db.query("UPDATE collect_days SET zone_id = $1 WHERE zone_id = $2 RETURNING *;", [1, this.id]);</span>
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("DELETE FROM address_zones WHERE zone_id = $1 RETURNING *;", [this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new AddressZone(response.rows[0]);</span>
+    async destroy() {
+        await db.query("UPDATE addresses_florin SET zone_id = $1 WHERE zone_id = $2 RETURNING *;", [1, this.id]);
+        await db.query("UPDATE collect_days SET zone_id = $1 WHERE zone_id = $2 RETURNING *;", [1, this.id]);
+        const response = await db.query("DELETE FROM address_zones WHERE zone_id = $1 RETURNING *;", [this.id]);
+        return new AddressZone(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync update(data) {        
-        const {zone_number} = <span class="cstat-no" title="statement not covered" >data;        </span>
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("UPDATE address_zones SET zone_number = $1 WHERE zone_id = $2 RETURNING *;", [zone_number, this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new AddressZone(response.rows[0]);</span>
+    async update(data) {        
+        const {zone_number} = data;        
+        const response = await db.query("UPDATE address_zones SET zone_number = $1 WHERE zone_id = $2 RETURNING *;", [zone_number, this.id]);
+        return new AddressZone(response.rows[0]);
     }
 }
 module.exports = AddressZone;
@@ -217,7 +217,7 @@ module.exports = AddressZone;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-06T09:05:58.637Z
+                at 2023-07-06T15:02:18.261Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

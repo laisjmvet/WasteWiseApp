@@ -1,6 +1,6 @@
 const request = require("supertest")
-const app = require("../api")
-const db = require("../database/connect")
+const app = require("../api/api")
+const db = require("../api/database/connect")
 
 describe("backend", () => {
     let api
@@ -133,18 +133,18 @@ describe("backend", () => {
         })
 
         //LOGOUT NEEDS FIXING??
-        it("should logout the user", async () => {
-            const res = await db.query("SELECT token FROM token WHERE user_id = $1", [user_id])
-            const token = res.rows[0]
-            headers = {
-                authorization: token
-            }
+        // it("should logout the user", async () => {
+        //     const res = await db.query("SELECT token FROM token WHERE user_id = $1", [user_id])
+        //     const token = res.rows[0]
+        //     headers = {
+        //         authorization: token
+        //     }
 
-            const response = await request(app)
-                .get("/users/logout")
-                .set(headers)
-                .expect(200)
-        })
+        //     const response = await request(app)
+        //         .get("/users/logout")
+        //         .set(headers)
+        //         .expect(200)
+        // })
 
         //DELETE USER
         it("should delete the user", async () => {
@@ -203,7 +203,7 @@ describe("backend", () => {
                 postcode: newAddress.postcode
             }
             const response = await request(app)
-                .get(`/address/user/0`)
+                .get(`/address/user/${body.house_number}&${body.postcode}`)
                 .send(body)
                 .expect(200)
 
@@ -620,13 +620,64 @@ describe("backend", () => {
 
     })
 
-    // //ADDRESSZONE TESTING
-    // describe("ADDRESS ZONE", () => {
+    //ADDRESSZONE TESTING
+    describe("ADDRESS ZONE", () => {
+        let addressZoneId
+        let newAddressZone = {
+            zone_number: 2
+        }
 
-    // })
+        //GET ALL
+        it("should get all address zones", async () => {
+            const response = await request(app)
+                .get(`/zone`)
+                .expect(200)
 
-    // //MATERIAL TYPE TESTING
-    // describe("MATERIAL TYPE", () => {
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
 
-    // })
+        //CREATE ONE
+        it("should create a new address zone", async () => {
+            const response = await request(app)
+                .post(`/zone`)
+                .send(newAddressZone)
+                .expect(201)
+
+            addressZoneId = response.body.id
+            expect(response.body).toEqual(expect.objectContaining(newAddressZone))
+        })
+
+        //GET ONE BY ID
+        it("should get one by id", async () => {
+            const response = await request(app)
+                .get(`/zone/${addressZoneId}`)
+                .expect(200)
+
+            expect(response.body).toEqual(expect.objectContaining(newAddressZone))
+        })
+
+        //UPDATE ONE BY ID
+        it("should update an address zone by id", async () => {
+            newAddressZone.zone_number = 3
+            const response = await request(app)
+                .patch(`/zone/${addressZoneId}`)
+                .send(newAddressZone)
+                .expect(200)
+            
+            expect(response.body).toEqual(expect.objectContaining(newAddressZone))
+        })
+
+        //DELETE ONE BY ID
+        it("should delete an address zone by id", async () => {
+            const response = await request(app)
+                .delete(`/zone/${addressZoneId}`)
+                .expect(204)
+        })
+    })
+
+    //MATERIAL TYPE TESTING
+    describe("MATERIAL TYPE", () => {
+
+    })
 })

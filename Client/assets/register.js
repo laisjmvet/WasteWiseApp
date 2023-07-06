@@ -8,7 +8,6 @@ async function createUser(e) {
         if(checkValidPostcode(e.target.postcode.value.toUpperCase())){
             try {
                 const firstResponse = await fetch(`http://localhost:3000/users/findDuplicate/${e.target.username.value}`)
-                console.log(firstResponse.status)
                 if(firstResponse.status == 404) {
                     const userData = {
                         name: e.target.first_name.value + " " + e.target.last_name.value,

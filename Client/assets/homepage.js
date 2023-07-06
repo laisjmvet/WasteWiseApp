@@ -90,7 +90,7 @@ async function displayBins (data) {
     binImg.id = "bin_img"
     binCollectionBox.appendChild(binImg)
 
-    const binFlorin = document.getElementById("bin_and_user")
+    const binFlorin = document.getElementsByName("bin_and_user")[0]
     binFlorin.appendChild(binCollectionBox)
 }
 

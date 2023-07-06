@@ -513,17 +513,11 @@ async function loadAppointmentsMenu() {
                     appointmentRow.appendChild(td)
                 }
             }
-
-
         }
-
     } catch(e) {
         console.log(e)
     }
 
-
-
-    
     const body = document.querySelector('body')
     body.appendChild(appointmentMenuContainer)
 
@@ -532,4 +526,116 @@ async function loadAppointmentsMenu() {
 const returnHome = () => {
     const element = document.getElementById("appointment_menu_container")
     element.remove()
+}
+
+
+const addressButton = document.getElementsByName("address_database")[0]
+addressButton.addEventListener("click", openAddressPopup)
+
+async function openAddressPopup() {
+    const addressMenuContainer = document.createElement("div")
+    addressMenuContainer.id = "address_menu_container"
+
+    const addressMenu = document.createElement("main")
+    addressMenu.id = "address_menu"
+    addressMenuContainer.appendChild(addressMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome2)
+    addressMenu.appendChild(backButton)
+
+    const addressTitle = document.createElement("p")
+    addressTitle.setAttribute("name", "title")
+    addressTitle.textContent = "Addresses Settings"
+    addressMenu.appendChild(addressTitle)
+
+    const createAddressForm = document.createElement("form")
+    createAddressForm.name = "create_address_form"
+    createAddressForm.addEventListener("submit", createAnAddress)
+
+    const addressFormLabel = document.createElement("label")
+    addressFormLabel.setAttribute("name", "address_form_label")
+    addressFormLabel.textContent = "Create Address"
+    createAddressForm.appendChild(addressFormLabel)
+
+    const numberInput = document.createElement("input")
+    numberInput.type = "text"
+    numberInput.placeholder = "House Number"
+    numberInput.name = "house_number"
+
+    const streetName = document.createElement("input")
+    streetName.type = "text"
+    streetName.placeholder = "Street"
+    streetName.name = "street_name"
+
+    const postcode = document.createElement("input")
+    postcode.type = "text"
+    postcode.placeholder = "Postcode"
+    postcode.name = "postcode"
+    
+    createAddressForm.appendChild(numberInput)
+    createAddressForm.appendChild(streetName)
+    createAddressForm.appendChild(postcode)
+
+    const addressFormButton = document.createElement("button")
+    addressFormButton.name = "address_form_button"
+    addressFormButton.type = "submit"
+    addressFormButton.textContent = "Delete Address"
+    createAddressForm.appendChild(addressFormButton)
+
+
+    const deleteAddressForm = document.createElement("form")
+    deleteAddressForm.name = "delete_address_form"
+    deleteAddressForm.addEventListener("submit", deleteAnAddress)
+
+    const addressFormLabel2 = document.createElement("label")
+    addressFormLabel2.setAttribute("name", "address_form_label")
+    addressFormLabel2.textContent = "Delete Address"
+    deleteAddressForm.appendChild(addressFormLabel2)
+
+    const numberInput2 = document.createElement("input")
+    numberInput2.type = "text"
+    numberInput2.placeholder = "House Number"
+    numberInput2.name = "house_number"
+
+    const streetName2 = document.createElement("input")
+    streetName2.type = "text"
+    streetName2.placeholder = "Street"
+    streetName2.name = "street_name"
+
+    const postcode2 = document.createElement("input")
+    postcode2.type = "text"
+    postcode2.placeholder = "Postcode"
+    postcode2.name = "postcode"
+
+    const addressFormButton2 = document.createElement("button")
+    addressFormButton2.name = "address_form_button"
+    addressFormButton2.type = "submit"
+    addressFormButton2.textContent = "Delete Address"
+    
+    deleteAddressForm.appendChild(numberInput2)
+    deleteAddressForm.appendChild(streetName2)
+    deleteAddressForm.appendChild(postcode2)
+    deleteAddressForm.appendChild(addressFormButton2)
+
+    addressMenu.appendChild(createAddressForm)
+    addressMenu.appendChild(deleteAddressForm)
+
+    const body = document.querySelector('body')
+    body.appendChild(addressMenuContainer)
+}
+
+const returnHome2 = () => {
+    const element = document.getElementById("address_menu_container")
+    element.remove()
+}
+
+async function createAnAddress() {
+    console.log("create")
+}
+
+async function deleteAnAddress() {
+    console.log("delete")
 }

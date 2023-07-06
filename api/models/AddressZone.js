@@ -4,7 +4,7 @@ class AddressZone {
     constructor ({zone_id, zone_number}) {
         this.id = zone_id;
         this.zone_number = zone_number;
-    }
+    };
 
     static async getAll() {
         try {
@@ -13,7 +13,7 @@ class AddressZone {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneByNumber(number) {
         try {
@@ -22,7 +22,7 @@ class AddressZone {
         } catch (error) {
             console.log(error);
         }       
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -31,7 +31,7 @@ class AddressZone {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async create(data) {
         try {
@@ -41,7 +41,7 @@ class AddressZone {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -52,7 +52,7 @@ class AddressZone {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async update(data) { 
         try {
@@ -62,6 +62,6 @@ class AddressZone {
         } catch (error) {
             console.log(error);
         }         
-    }
-}
+    };
+};
 module.exports = AddressZone;

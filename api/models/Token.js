@@ -6,7 +6,7 @@ class Token {
         this.user_id = user_id; 
         this.token_id = token_id;
         this.token = token;
-    }
+    };
 
     static async create(user_id) {
         try {
@@ -16,7 +16,7 @@ class Token {
         } catch (error) {
             console.log(error);
         }    
-    }
+    };
 
     static async getOneById(token_id) {
         try {
@@ -25,7 +25,7 @@ class Token {
         } catch (error) {
             console.log(error);
         }    
-    }
+    };
 
     static async getOneByUserId(user_id) {
         try {
@@ -34,7 +34,7 @@ class Token {
         } catch (error) {
             console.log(error);
         }    
-    }
+    };
 
 
     static async getOneByToken(token) {
@@ -44,7 +44,7 @@ class Token {
         } catch (error) {
             console.log(error);
         }    
-    }
+    };
 
     async deleteByToken() {
         try {
@@ -53,6 +53,6 @@ class Token {
         } catch (error) {
             console.log(error);
         }        
-    }
-}
+    };
+};
 module.exports = Token;

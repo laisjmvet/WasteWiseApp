@@ -5,7 +5,7 @@ class CollectBulkyWaste {
         this.id = bulky_waste_id;
         this.weight_kg = weight_kg;
         this.price = price;
-    }
+    };
 
     static async getAll() {
         try {
@@ -14,7 +14,7 @@ class CollectBulkyWaste {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -23,7 +23,7 @@ class CollectBulkyWaste {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     static async getOneByWeight(weight) {
         try {
@@ -32,7 +32,7 @@ class CollectBulkyWaste {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     static async create(data) {
         try {
@@ -42,7 +42,7 @@ class CollectBulkyWaste {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -51,7 +51,7 @@ class CollectBulkyWaste {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async update(data) {        
         try {
@@ -61,6 +61,6 @@ class CollectBulkyWaste {
         } catch (error) {
             console.log(error);
         }        
-    }
-}
+    };
+};
 module.exports = CollectBulkyWaste;

@@ -6,7 +6,7 @@ class RecyclableObject {
         this.name = name;
         this.bin_type_id = bin_type_id
         this.material_type_id = material_type_id;
-    }
+    };
 
     static async getAll() {
         try {
@@ -15,7 +15,7 @@ class RecyclableObject {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -24,7 +24,7 @@ class RecyclableObject {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     static async create(data) {
         try {
@@ -34,7 +34,7 @@ class RecyclableObject {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async searchInput(input) {        
         try {
@@ -43,7 +43,7 @@ class RecyclableObject {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -52,7 +52,7 @@ class RecyclableObject {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     async update(data) {      
         try {
@@ -62,6 +62,6 @@ class RecyclableObject {
         } catch (error) {
             console.log(error);
         }  
-    }
-}
+    };
+};
 module.exports = RecyclableObject;

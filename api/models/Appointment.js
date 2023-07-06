@@ -7,7 +7,7 @@ class Appointment {
         this.object_name = object_name;
         this.weight_kg = weight_kg;
         this.weekday_id = weekday_id;
-    }
+    };
 
     static async getAll() {
         try {
@@ -16,7 +16,7 @@ class Appointment {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -25,7 +25,7 @@ class Appointment {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     static async create(data) {
         try {
@@ -35,7 +35,7 @@ class Appointment {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -44,7 +44,7 @@ class Appointment {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async update(data) {     
         try {
@@ -54,6 +54,6 @@ class Appointment {
         } catch (error) {
             console.log(error);
         }         
-    }
-}
+    };
+};
 module.exports = Appointment;

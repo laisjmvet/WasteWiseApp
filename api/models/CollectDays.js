@@ -6,7 +6,7 @@ class CollectDays {
         this.zone_id = zone_id;
         this.bin_type_id = bin_type_id;
         this.weekday_id = weekday_id;
-    }
+    };
 
     static async getAll() {
         try {
@@ -15,7 +15,7 @@ class CollectDays {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -24,7 +24,7 @@ class CollectDays {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getByZoneId(zone_id) {
         try {
@@ -33,7 +33,7 @@ class CollectDays {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     static async create(data) {
         try {
@@ -43,7 +43,7 @@ class CollectDays {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -52,7 +52,7 @@ class CollectDays {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async update(data) {  
         try {
@@ -62,6 +62,6 @@ class CollectDays {
         } catch (error) {
             console.log(error);            
         }        
-    }
-}
+    };
+};
 module.exports = CollectDays;

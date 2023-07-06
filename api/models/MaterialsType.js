@@ -4,7 +4,7 @@ class MaterialsType {
     constructor ({material_type_id, name}) {
         this.id = material_type_id;
         this.name = name;
-    }
+    };
 
     static async getAll() {
         try {
@@ -14,7 +14,7 @@ class MaterialsType {
             console.log(error);
         }
         
-    }
+    };
 
     static async getOneByName(name) {
         try {
@@ -23,7 +23,7 @@ class MaterialsType {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -32,7 +32,7 @@ class MaterialsType {
         } catch (error) {
             console.log(error)
         }        
-    }
+    };
 
     static async create(data) {
         try {
@@ -42,7 +42,7 @@ class MaterialsType {
         } catch (error) {
             console.log(error);
         }        
-    }    
+    };   
 
     async destroy() {
         try {
@@ -52,7 +52,7 @@ class MaterialsType {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async update(data) {       
         try {
@@ -62,6 +62,6 @@ class MaterialsType {
         } catch (error) {
             console.log(error);
         }         
-    }
-}
+    };
+};
 module.exports = MaterialsType;

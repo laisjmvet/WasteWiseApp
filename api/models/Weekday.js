@@ -4,7 +4,7 @@ class Weekday {
     constructor ({weekday, weekday_id}) {
         this.id = weekday_id;
         this.weekday = weekday;
-    }
+    };
 
     static async getAll() {
         try {
@@ -13,7 +13,7 @@ class Weekday {
         } catch (error) {
             console.log(error)
         }        
-    }
+    };
 
     static async getOneByName(name) {
         try {
@@ -22,7 +22,7 @@ class Weekday {
         } catch (error) {
             console.log(error)   
         }
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -31,7 +31,7 @@ class Weekday {
         } catch (error) {
             console.log(error)
         }        
-    }
+    };
 
     static async create(data) {
         try {
@@ -41,7 +41,7 @@ class Weekday {
         } catch (error) {
             console.log(error)
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -50,7 +50,7 @@ class Weekday {
         } catch (error) {
             console.log(error)
         }        
-    }
+    };
 
     async update(data) {        
         try {
@@ -61,6 +61,6 @@ class Weekday {
         } catch (error) {
             console.log(error)
         }        
-    }
-}
+    };
+};
 module.exports = Weekday;

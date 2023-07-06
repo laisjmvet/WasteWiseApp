@@ -4,7 +4,7 @@ class Bin {
     constructor ({bin_type_id, bin_type_name}) {
         this.bin_type_id = bin_type_id;
         this.bin_type_name = bin_type_name;
-    }
+    };
 
     static async getAll() {
         try {
@@ -13,7 +13,7 @@ class Bin {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneByName(name) {
         try {
@@ -22,7 +22,7 @@ class Bin {
         } catch (error) {
             
         }
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -31,7 +31,7 @@ class Bin {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     static async create(data) {
         try {
@@ -41,7 +41,7 @@ class Bin {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async destroy() {
         try {
@@ -52,7 +52,7 @@ class Bin {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     async update(data) {        
         try {
@@ -62,6 +62,6 @@ class Bin {
         } catch (error) {
             console.log(error);
         }        
-    }
-}
+    };
+};
 module.exports = Bin;

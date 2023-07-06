@@ -8,7 +8,7 @@ class User {
     this.isAdmin = isadmin;
     this.address_id = address_id;
     this.points = points;
-}
+    };
 
     static async getAll() {
         try {
@@ -17,7 +17,7 @@ class User {
         } catch (error) {
             console.log(error);
         }        
-    }
+    };
 
     static async getOneById(id) {
         try {
@@ -26,7 +26,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     static async getOneByUsername(username) {
         try {
@@ -35,7 +35,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     static async create(data, address_id) {    
         try {
@@ -45,7 +45,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updateIsAdmin(data) {
         try {
@@ -54,7 +54,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updatePoints(data) {
         try {
@@ -63,7 +63,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updateAddressId(data) {
         try {
@@ -72,7 +72,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updatePassword(user, data) {
         try {
@@ -81,7 +81,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async updateUsername(data) {
         try {
@@ -90,7 +90,7 @@ class User {
         } catch (error) {
             console.log(error);
         } 
-    }
+    };
 
     async destroy() {
         try {
@@ -99,7 +99,6 @@ class User {
         } catch (error) {
             console.log(error);
         }        
-    }
-
-}
+    };
+};
 module.exports = User;

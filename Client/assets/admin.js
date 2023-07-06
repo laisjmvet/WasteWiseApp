@@ -53,6 +53,11 @@ async function logoutUser(e) {
 const settingsButton = document.getElementsByName("Settings")[0]
 settingsButton.addEventListener("click", loadUserSettings)
 
+const deletePopUp = () => {
+    const element = document.getElementsByName('pop_up_container')[0]
+    element.remove()
+}
+
 async function loadUserSettings(e) {
     e.preventDefault()
     const settingsMenuContainer = document.createElement("div")
@@ -198,29 +203,40 @@ async function changeUsername(e) {
     confirmButton.addEventListener("click", async function () {
         const username = [...new URLSearchParams(window.location.search).values()][0]
         try {
-            const usernameObj = {
-                username: e.target.user_form_input.value
-            }
-
-            const options  = {
-                method:"PATCH",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usernameObj)
-            }
-
-            const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
-                const data = response.json()
-
-                if (response.status == 200) {
-                    let popUp = document.getElementsByName('pop_up_container')[0]
-                    popUp.remove()
-                    document.getElementsByName("username_form")[0].reset()
-                    alert("Username Changed Successfully")
+            const firstResponse = await fetch(`http://localhost:3000/users/findDuplicate/${e.target.user_form_input.value}`)
+            if(firstResponse.status == 404) {
+                try {
+                    const usernameObj = {
+                        username: e.target.user_form_input.value
+                    }
+        
+                    const options  = {
+                        method:"PATCH",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usernameObj)
+                    }
+        
+                    const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
+                        const data = response.json()
+        
+                        if (response.status == 200) {
+                            let popUp = document.getElementsByName('pop_up_container')[0]
+                            popUp.remove()
+                            window.location.assign(`homepage.html?username=${e.target.user_form_input.value}`)
+                            document.getElementsByName("username_form")[0].reset()
+                            alert("Username Changed Successfully")
+                        }
+                } catch (e) {
+                    console.log(e)
                 }
-        } catch (e) {
+            }  else if(firstResponse.status === 200)  {
+                deletePopUp()
+                alert("Username is taken!")
+            }
+        }  catch(e) {
             console.log(e)
         }
     })
@@ -400,3 +416,485 @@ const homeButton = document.getElementsByName("home_button")[0]
 homeButton.addEventListener("click", () => {
     window.location.assign(`homepage.html?username=${[...new URLSearchParams(window.location.search).values()][0]}`)
 })
+
+const appointmentsButton = document.getElementsByName("appointments")[0]
+appointmentsButton.addEventListener("click", loadAppointmentsMenu)
+
+async function loadAppointmentsMenu() {
+    const appointmentMenuContainer = document.createElement("div")
+    appointmentMenuContainer.id = "appointment_menu_container"
+
+    const appointmentMenu = document.createElement("main")
+    appointmentMenu.id = "appointment_menu"
+    appointmentMenuContainer.appendChild(appointmentMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome)
+    appointmentMenu.appendChild(backButton)
+
+    const appointmentTitle = document.createElement("p")
+    appointmentTitle.setAttribute("name", "title")
+    appointmentTitle.textContent = "Collection Appointments"
+    appointmentMenu.appendChild(appointmentTitle)
+
+    const appointmentTable = document.createElement("table")
+    appointmentTable.setAttribute("name", "appointment_table")
+    appointmentMenu.appendChild(appointmentTable)
+
+    let titleRow = document.createElement("tr")
+    titleRow.setAttribute("name", "title_row")
+    appointmentTable.appendChild(titleRow)
+
+    let titleCategories = ["Where", "When", "What", "Weight (kg)", "Value (£)"]
+    for(let i=0; i<titleCategories.length; i++) {
+        let td = document.createElement("td")
+        td.textContent = titleCategories[i]
+        td.setAttribute("name", "title_values")
+        titleRow.appendChild(td)
+    }
+
+    try {
+        const options = {
+            headers:  {
+                'Authorization': localStorage.getItem("token")
+            }
+        }
+        const appointmentsResponse = await fetch(`http://localhost:3000/appointment`,options)
+        if(appointmentsResponse.ok) {
+            appointments = await appointmentsResponse.json()
+            console.log(appointments)
+            for(let i=0; i<appointments.length; i++){
+                let what = appointments[i].object_name
+                let weight= appointments[i].weight_kg
+                let weekdayId = appointments[i].weekday_id
+                let userId = appointments[i].user_id
+                let address = ""
+                let weekday = ""
+                let value = ""
+
+                try {
+                    const options = {
+                        headers:  {
+                            'Authorization': localStorage.getItem("token")
+                        }
+                    }
+                    const data = await fetch(`http://localhost:3000/users/${userId}`,options)
+                    if(data.ok) {
+                        const userData = await data.json()
+                        userAddressId = userData.address_id
+                        try {
+                            const data = await fetch(`http://localhost:3000/address/${userAddressId}`)
+                            if(data.ok) {
+                                addressData = await data.json()
+                                address = addressData.house_number + " " + addressData.street_name + ", " +addressData.postcode
+
+                            }
+                        }catch(e) {
+                            console.log(e)
+                        }
+                    }
+                } catch(e) {
+                    console.log(e)
+                }
+                try {
+                    const data = await fetch(`http://localhost:3000/weekday/${weekdayId}`)
+                    if(data.ok) {
+                        weekdayData = await data.json()
+                        weekday = weekdayData.weekday
+                    }
+                    
+                }catch(e) {
+                    console.log(e)
+                }
+                try {
+                    const data = await fetch(`http://localhost:3000/collectBulkyWaste/weight/${weight}`)
+                    if(data.ok){
+                        const priceData = await data.json()
+                        value = priceData.price
+                    }
+                } catch(e) {
+                    console.log(e)
+                }
+                const appointmentArr = [weekday, address, what, weight, value]
+                let appointmentRow = document.createElement("tr")
+                appointmentRow.setAttribute("name", `appointment_row${i}`)
+                appointmentTable.appendChild(appointmentRow)
+
+                for(let i=0; i<appointmentArr.length; i++) {
+                    let td = document.createElement("td")
+                    td.textContent = appointmentArr[i]
+                    td.setAttribute("name", "appointment_values")
+                    appointmentRow.appendChild(td)
+                }
+            }
+        }
+    } catch(e) {
+        console.log(e)
+    }
+
+    const body = document.querySelector('body')
+    body.appendChild(appointmentMenuContainer)
+
+}
+
+const returnHome = () => {
+    const element = document.getElementById("appointment_menu_container")
+    element.remove()
+}
+
+
+const addressButton = document.getElementsByName("address_database")[0]
+addressButton.addEventListener("click", openAddressPopup)
+
+const checkValidPostcode = (str) => {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let halves = str.split(" ")
+    if(halves.length!=2) {
+        return false
+    }
+    if(halves[1].length == 3) {
+        if(alphabet.includes(halves[1][1]) && alphabet.includes(halves[1][2]) && Number.isNaN(parseInt(halves[1][0])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else if(halves[1].length == 4) {
+        if(alphabet.includes(halves[1][2]) && alphabet.includes(halves[1][3]) && Number.isNaN(parseInt(halves[1][0])) == false && Number.isNaN(parseInt(halves[1][1])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
+async function openAddressPopup() {
+    const addressMenuContainer = document.createElement("div")
+    addressMenuContainer.id = "address_menu_container"
+
+    const addressMenu = document.createElement("main")
+    addressMenu.id = "address_menu"
+    addressMenuContainer.appendChild(addressMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome2)
+    addressMenu.appendChild(backButton)
+
+    const addressTitle = document.createElement("p")
+    addressTitle.setAttribute("name", "title")
+    addressTitle.textContent = "Addresses Settings"
+    addressMenu.appendChild(addressTitle)
+
+    const createAddressForm = document.createElement("form")
+    createAddressForm.name = "create_address_form"
+    createAddressForm.addEventListener("submit", createAnAddress)
+
+    const addressFormLabel = document.createElement("label")
+    addressFormLabel.setAttribute("name", "address_form_label")
+    addressFormLabel.textContent = "Create Address"
+    createAddressForm.appendChild(addressFormLabel)
+
+    const numberInput = document.createElement("input")
+    numberInput.type = "text"
+    numberInput.placeholder = "House Number"
+    numberInput.name = "house_number"
+
+    const streetName = document.createElement("input")
+    streetName.type = "text"
+    streetName.placeholder = "Street"
+    streetName.name = "street_name"
+
+    const postcode = document.createElement("input")
+    postcode.type = "text"
+    postcode.placeholder = "Postcode"
+    postcode.name = "postcode"
+
+    const zoneNumber = document.createElement("input")
+    zoneNumber.type = "text"
+    zoneNumber.placeholder = "Zone Number"
+    zoneNumber.name = "zone"
+    
+    createAddressForm.appendChild(numberInput)
+    createAddressForm.appendChild(streetName)
+    createAddressForm.appendChild(postcode)
+    createAddressForm.appendChild(zoneNumber)
+
+    const addressFormButton = document.createElement("button")
+    addressFormButton.name = "address_form_button"
+    addressFormButton.type = "submit"
+    addressFormButton.textContent = "Create Address"
+    createAddressForm.appendChild(addressFormButton)
+
+
+    const deleteAddressForm = document.createElement("form")
+    deleteAddressForm.name = "delete_address_form"
+    deleteAddressForm.addEventListener("submit", deleteAnAddress)
+
+    const addressFormLabel2 = document.createElement("label")
+    addressFormLabel2.setAttribute("name", "address_form_label")
+    addressFormLabel2.textContent = "Delete Address"
+    deleteAddressForm.appendChild(addressFormLabel2)
+
+    const numberInput2 = document.createElement("input")
+    numberInput2.type = "text"
+    numberInput2.placeholder = "House Number"
+    numberInput2.name = "house_number"
+
+    const streetName2 = document.createElement("input")
+    streetName2.type = "text"
+    streetName2.placeholder = "Street"
+    streetName2.name = "street_name"
+
+    const postcode2 = document.createElement("input")
+    postcode2.type = "text"
+    postcode2.placeholder = "Postcode"
+    postcode2.name = "postcode"
+
+    const addressFormButton2 = document.createElement("button")
+    addressFormButton2.name = "address_form_button"
+    addressFormButton2.type = "submit"
+    addressFormButton2.textContent = "Delete Address"
+    
+    deleteAddressForm.appendChild(numberInput2)
+    deleteAddressForm.appendChild(streetName2)
+    deleteAddressForm.appendChild(postcode2)
+    deleteAddressForm.appendChild(addressFormButton2)
+
+    addressMenu.appendChild(createAddressForm)
+    addressMenu.appendChild(deleteAddressForm)
+
+    const body = document.querySelector('body')
+    body.appendChild(addressMenuContainer)
+}
+
+const returnHome2 = () => {
+    const element = document.getElementById("address_menu_container")
+    element.remove()
+}
+
+async function createAnAddress(e) {
+    e.preventDefault()
+    if(checkValidPostcode(e.target.postcode.value.toUpperCase())) {
+        const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
+
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `You will add '${address}' to the database.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const addressData = {
+                    street_name: e.target.street_name.value,
+                    house_number: e.target.house_number.value,
+                    postcode: e.target.postcode.value.toUpperCase(),
+                    zone_id: e.target.zone.value
+                }
+
+                const options = {
+                    method:"POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(addressData)
+                }
+
+                const response = await fetch(`http://localhost:3000/address/`, options)
+                const data = await response.json()
+                if(response.status == 201) {
+                    document.getElementsByName("create_address_form")[0].reset() 
+                    document.getElementsByName("pop_up_container")[0].remove()
+                    alert("Address successfully added")
+                } else {
+                    alert(data.error)
+                }
+            }catch(e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Postcode is invalid")
+    }
+    
+}
+
+async function deleteAnAddress(e) {
+    e.preventDefault()
+    if(checkValidPostcode(e.target.postcode.value.toUpperCase())) {
+        const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
+
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `You will delete '${address}' from the database.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const rawAddressData = await fetch(`http://localhost:3000/address/user/${e.target.house_number.value}&${e.target.postcode.value.toUpperCase()}`)
+                if(rawAddressData.ok){
+                    const addressData = await rawAddressData.json()
+                    console.log(addressData)
+
+                    const options = {
+                        method:"DELETE",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                    try {
+                        const response = await fetch(`http://localhost:3000/address/${addressData.id}`, options)
+                        if(response.status == 204) {
+                            document.getElementsByName("delete_address_form")[0].reset() 
+                            document.getElementsByName("pop_up_container")[0].remove()
+                            alert("Address successfully deleted")
+                        } else {
+                            alert("Delete was unsuccessful")
+                        }
+                    } catch(e) {
+                        console.log(e)
+                    }
+                }
+            }catch(e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Postcode is invalid")
+    }
+}
+
+const residentsButton = document.getElementsByName("resident_database")[0]
+residentsButton.addEventListener("click", openResidentsPopup)
+
+async function openResidentsPopup() {
+    const residentMenuContainer = document.createElement("div")
+    residentMenuContainer.id = "resident_menu_container"
+
+    const residentMenu = document.createElement("main")
+    residentMenu.id = "resident_menu"
+    residentMenuContainer.appendChild(residentMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome4)
+    residentMenu.appendChild(backButton)
+
+    const residentForm = document.createElement("form")
+    residentForm.name = "resident_form"
+    
+
+    const residentTitle = document.createElement("p")
+    residentTitle.setAttribute("name", "title")
+    residentTitle.textContent = "Adjust Residents"
+    residentForm.appendChild(residentTitle)
+
+    
+    residentMenu.appendChild(residentForm)
+
+    const body = document.querySelector('body')
+    body.appendChild(residentMenuContainer)
+}
+
+const returnHome4 = () => {
+    const element = document.getElementById("resident_menu_container")
+    element.remove()
+}
+

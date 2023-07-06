@@ -8,7 +8,6 @@ ALTER TABLE IF EXISTS recycling_object DROP CONSTRAINT IF EXISTS recycling_objec
 ALTER TABLE IF EXISTS appointments DROP CONSTRAINT IF EXISTS appointments_user_id_fkey;
 ALTER TABLE IF EXISTS appointments DROP CONSTRAINT IF EXISTS appointments_weekday_id_fkey;
 
--- drop tables if they exist
 DROP TABLE IF EXISTS token;
 DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS user_account;
@@ -154,7 +153,7 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 ('Cardboard packaging materials', 3, 3),
 ('Glass bottle', 4, 3),
 ('Glass jar', 4, 3),
-('Glass drinking glass', 4, 3),
+('Drinking glass', 4, 3),
 ('Glass food container', 4, 3),
 ('Glass perfume bottle', 4, 3),
 ('Glass vase', 4, 3),
@@ -167,11 +166,11 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 ('Aluminum foil', 5, 3),
 ('Metal hanger', 5, 3),
 ('Metal cooking pot', 5, 3),
-('Metal utensils (fork, spoon, knife)', 5, 3),
+('Metal utensils', 5, 3),
 ('Metal wire', 5, 3),
 ('Metal door handle', 5, 3),
 ('Metal key', 5, 3),
-('Metal nail', 5, 3),
+('Metal nail', 2, 3),
 ('Mobile phone', 6, 8),
 ('Laptop computer', 6, 8),
 ('Television', 6, 8),
@@ -206,7 +205,6 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 ('Button cell batteries', 9, 6),
 ('Rechargeable batteries', 9, 6),
 ('Laptop battery', 9, 6),
-('Car battery', 9, 6),
 ('Watch battery', 9, 6),
 ('Camera battery', 9, 6),
 ('Remote control battery', 9, 6),
@@ -233,6 +231,8 @@ INSERT INTO recycling_object (name, material_type_id, bin_type_id) VALUES
 ('Metal coat hangers', 5, 2),
 ('Picture wire', 5, 2),
 ('Kitchen knives', 5, 2),
+('Kitchen fork', 5, 2),
+('Kitchen spoon', 5, 2),
 ('Pots and pans', 5, 2),
 ('Window panes', 4, 2),
 ('Glass cookware or Pyrex', 4, 2),

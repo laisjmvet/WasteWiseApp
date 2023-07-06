@@ -132,7 +132,7 @@ div[name = "popup_buttons"] {
 }
 
 div[name = "dropdown_section"] {
-    position:relative;
+    position: relative;
     display: inline-block;
 }
 

@@ -9,9 +9,8 @@ async function authenticator(req, res, next) {
             const validToken = await Token.getOneByToken
             next();
         }
-
-    } catch (err) {
-        res.status(403).json({ error: err.message });
+    } catch (error) {
+        res.status(403).json({ "error": error.message });
     }
 }
 

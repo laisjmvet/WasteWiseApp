@@ -753,6 +753,7 @@ async function changeUsername(e) {
                     let popUp = document.getElementsByName('pop_up_container')[0]
                     popUp.remove()
                     document.getElementsByName("username_form")[0].reset()
+                    window.location.assign(`homepage.html?${e.target.user_form_input.value}`)
                     alert("Username Changed Successfully")
                 }
         } catch (e) {

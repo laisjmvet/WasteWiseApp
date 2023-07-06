@@ -16,7 +16,7 @@ class CollectDays {
     static async getOneById(id) {
         const response = await db.query("SELECT * FROM collect_days WHERE collect_day_id = $1", [id]);
         if (response.rows.length != 1) {
-            throw new Error("Unable to locate collect_day.");
+            throw new Error("Unable to locate collection day.");
         }
         return new CollectDays(response.rows[0]);
     }
@@ -24,7 +24,7 @@ class CollectDays {
     static async getByZoneId(zone_id) {
         const response = await db.query("SELECT * FROM collect_days WHERE zone_id = $1", [zone_id]);
         if (response.rows.length != 1) {
-            throw new Error("Unable to locate collect_day.");
+            throw new Error("Unable to locate collection day.");
         }
         return response.rows;
     }

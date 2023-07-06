@@ -49,13 +49,10 @@ class Token {
     async deleteByToken() {
         try {
             await db.query('DELETE FROM token WHERE user_id = $1', [this.user_id]);
-            await db.query('DELETE FROM token WHERE token_id = $1', [this.id]);
-            console.log('token deleted!!!!!')
-            
+            await db.query('DELETE FROM token WHERE token_id = $1', [this.id]);            
         } catch (error) {
-            console.log(error)
-        }
-        
+            console.log(error);
+        }        
     }
 }
 module.exports = Token;

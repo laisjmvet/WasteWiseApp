@@ -16,7 +16,7 @@ class RecyclableObject {
     static async getOneById(id) {
         const response = await db.query("SELECT * FROM recycling_object WHERE object_id = $1", [id]);
         if (response.rows.length != 1) {
-            throw new Error("Unable to locate object.");
+            throw new Error("Unable to locate item.");
         }
         return new RecyclableObject(response.rows[0]);
     }
@@ -27,8 +27,7 @@ class RecyclableObject {
         return new RecyclableObject(response.rows[0]);
     }
 
-    static async searchInput(input) {
-        
+    static async searchInput(input) {        
         try {
             const response = await db.query("SELECT * FROM recycling_object WHERE name ILIKE '%' || $1 || '%'", [input]);       
             return response.rows;

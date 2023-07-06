@@ -33,7 +33,7 @@ async function login(req, res) {
             res.status(200).json({ authenticated: true, token: token.token });
         }
     } catch (error) {
-        res.status(403).json({"error": error.message})
+        res.status(401).json({"error": error.message})
     }
 };
 
@@ -49,7 +49,7 @@ async function logout(req, res) {
             res.status(200).json({ message: 'You logged out.' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(401).json({ error: error.message });
     }
 };
 
@@ -63,7 +63,7 @@ async function getUserByUsername(req, res) {
             res.status(404).json({error: `User not found!`})
         }       
     } catch (error) {
-        res.status(500).json({"error": error.message});
+        res.status(404).json({"error": error.message});
     }
 };
 

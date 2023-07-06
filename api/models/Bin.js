@@ -12,11 +12,11 @@ class Bin {
     }
 
     static async getOneByName(name) {
-        const response = await db.query("SELECT * FROM bin_types WHERE bin_type_name = $1", [name]);
+        const response = await db.query("SELECT * FROM bin_types WHERE bin_type_name ILIKE '%' || $1 || '%'", [name]);
         if (response.rows.length != 1) {
             throw new Error("Unable to locate bin.");
         }
-        return new Bin(response.rows[0]);
+        return response.rows;
     }
 
     static async getOneById(id) {

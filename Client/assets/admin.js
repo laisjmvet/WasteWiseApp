@@ -53,6 +53,11 @@ async function logoutUser(e) {
 const settingsButton = document.getElementsByName("Settings")[0]
 settingsButton.addEventListener("click", loadUserSettings)
 
+const deletePopUp = () => {
+    const element = document.getElementsByName('pop_up_container')[0]
+    element.remove()
+}
+
 async function loadUserSettings(e) {
     e.preventDefault()
     const settingsMenuContainer = document.createElement("div")
@@ -198,29 +203,40 @@ async function changeUsername(e) {
     confirmButton.addEventListener("click", async function () {
         const username = [...new URLSearchParams(window.location.search).values()][0]
         try {
-            const usernameObj = {
-                username: e.target.user_form_input.value
-            }
-
-            const options  = {
-                method:"PATCH",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usernameObj)
-            }
-
-            const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
-                const data = response.json()
-
-                if (response.status == 200) {
-                    let popUp = document.getElementsByName('pop_up_container')[0]
-                    popUp.remove()
-                    document.getElementsByName("username_form")[0].reset()
-                    alert("Username Changed Successfully")
+            const firstResponse = await fetch(`http://localhost:3000/users/findDuplicate/${e.target.user_form_input.value}`)
+            if(firstResponse.status == 404) {
+                try {
+                    const usernameObj = {
+                        username: e.target.user_form_input.value
+                    }
+        
+                    const options  = {
+                        method:"PATCH",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usernameObj)
+                    }
+        
+                    const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
+                        const data = response.json()
+        
+                        if (response.status == 200) {
+                            let popUp = document.getElementsByName('pop_up_container')[0]
+                            popUp.remove()
+                            window.location.assign(`homepage.html?username=${e.target.user_form_input.value}`)
+                            document.getElementsByName("username_form")[0].reset()
+                            alert("Username Changed Successfully")
+                        }
+                } catch (e) {
+                    console.log(e)
                 }
-        } catch (e) {
+            }  else if(firstResponse.status === 200)  {
+                deletePopUp()
+                alert("Username is taken!")
+            }
+        }  catch(e) {
             console.log(e)
         }
     })
@@ -532,6 +548,57 @@ const returnHome = () => {
 const addressButton = document.getElementsByName("address_database")[0]
 addressButton.addEventListener("click", openAddressPopup)
 
+const checkValidPostcode = (str) => {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let halves = str.split(" ")
+    if(halves.length!=2) {
+        return false
+    }
+    if(halves[1].length == 3) {
+        if(alphabet.includes(halves[1][1]) && alphabet.includes(halves[1][2]) && Number.isNaN(parseInt(halves[1][0])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else if(halves[1].length == 4) {
+        if(alphabet.includes(halves[1][2]) && alphabet.includes(halves[1][3]) && Number.isNaN(parseInt(halves[1][0])) == false && Number.isNaN(parseInt(halves[1][1])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
 async function openAddressPopup() {
     const addressMenuContainer = document.createElement("div")
     addressMenuContainer.id = "address_menu_container"
@@ -574,15 +641,21 @@ async function openAddressPopup() {
     postcode.type = "text"
     postcode.placeholder = "Postcode"
     postcode.name = "postcode"
+
+    const zoneNumber = document.createElement("input")
+    zoneNumber.type = "text"
+    zoneNumber.placeholder = "Zone Number"
+    zoneNumber.name = "zone"
     
     createAddressForm.appendChild(numberInput)
     createAddressForm.appendChild(streetName)
     createAddressForm.appendChild(postcode)
+    createAddressForm.appendChild(zoneNumber)
 
     const addressFormButton = document.createElement("button")
     addressFormButton.name = "address_form_button"
     addressFormButton.type = "submit"
-    addressFormButton.textContent = "Delete Address"
+    addressFormButton.textContent = "Create Address"
     createAddressForm.appendChild(addressFormButton)
 
 
@@ -632,10 +705,157 @@ const returnHome2 = () => {
     element.remove()
 }
 
-async function createAnAddress() {
-    console.log("create")
+async function createAnAddress(e) {
+    e.preventDefault()
+    if(checkValidPostcode(e.target.postcode.value.toUpperCase())) {
+        const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
+
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `You will add '${address}' to the database.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const addressData = {
+                    street_name: e.target.street_name.value,
+                    house_number: e.target.house_number.value,
+                    postcode: e.target.postcode.value.toUpperCase(),
+                    zone_id: e.target.zone.value
+                }
+
+                const options = {
+                    method:"POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(addressData)
+                }
+
+                const response = await fetch(`http://localhost:3000/address/`, options)
+                const data = await response.json()
+                if(response.status == 201) {
+                    document.getElementsByName("create_address_form")[0].reset() 
+                    document.getElementsByName("pop_up_container")[0].remove()
+                    alert("Address successfully added")
+                } else {
+                    alert(data.error)
+                }
+            }catch(e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Postcode is invalid")
+    }
+    
 }
 
-async function deleteAnAddress() {
-    console.log("delete")
+async function deleteAnAddress(e) {
+    e.preventDefault()
+    if(checkValidPostcode(e.target.postcode.value.toUpperCase())) {
+        const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
+
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `You will delete '${address}' from the database.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const rawAddressData = await fetch(`http://localhost:3000/address/user/${e.target.house_number.value}&${e.target.postcode.value.toUpperCase()}`)
+                if(rawAddressData.ok){
+                    const addressData = await rawAddressData.json()
+                    console.log(addressData)
+
+                    const options = {
+                        method:"DELETE",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                    }
+                    try {
+                        const response = await fetch(`http://localhost:3000/address/${addressData.id}`, options)
+                        if(response.status == 204) {
+                            document.getElementsByName("delete_address_form")[0].reset() 
+                            document.getElementsByName("pop_up_container")[0].remove()
+                            alert("Address successfully deleted")
+                        } else {
+                            alert("Delete was unsuccessful")
+                        }
+                    } catch(e) {
+                        console.log(e)
+                    }
+                }
+            }catch(e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Postcode is invalid")
+    }
 }

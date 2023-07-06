@@ -61,6 +61,9 @@ const checkPasswordsMatch = (str1, str2) => {
 const checkValidPostcode = (str) => {
     let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     let halves = str.split(" ")
+    if(halves.length!=2) {
+        return false
+    }
     if(halves[1].length == 3) {
         if(alphabet.includes(halves[1][1]) && alphabet.includes(halves[1][2]) && Number.isNaN(parseInt(halves[1][0])) == false){
             if(halves[0].length == 3) {

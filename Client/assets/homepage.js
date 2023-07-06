@@ -613,6 +613,57 @@ async function logoutUser(e) {
     }
 }
 
+const checkValidPostcode = (str) => {
+    let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    let halves = str.split(" ")
+    if(halves.length!=2) {
+        return false
+    }
+    if(halves[1].length == 3) {
+        if(alphabet.includes(halves[1][1]) && alphabet.includes(halves[1][2]) && Number.isNaN(parseInt(halves[1][0])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else if(halves[1].length == 4) {
+        if(alphabet.includes(halves[1][2]) && alphabet.includes(halves[1][3]) && Number.isNaN(parseInt(halves[1][0])) == false && Number.isNaN(parseInt(halves[1][1])) == false){
+            if(halves[0].length == 3) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else if(halves[0].length == 4) {
+                if(alphabet.includes(halves[0][0]) && alphabet.includes(halves[0][1]) && Number.isNaN(parseInt(halves[0][2])) == false && Number.isNaN(parseInt(halves[0][3])) == false) {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }  else {
+            return false
+        }
+    } else {
+        return false
+    }
+}
+
 const settingsButton = document.getElementsByName("Settings")[0]
 settingsButton.addEventListener("click", loadUserSettings)
 
@@ -891,81 +942,87 @@ async function changePassword(e) {
 
 async function changeAddress(e) {
     e.preventDefault()
-    const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
 
-    const popUpContainer = document.createElement("div")
-    popUpContainer.setAttribute("name", "pop_up_container")
+    if(checkValidPostcode(e.target.postcode.value.toUpperCase())){
+        const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
 
-    const popUp = document.createElement("div")
-    popUp.setAttribute("name", "pop_up")
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
 
-    const areYouSure = document.createElement("p")
-    areYouSure.setAttribute("name", "title")
-    areYouSure.textContent = "Are You Sure?"
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
 
-    const popUpText = document.createElement("p")
-    popUpText.setAttribute("name", "body")
-    popUpText.textContent = `Your address will be changed to ${address}.`
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
 
-    const backButton = document.createElement("button")
-    backButton.name = "back_button_popup"
-    backButton.textContent = "Back"
-    backButton.addEventListener("click", deletePopUp)
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `Your address will be changed to ${address}.`
 
-    const confirmButton = document.createElement("button")
-    confirmButton.name = "confirm_button_popup"
-    confirmButton.textContent = "Confirm"
-    confirmButton.addEventListener("click", async function () {
-        const username = [...new URLSearchParams(window.location.search).values()][0]
-        try {
-            const rawAddressData = await fetch(`http://localhost:3000/address/user/${e.target.house_number.value}&${e.target.postcode.value.toUpperCase()}`)
-            if(rawAddressData.ok){
-                const addressData = await rawAddressData.json()
-                console.log(addressData)
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
 
-                const addressIdData = {
-                    address_id: addressData.id
-                }
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const rawAddressData = await fetch(`http://localhost:3000/address/user/${e.target.house_number.value}&${e.target.postcode.value.toUpperCase()}`)
+                if(rawAddressData.ok){
+                    const addressData = await rawAddressData.json()
+                    console.log(addressData)
 
-                const options = {
-                    method:"PATCH",
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(addressIdData)
-                }
-
-                try {
-                    const response = await fetch(`http://localhost:3000/users/address/${username}`, options) 
-                    const data = response.json()
-
-                    if (response.status == 200) {
-                        let popUp = document.getElementsByName('pop_up_container')[0]
-                        popUp.remove()
-                        document.getElementsByName("address_form")[0].reset()
-                        alert("Address Changed Successfully")
+                    const addressIdData = {
+                        address_id: addressData.id
                     }
-                } catch(e) {
-                    console.log(e)
+
+                    const options = {
+                        method:"PATCH",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(addressIdData)
+                    }
+
+                    try {
+                        const response = await fetch(`http://localhost:3000/users/address/${username}`, options) 
+                        const data = response.json()
+
+                        if (response.status == 200) {
+                            let popUp = document.getElementsByName('pop_up_container')[0]
+                            popUp.remove()
+                            document.getElementsByName("address_form")[0].reset()
+                            alert("Address Changed Successfully")
+                        }
+                    } catch(e) {
+                        console.log(e)
+                    }
                 }
+
+            }catch(e) {
+                console.log(e)
             }
-            
-        }catch(e) {
-            console.log(e)
-        }
-    })
+        })
 
-    const buttonSection = document.createElement("div")
-    buttonSection.setAttribute("name", "popup_buttons")
-    buttonSection.appendChild(backButton)
-    buttonSection.appendChild(confirmButton)
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
 
-    popUp.appendChild(areYouSure)
-    popUp.appendChild(popUpText)
-    popUp.appendChild(buttonSection)
-    popUpContainer.appendChild(popUp)
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
 
-    const body = document.querySelector('body')
-    body.appendChild(popUpContainer)
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Postcode is invalid")
+    }
+    
 }

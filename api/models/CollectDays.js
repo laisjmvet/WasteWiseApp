@@ -61,8 +61,7 @@ class CollectDays {
             return new CollectDays(response.rows[0]);
         } catch (error) {
             console.log(error);            
-        }      
-        
+        }        
     }
 }
 module.exports = CollectDays;

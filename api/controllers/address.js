@@ -60,6 +60,6 @@ async function update (req, res) {
     } catch (err) {
         res.status(404).json({"error": err.message});
     }
-}
+};
 
 module.exports = {showAll, create, destroy, update, showOneByUserInput, showOneById}; 

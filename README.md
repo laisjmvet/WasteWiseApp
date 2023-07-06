@@ -1,6 +1,6 @@
 # WasteWise
 
-Hi there! Known as 'Recycle Bin', we're [Lais de Jesus Moraes](https://github.com/laisjmvet), [Sumeetpal Choat](https://github.com/SumeetChoat), [Guy Vernon](https://github.com/Gilheim) and [Marcell Batta](https://github.com/ioptyu2).
+Hi there! Known as 'Recycle Bin', we're [Lais Moraes](https://github.com/laisjmvet), [Sumeetpal Choat](https://github.com/SumeetChoat), [Guy Vernon](https://github.com/Gilheim) and [Marcell Batta](https://github.com/ioptyu2).
 
 We're all members of the [La Fosse Academy](https://www.lafosseacademy.com/). And for our second group project we were tasked with creating a community app that utilises the citizens of Florin Council to make a safe and clean town!(full brief [here])(https://github.com/LaFosseAcademy/cohort_resources/blob/main/liskov/projects/lap2-project.md).
 
@@ -39,7 +39,7 @@ You can see a copy of our project presentation slides [here](https://github.com/
 - Navigate into the folder via `RecycleBin`
 - Open up the folder in Visual Studio Code via `code .`
     - Skip the step above if you use a different code editor.
-
+- Open index.html with live server.
 
 ## Features and Usage
 
@@ -48,7 +48,6 @@ The website allows the user to login/register and will be shown relevant informa
 Users may input proposed waste, such as 'Cardboard pizza box' into a search box and the webpage will output information about which bin will be suitable for them.
 
 The website also allows the user to book a collection for large items which do not fit into the provided bins such as furniture. This will come as a cost extra. 
-
 
 ### Key Features
 
@@ -59,11 +58,20 @@ The website also allows the user to book a collection for large items which do n
 - HTML
 - CSS
 - JavaScript
+- Bootstrap
+- Jest
+- Supertest
 - Node
 	- [npm](https://www.npmjs.com/) dependencies
-		- [express](https://www.npmjs.com/package/express): routing of HTTP methods and URLs.
-		- [cors](https://www.npmjs.com/package/cors): to enable [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing).
-		- [dotenv](https://www.npmjs.com/package/dotenv): for better and more secure loading of environment variables.
+		- express: routing of HTTP methods and URLs.
+		- cors: handling cross-origin requests in Node.js applications.
+		- dotenv: for better and more secure loading of environment variables.
+		- bcrypt: for password hashing and encryption.
+		- jest: for testing and assertions.
+		- nodemon: for automatically restarting the server during development.
+		- pg: a PostgreSQL client library for Node.js.
+		- supertest: for HTTP integration testing.
+		- uuid: for generating unique identifiers.
 
 ### blshblahddv.com
 

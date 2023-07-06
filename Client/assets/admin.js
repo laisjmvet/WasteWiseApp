@@ -400,3 +400,136 @@ const homeButton = document.getElementsByName("home_button")[0]
 homeButton.addEventListener("click", () => {
     window.location.assign(`homepage.html?username=${[...new URLSearchParams(window.location.search).values()][0]}`)
 })
+
+const appointmentsButton = document.getElementsByName("appointments")[0]
+appointmentsButton.addEventListener("click", loadAppointmentsMenu)
+
+async function loadAppointmentsMenu() {
+    const appointmentMenuContainer = document.createElement("div")
+    appointmentMenuContainer.id = "appointment_menu_container"
+
+    const appointmentMenu = document.createElement("main")
+    appointmentMenu.id = "appointment_menu"
+    appointmentMenuContainer.appendChild(appointmentMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome)
+    appointmentMenu.appendChild(backButton)
+
+    const appointmentTitle = document.createElement("p")
+    appointmentTitle.setAttribute("name", "title")
+    appointmentTitle.textContent = "Collection Appointments"
+    appointmentMenu.appendChild(appointmentTitle)
+
+    const appointmentTable = document.createElement("table")
+    appointmentTable.setAttribute("name", "appointment_table")
+    appointmentMenu.appendChild(appointmentTable)
+
+    let titleRow = document.createElement("tr")
+    titleRow.setAttribute("name", "title_row")
+    appointmentTable.appendChild(titleRow)
+
+    let titleCategories = ["Where", "When", "What", "Weight (kg)", "Value (£)"]
+    for(let i=0; i<titleCategories.length; i++) {
+        let td = document.createElement("td")
+        td.textContent = titleCategories[i]
+        td.setAttribute("name", "title_values")
+        titleRow.appendChild(td)
+    }
+
+    try {
+        const options = {
+            headers:  {
+                'Authorization': localStorage.getItem("token")
+            }
+        }
+        const appointmentsResponse = await fetch(`http://localhost:3000/appointment`,options)
+        if(appointmentsResponse.ok) {
+            appointments = await appointmentsResponse.json()
+            console.log(appointments)
+            for(let i=0; i<appointments.length; i++){
+                let what = appointments[i].object_name
+                let weight= appointments[i].weight_kg
+                let weekdayId = appointments[i].weekday_id
+                let userId = appointments[i].user_id
+                let address = ""
+                let weekday = ""
+                let value = ""
+
+                try {
+                    const options = {
+                        headers:  {
+                            'Authorization': localStorage.getItem("token")
+                        }
+                    }
+                    const data = await fetch(`http://localhost:3000/users/${userId}`,options)
+                    if(data.ok) {
+                        const userData = await data.json()
+                        userAddressId = userData.address_id
+                        try {
+                            const data = await fetch(`http://localhost:3000/address/${userAddressId}`)
+                            if(data.ok) {
+                                addressData = await data.json()
+                                address = addressData.house_number + " " + addressData.street_name + ", " +addressData.postcode
+
+                            }
+                        }catch(e) {
+                            console.log(e)
+                        }
+                    }
+                } catch(e) {
+                    console.log(e)
+                }
+                try {
+                    const data = await fetch(`http://localhost:3000/weekday/${weekdayId}`)
+                    if(data.ok) {
+                        weekdayData = await data.json()
+                        weekday = weekdayData.weekday
+                    }
+                    
+                }catch(e) {
+                    console.log(e)
+                }
+                try {
+                    const data = await fetch(`http://localhost:3000/collectBulkyWaste/weight/${weight}`)
+                    if(data.ok){
+                        const priceData = await data.json()
+                        value = priceData.price
+                    }
+                } catch(e) {
+                    console.log(e)
+                }
+                const appointmentArr = [weekday, address, what, weight, value]
+                let appointmentRow = document.createElement("tr")
+                appointmentRow.setAttribute("name", `appointment_row${i}`)
+                appointmentTable.appendChild(appointmentRow)
+
+                for(let i=0; i<appointmentArr.length; i++) {
+                    let td = document.createElement("td")
+                    td.textContent = appointmentArr[i]
+                    td.setAttribute("name", "appointment_values")
+                    appointmentRow.appendChild(td)
+                }
+            }
+
+
+        }
+
+    } catch(e) {
+        console.log(e)
+    }
+
+
+
+    
+    const body = document.querySelector('body')
+    body.appendChild(appointmentMenuContainer)
+
+}
+
+const returnHome = () => {
+    const element = document.getElementById("appointment_menu_container")
+    element.remove()
+}

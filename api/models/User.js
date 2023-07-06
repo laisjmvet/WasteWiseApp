@@ -66,6 +66,24 @@ class User {
         } 
     }
 
+    async updatePassword(user, data) {
+        try {
+            const response =  await db.query("UPDATE user_account SET password = $1 WHERE user_id = $2 RETURNING *;", [data, user]);
+            return new User(response.rows[0]);            
+        } catch (error) {
+            console.log(error);
+        } 
+    }
+
+    async updateUsername(data) {
+        try {
+            const response =  await db.query("UPDATE user_account SET username = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);
+            return new User(response.rows[0]);            
+        } catch (error) {
+            console.log(error);
+        } 
+    }
+
     async destroy() {
         try {
             let response = await db.query("DELETE FROM user_account WHERE user_id = $1 RETURNING *;", [this.id]);

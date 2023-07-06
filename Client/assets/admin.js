@@ -877,17 +877,55 @@ async function openResidentsPopup() {
     backButton.addEventListener("click", returnHome4)
     residentMenu.appendChild(backButton)
 
-    const residentForm = document.createElement("form")
-    residentForm.name = "resident_form"
-    
-
     const residentTitle = document.createElement("p")
     residentTitle.setAttribute("name", "title")
     residentTitle.textContent = "Adjust Residents"
-    residentForm.appendChild(residentTitle)
+    residentMenu.appendChild(residentTitle)
 
-    
-    residentMenu.appendChild(residentForm)
+    const residentAdminForm = document.createElement("form")
+    residentAdminForm.name = "resident_admin_form"
+    residentAdminForm.addEventListener("submit", makeUserAdmin)
+
+    const adminLabel = document.createElement("label")
+    adminLabel.setAttribute("name", "admin_label")
+    adminLabel.textContent = "Make a user an admin"
+    residentAdminForm.appendChild(adminLabel)
+
+    const adminInput = document.createElement("input")
+    adminInput.name = "admin_input"
+    adminInput.type = "text"
+    adminInput.placeholder = "username"
+    residentAdminForm.appendChild(adminInput)
+
+    const adminButton = document.createElement("button")
+    adminButton.name = "admin_button"
+    adminButton.textContent = "Make Admin"
+    residentAdminForm.appendChild(adminButton)
+
+
+
+    const residentDeleteForm = document.createElement("form")
+    residentDeleteForm.name = "resident_delete_form"
+    residentDeleteForm.addEventListener("submit", deleteUser)
+
+    const deleteLabel = document.createElement("label")
+    deleteLabel.setAttribute("name", "delete_label")
+    deleteLabel.textContent = "Delete a user"
+    residentDeleteForm.appendChild(deleteLabel)
+
+    const deleteInput = document.createElement("input")
+    deleteInput.name = "delete_input"
+    deleteInput.type = "text"
+    deleteInput.placeholder = "username"
+    residentDeleteForm.appendChild(deleteInput)
+
+    const deleteButton = document.createElement("button")
+    deleteButton.name = "delete_button"
+    deleteButton.textContent = "Delete User"
+    residentDeleteForm.appendChild(deleteButton)
+
+    residentMenu.appendChild(residentAdminForm)
+    residentMenu.appendChild(residentDeleteForm)
 
     const body = document.querySelector('body')
     body.appendChild(residentMenuContainer)
@@ -897,4 +935,147 @@ const returnHome4 = () => {
     const element = document.getElementById("resident_menu_container")
     element.remove()
 }
+
+async function makeUserAdmin(e) {
+    e.preventDefault()
+    const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `You will make ${e.target.admin_input.value} an admin.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            try {
+                const adminObj = {
+                    isadmin: true
+                }
+
+                const options = {
+                    method: "PATCH",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(adminObj)
+                }
+
+                const response = await fetch(`http://localhost:3000/users/admin/${e.target.admin_input.value}`,options)
+
+                if(response.status ==200){
+                    alert(`'${e.target.admin_input.value}' is now an admin.`)
+                    document.getElementsByName("resident_admin_form")[0].reset() 
+                    document.getElementsByName("pop_up_container")[0].remove()
+                } else{
+                    alert("error updating")
+                }
+            } catch(e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+}
+
+async function deleteUser(e) {
+    e.preventDefault()
+    const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
+
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
+
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title")
+        areYouSure.textContent = "Are You Sure?"
+
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.textContent = `You will delete ${e.target.delete_input.value}'s account.`
+
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.addEventListener("click", deletePopUp)
+
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.addEventListener("click", async function () {
+            try {
+                const data = await fetch(`http://localhost:3000/users/findDuplicate/${e.target.delete_input.value}`)
+                const userData = await data.json()
+                console.log(userData)
+                if(userData.isAdmin) {
+                    alert("You do not have permission to delete an admin")
+                    document.getElementsByName("pop_up_container")[0].remove()
+                } else {
+                    try {
+                        const options = {
+                            method:"DELETE",
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            }
+                        }
+
+                        const response = await fetch(`http://localhost:3000/users/${userData.id}`, options)
+                        if(response.status == 204) {
+                            alert(`'${e.target.delete_input.value}' was successfully deleted.`)
+                            document.getElementsByName("delete_address_form")[0].reset() 
+                            document.getElementsByName("pop_up_container")[0].remove()
+                        } else {
+                            alert("Delete was unsuccessful")
+                        }
+
+                    } catch(e) {
+                        console.log(e)
+                    }
+                }
+
+            } catch(e) {
+                console.log(e)
+            }
+        })
+
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(backButton)
+        buttonSection.appendChild(confirmButton)
+
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
+
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+}
+
 

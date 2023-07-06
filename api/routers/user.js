@@ -14,5 +14,7 @@ userRouter.get("/username/:username", authenticator, userController.getUserByUse
 userRouter.patch("/points/:username", userController.updatePoints);
 userRouter.patch("/address/:username", userController.updateAddressId);
 userRouter.patch("/admin/:username", userController.updateIsAdmin);
+userRouter.patch("/password/:username", userController.updatePassword);
+userRouter.patch("/username/:username", authenticator, userController.updateUsername);
 
 module.exports = userRouter;

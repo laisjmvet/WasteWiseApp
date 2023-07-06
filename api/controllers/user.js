@@ -47,7 +47,7 @@ async function logout(req, res) {
         } else {
             const getToken = await Token.getOneByToken(token);
             await getToken.deleteByToken();
-            res.status(200).json({ message: 'Logged out!!!' });
+            res.status(200).json({ message: 'You logged out.' });
         }
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -98,6 +98,34 @@ async function updatePoints(req, res) {
     }
 }
 
+async function updateUsername(req, res) {
+    try {
+        const data = req.params;
+        const body = req.body;
+        const user = await User.getOneByUsername(data.username);
+        const result = await user.updateUsername(body.username);
+        res.status(200).json(result);        
+    } catch (error) {
+        res.status(404).json({"error": error.message});
+    }
+}
+
+async function updatePassword(req, res) {
+    try {
+        const data = req.params;
+        const body = req.body;
+        console.log(data, body)
+        const user = await User.getOneByUsername(data.username);
+        const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
+        body.password = await bcrypt.hash(body.password, salt);
+        console.log(user.id)
+        const result = await user.updatePassword(parseInt(user.id), body.password);
+        res.status(200).json(result);        
+    } catch (error) {
+        res.status(404).json({"error": error.message});
+    }
+}
+
 async function updateAddressId(req, res) {
     try {
         const data = req.params;
@@ -135,4 +163,4 @@ async function destroy (req, res) {
 }
     
 
-module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById, destroy, showAll};
+module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById, destroy, showAll, updateUsername, updatePassword};

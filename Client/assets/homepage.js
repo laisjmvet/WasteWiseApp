@@ -50,7 +50,7 @@ async function setUpPage(userData) {
         console.log(e)
     }
 
-    if(userData.isAdmin == false) {
+    if(userData.isAdmin) {
         const adminButton = document.createElement("button")
         adminButton.name = "admin_button"
         adminButton.textContent= "admin"

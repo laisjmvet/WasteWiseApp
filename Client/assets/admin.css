@@ -1,6 +1,7 @@
 #settings_menu_container,
 #appointment_menu_container,
-#address_menu_container {
+#address_menu_container,
+#resident_menu_container {
     position: fixed;
       top: 0;
       left: 0;
@@ -14,7 +15,8 @@
 
 #settings_menu,
 #appointment_menu,
-#address_menu {
+#address_menu,
+#resident_menu {
     display: grid;
     min-height: 70%;
     width: 40%; 
@@ -24,7 +26,8 @@
 
 #settings_menu,
 #appointment_menu,
-#address_menu{
+#address_menu,
+#resident_menu{
     place-items: center;
 }
 
@@ -39,7 +42,8 @@ form[name="username_form"],
 form[name="password_form"],
 form[name="address_form"],
 form[name="create_address_form"],
-form[name="delete_address_form"] {
+form[name="delete_address_form"],
+form[name="residents_form"] {
     display:grid;
     place-items: center;
 }

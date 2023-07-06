@@ -859,3 +859,42 @@ async function deleteAnAddress(e) {
         alert("Postcode is invalid")
     }
 }
+
+const residentsButton = document.getElementsByName("resident_database")[0]
+residentsButton.addEventListener("click", openResidentsPopup)
+
+async function openResidentsPopup() {
+    const residentMenuContainer = document.createElement("div")
+    residentMenuContainer.id = "resident_menu_container"
+
+    const residentMenu = document.createElement("main")
+    residentMenu.id = "resident_menu"
+    residentMenuContainer.appendChild(residentMenu)
+
+    const backButton = document.createElement("button")
+    backButton.textContent = "Back"
+    backButton.name = "back_button"
+    backButton.addEventListener("click", returnHome4)
+    residentMenu.appendChild(backButton)
+
+    const residentForm = document.createElement("form")
+    residentForm.name = "resident_form"
+    
+
+    const residentTitle = document.createElement("p")
+    residentTitle.setAttribute("name", "title")
+    residentTitle.textContent = "Adjust Residents"
+    residentForm.appendChild(residentTitle)
+
+    
+    residentMenu.appendChild(residentForm)
+
+    const body = document.querySelector('body')
+    body.appendChild(residentMenuContainer)
+}
+
+const returnHome4 = () => {
+    const element = document.getElementById("resident_menu_container")
+    element.remove()
+}
+

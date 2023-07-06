@@ -678,6 +678,58 @@ describe("backend", () => {
 
     //MATERIAL TYPE TESTING
     describe("MATERIAL TYPE", () => {
+        let material_type_id
+        let newMaterialType = {
+            name: "Plastic2"
+        }
 
+        //GET ALL MATERIALS
+        it("should get all materials", async () => {
+            const response = await request(app)
+                .get(`/material`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE NEW MATERIAL
+        it("should create a new material", async () => {
+            const response = await request(app)
+                .post(`/material`)
+                .send(newMaterialType)
+                .expect(201)
+
+            material_type_id = response.body.id
+            expect(response.body).toEqual(expect.objectContaining(newMaterialType))
+        })
+
+        //GET ONE MATERIAL BY ID
+        it("should get material by id", async () => {
+            const response = await request(app)
+                .get(`/material/${material_type_id}`)
+                .expect(200)
+
+            expect(response.body).toEqual(expect.objectContaining(newMaterialType))
+        })
+
+        //UPDATE MATERIAL BY ID
+        it("should update material by id", async () => {
+            newMaterialType.name = "newPlastic2"
+
+            const response = await request(app)
+                .patch(`/material/${material_type_id}`)
+                .send(newMaterialType)
+                .expect(200)
+
+            expect(response.body).toEqual(expect.objectContaining(newMaterialType))
+        })
+
+        //DELETE MATERIAL BY ID
+        it("should delete material by id", async () => {
+            const response = await request(app)
+                .delete(`/material/${material_type_id}`)
+                .expect(204)
+        })
     })
 })

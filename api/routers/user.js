@@ -11,10 +11,11 @@ userRouter.delete("/:id", userController.destroy);
 userRouter.post("/register", userController.register);
 userRouter.post("/login", userController.login);
 userRouter.get("/username/:username", authenticator, userController.getUserByUsername);
+userRouter.get("/findDuplicate/:username", userController.getUserByUsername);
 userRouter.patch("/points/:username", userController.updatePoints);
 userRouter.patch("/address/:username", userController.updateAddressId);
 userRouter.patch("/admin/:username", userController.updateIsAdmin);
 userRouter.patch("/password/:username", userController.updatePassword);
-userRouter.patch("/username/:username", authenticator, userController.updateUsername);
+userRouter.patch("/username/:username", userController.updateUsername);
 
 module.exports = userRouter;

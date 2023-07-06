@@ -7,41 +7,60 @@ class Weekday {
     }
 
     static async getAll() {
-        const response = await db.query("SELECT * FROM weekdays");
-        return response.rows.map(a => new Weekday(a));
+        try {
+            const response = await db.query("SELECT * FROM weekdays");
+            return response.rows.map(a => new Weekday(a));
+        } catch (error) {
+            console.log(error)
+        }        
     }
 
     static async getOneByName(name) {
-        const response = await db.query("SELECT * FROM weekdays WHERE weekday = $1", [name]);
-        if (response.rows.length != 1) {
-            throw new Error("Unable to locate weekday.");
+        try {
+            const response = await db.query("SELECT * FROM weekdays WHERE weekday = $1", [name]);
+            return new Weekday(response.rows[0]);
+        } catch (error) {
+            console.log(error)   
         }
-        return new Weekday(response.rows[0]);
     }
 
     static async getOneById(id) {
-        const response = await db.query("SELECT * FROM weekdays WHERE weekday_id = $1", [id]);
-        if (response.rows.length != 1) {
-            throw new Error("Unable to locate weekday.");
-        }
-        return new Weekday(response.rows[0]);
+        try {
+            const response = await db.query("SELECT * FROM weekdays WHERE weekday_id = $1", [id]);
+            return new Weekday(response.rows[0]);
+        } catch (error) {
+            console.log(error)
+        }        
     }
 
     static async create(data) {
-        const {weekday} = data;
-        let response = await db.query("INSERT INTO weekdays (weekday) VALUES ($1) RETURNING *;", [weekday]);
-        return new Weekday(response.rows[0]);
+        try {
+            const {weekday} = data;
+            let response = await db.query("INSERT INTO weekdays (weekday) VALUES ($1) RETURNING *;", [weekday]);
+            return new Weekday(response.rows[0]);
+        } catch (error) {
+            console.log(error)
+        }        
     }
 
     async destroy() {
-        const response = await db.query("DELETE FROM weekdays WHERE weekday_id = $1 RETURNING *;", [this.id]);
-        return new Weekday(response.rows[0]);
+        try {
+            const response = await db.query("DELETE FROM weekdays WHERE weekday_id = $1 RETURNING *;", [this.id]);
+            return new Weekday(response.rows[0]);
+        } catch (error) {
+            console.log(error)
+        }        
     }
 
     async update(data) {        
-        const {weekday} = data;        
-        const response = await db.query("UPDATE weekdays SET weekday = $1 WHERE weekday_id = $2 RETURNING *;", [weekday, this.id]);
-        return new Weekday(response.rows[0]);
+        try {
+            const {weekday} = data;        
+            const response = await db.query("UPDATE weekdays SET weekday = $1 WHERE weekday_id = $2 RETURNING *;", [weekday, this.id]);
+            return new Weekday(response.rows[0]);
+            
+        } catch (error) {
+            console.log(error)
+        }        
     }
 }
 module.exports = Weekday;

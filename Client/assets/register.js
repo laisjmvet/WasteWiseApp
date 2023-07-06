@@ -6,6 +6,9 @@ async function createUser(e) {
     e.preventDefault()
     if(checkPasswordsMatch(e.target.password.value, e.target.password2.value)){
         if(checkValidPostcode(e.target.postcode.value.toUpperCase())){
+            if(checkValidUsername(e.target.username.value)){
+                
+            }
             const userData = {
                 name: e.target.first_name.value + " " + e.target.last_name.value,
                 house_number: e.target.number.value,
@@ -14,7 +17,7 @@ async function createUser(e) {
                 username: e.target.username.value,
                 password: e.target.password.value
             }
-            
+
             const options = {
                 method: "POST",
                 headers: {
@@ -91,6 +94,20 @@ const checkValidPostcode = (str) => {
     } else {
         return false
     }
+}
+
+async function checkValidUsername(username) {
+    try {
+        const response = await fetch(`http://localhost:3000/users/findduplicate/${username}`)
+        if(response.status == 404) {
+            return true
+        } else if(response.status = 200) {
+            alert("Username already exists")
+        }
+    }  catch(e) {
+        console.log(e)
+    }
+
 }
 
 const backButton = document.getElementsByName("back_button")[0]

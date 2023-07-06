@@ -5,7 +5,7 @@ const Address =  require("../models/Address");
 
 async function register(req, res) {
     try {
-        const data = req.body;          
+        const data = req.body;
         const validAddress = await Address.getOneByUserInput(data);        
         if(validAddress) {
         const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
@@ -23,7 +23,6 @@ async function register(req, res) {
 async function login(req, res) {
     try {
         const data = req.body;
-        console.log(req.body)
         const user = await User.getOneByUsername(data.username);
         const authenticated = await bcrypt.compare(data.password, user.password);        
         if (!authenticated) {
@@ -58,9 +57,13 @@ async function getUserByUsername(req, res) {
     try {
         const data = req.params;
         const user = await User.getOneByUsername(data.username);
-        res.status(200).json(user);        
+        if (user){
+            res.status(200).json(user)
+        } else {
+            res.status(404).json({error: `User not found!`})
+        }       
     } catch (error) {
-        res.status(404).json({"error": error.message});
+        res.status(500).json({"error": error.message});
     }
 }
 
@@ -92,7 +95,7 @@ async function updatePoints(req, res) {
         const body = req.body;
         const user = await User.getOneByUsername(data.username);
         const result = await user.updatePoints(parseInt(body.points));
-        res.status(200).json(result);        
+        res.status(200).json(result);
     } catch (error) {
         res.status(404).json({"error": error.message});
     }

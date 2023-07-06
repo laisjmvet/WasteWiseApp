@@ -1,5 +1,6 @@
 window.onload = () => {
     const username = [...new URLSearchParams(window.location.search).values()][0]
+    console.log(username)
     const userButton = document.getElementsByName('UsernameDropdown')[0]
     userButton.textContent = username
     getUserData(username) 
@@ -13,6 +14,7 @@ async function getUserData(username) {
                 'Authorization': localStorage.getItem("token")
             }
         }
+        console.log(username)
         const data = await fetch(`http://localhost:3000/users/username/${username}`,options)
         if(data.ok){
             const userData = await data.json()
@@ -90,7 +92,7 @@ async function displayBins (data) {
     binImg.id = "bin_img"
     binCollectionBox.appendChild(binImg)
 
-    const binFlorin = document.getElementById("bin_and_user")
+    const binFlorin = document.getElementsByName("bin_and_user")[0]
     binFlorin.appendChild(binCollectionBox)
 }
 
@@ -733,29 +735,40 @@ async function changeUsername(e) {
     confirmButton.addEventListener("click", async function () {
         const username = [...new URLSearchParams(window.location.search).values()][0]
         try {
-            const usernameObj = {
-                username: e.target.user_form_input.value
-            }
-
-            const options  = {
-                method:"PATCH",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(usernameObj)
-            }
-
-            const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
-                const data = response.json()
-
-                if (response.status == 200) {
-                    let popUp = document.getElementsByName('pop_up_container')[0]
-                    popUp.remove()
-                    document.getElementsByName("username_form")[0].reset()
-                    alert("Username Changed Successfully")
+            const firstResponse = await fetch(`http://localhost:3000/users/findDuplicate/${e.target.user_form_input.value}`)
+            if(firstResponse.status == 404) {
+                try {
+                    const usernameObj = {
+                        username: e.target.user_form_input.value
+                    }
+        
+                    const options  = {
+                        method:"PATCH",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(usernameObj)
+                    }
+        
+                    const response = await fetch(`http://localhost:3000/users/username/${username}`, options) 
+                        const data = response.json()
+        
+                        if (response.status == 200) {
+                            let popUp = document.getElementsByName('pop_up_container')[0]
+                            popUp.remove()
+                            window.location.assign(`homepage.html?username=${e.target.user_form_input.value}`)
+                            document.getElementsByName("username_form")[0].reset()
+                            alert("Username Changed Successfully")
+                        }
+                } catch (e) {
+                    console.log(e)
                 }
-        } catch (e) {
+            }  else if(firstResponse.status === 200)  {
+                deletePopUp()
+                alert("Username is taken!")
+            }
+        }  catch(e) {
             console.log(e)
         }
     })

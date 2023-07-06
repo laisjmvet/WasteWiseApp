@@ -24,7 +24,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Landing Page - Start Bootstrap Theme</title>
+        <title>Homepage</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -36,11 +36,17 @@
         <script src="./assets/homepage.js" defer></script>
 </head>
     <div>
-        <nav class="navbar navbar-light bg-light static-top" name="user_dropdown">
+        <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
-                <a class="btn btn-primary" name="Log_out" >Logout</a>
-                <button class="btn btn-primary" name="Settings">Settings</button>
-                <button class="btn btn-primary" name="UsernameDropdown"></button>                
+                <p>WasteWise</p>
+                <div name="user_dropdown">
+                    <button class = "btn btn-primary" name="UsernameDropdown"></button>
+                    <div name = "user_dropdown_content">
+                        <button name="Settings" class = "btn btn-primary">Settings</button>
+                        <button name="points_button" class = "btn btn-primary"></button>
+                        <button name="Log_out" class = "btn btn-primary">Logout</button>
+                    </div>
+                </div>               
             </div>
         </nav>
         <!-- Masthead-->
@@ -48,9 +54,9 @@
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">
-                        <div class="text-center text-white">
+                        <div  class="text-center text-white" name = "bin_and_user" style = "position:relative; top:-150px">
                             <!-- Page heading-->
-                            <h1 class="mb-5">Generate more leads with a professional landing page!</h1>                            
+                            <h1 class="mb-5">Lookout</h1>                            
                         </div>
                     </div>
                 </div>
@@ -67,6 +73,11 @@
                     <div class="col-lg-4">
                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                             <div class="features-icons-icon d-flex"><button class="btn btn-primary btn-lg" name="BulkyWaste">Bulky Waste Collection</button></div>                            
+                        </div>
+                    </div>
+                    <div class="col-lg-4">                        
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3" >
+                            <div class="features-icons-icon d-flex" name = "main_buttons"></div>
                         </div>
                     </div>                    
                 </div>

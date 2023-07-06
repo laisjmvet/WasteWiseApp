@@ -13,7 +13,6 @@ async function create (req, res) {
     try {
         const data = req.body;
         const result = await Address.create(data);
-        console.log(result);
         res.status(201).send(result);
     } catch (err) {
         res.status(400).json({"error": err.message});

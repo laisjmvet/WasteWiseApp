@@ -7,7 +7,7 @@
     "dev": "nodemon -L ./api/index.js",
     "setup-db": "node ./api/database/setup.js",
     "start": "node ./api/index.js",
-    "test": "jest --watchAll"
+    "test": "npx jest --silent=false --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
     "pg": "^8.11.1",
+    "supertest": "^6.3.3",
     "uuid": "^9.0.0"
   }
 }

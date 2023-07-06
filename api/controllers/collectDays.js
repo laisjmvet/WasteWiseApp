@@ -13,7 +13,6 @@ async function create (req, res) {
     try {
         const data = req.body;
         const result = await CollectDays.create(data);
-        console.log(result);
         res.status(201).send(result);
     } catch (err) {
         res.status(400).json({"error": err.message});
@@ -34,6 +33,7 @@ async function showByZoneId (req, res) {
     try {
         const id = parseInt(req.params.id);
         const collectDays = await CollectDays.getByZoneId(id);
+        console.log(collectDays + "<<<<<<<<<<<<<<<<<<<<<")
         res.status(200).json(collectDays);
     } catch (err) {
         res.status(404).json({"error": err.message});

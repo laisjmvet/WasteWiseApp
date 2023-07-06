@@ -58,7 +58,7 @@ async function update (req, res) {
         const data = req.body;
         const weekday = await Weekday.getOneById(id);  
         const result = await weekday.update(data);
-        res.status(200).json(result);
+        res.status(201).json(result);
     } catch (err) {
         res.status(404).json({"error": err.message});
     }

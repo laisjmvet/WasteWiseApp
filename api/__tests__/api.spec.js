@@ -495,21 +495,138 @@ describe("backend", () => {
 
     //WEEKDAY TESTING
     describe("WEEKDAY", () => {
+        let weekday_id
+        let newWeekday = {
+            weekday: "testday"
+        }
+
+        //GET ALL
+        it("should get all weekdays", async () => {
+            const response = await request(app)
+                .get(`/weekday`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE NEW DAY
+        it("should create a new day", async () => {
+            const response = await request(app)
+                .post(`/weekday`)
+                .send(newWeekday)
+                .expect(201)
+            
+            weekday_id = response.body.id
+            expect(response.body).toEqual(expect.objectContaining(newWeekday))
+        })
+
+        //GET ONE BY ID
+        it("should get a day by id", async () => {
+            const response = await request(app)
+                .get(`/weekday/${weekday_id}`)
+                .expect(200)
+
+            expect(response.body).toEqual(expect.objectContaining(newWeekday))
+        })
+
+        //GET ONE BY NAME
+        it("should get a day by name", async () => {
+            const response = await request(app)
+                .get(`/weekday/weekday/${newWeekday.weekday}`)
+                .expect(200)
+
+            expect(response.body).toEqual(expect.objectContaining(newWeekday))
+        })
+
+        //UPDATE BY ID
+        it("should update a day by id", async () => {
+            newWeekday.weekday = "newtestday"
+
+            const response = await request(app)
+                .patch(`/weekday/${weekday_id}`)
+                .send(newWeekday)
+                .expect(201)
+
+            expect(response.body).toEqual(expect.objectContaining(newWeekday))
+        })
+
+        //DELETE BY ID
+        it("should delete a day by id", async () => {
+            const response = await request(app)
+                .delete(`/weekday/${weekday_id}`)
+                .expect(204)
+        })
 
     })
 
     //APPOINTMENT TESTING
     describe("APPOINTMENT", () => {
+        let appointmentId
+        let newAppointment = {
+            user_id: 1,
+            object_name: "sofa",
+            weight_kg: 25,
+            weekday_id: 4
+        }
+
+        //GET ALL APPOINTMENTS
+        it("should get all appointments", async () => {
+            const response = await request(app)
+                .get(`/appointment`)
+                .expect(200)
+
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
+
+        //CREATE APPOINTMENT
+        it("should create an appointment", async () => {
+            const response = await request(app)
+                .post("/appointment")
+                .send(newAppointment)
+                .expect(201)
+
+            appointmentId = response.body.id
+            expect(response.body).toEqual(expect.objectContaining(newAppointment))
+        })
+
+        //GET APPOINTMENT BY ID
+        it("should get an appointment by id", async () => {
+            const response = await request(app)
+                .get(`/appointment/${appointmentId}`)
+                .expect(200)
+
+            expect(response.body).toEqual(expect.objectContaining(newAppointment))
+        })
+
+        //UPDATE APPOINTNMENT
+        it("should update appointment by id", async () => {
+            newAppointment.object_name = "table"
+            const response = await request(app)
+                .patch(`/appointment/${appointmentId}`)
+                .send(newAppointment)
+                .expect(200)
+                
+            expect(response.body).toEqual(expect.objectContaining(newAppointment))
+        })
+
+        //DELETE APPOINTMENT BY ID
+        it("should delete appointment by id", async () => {
+            const response = await request(app)
+                .delete(`/appointment/${appointmentId}`)
+                .expect(204)
+        })
 
     })
 
-    //ADDRESSZONE TESTING
-    describe("ADDRESS ZONE", () => {
+    // //ADDRESSZONE TESTING
+    // describe("ADDRESS ZONE", () => {
 
-    })
+    // })
 
-    //MATERIAL TYPE TESTING
-    describe("MATERIAL TYPE", () => {
+    // //MATERIAL TYPE TESTING
+    // describe("MATERIAL TYPE", () => {
 
-    })
+    // })
 })

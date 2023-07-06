@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.09% </span>
+                <span class="strong">95.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/22</span>
+                <span class='fraction'>21/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">9.52% </span>
+                <span class="strong">95.23% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/21</span>
+                <span class='fraction'>20/21</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -109,83 +109,83 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const db =  require('../database/connect');
 &nbsp;
 class Appointment {
-<span class="fstat-no" title="function not covered" >    co</span>nstructor ({appointment_id, user_id, object_name, weekday_id, weight_kg}) {
-<span class="cstat-no" title="statement not covered" >        this.id = appointment_id;</span>
-<span class="cstat-no" title="statement not covered" >        this.user_id = user_id;</span>
-<span class="cstat-no" title="statement not covered" >        this.object_name = object_name;</span>
-<span class="cstat-no" title="statement not covered" >        this.weight_kg = weight_kg;</span>
-<span class="cstat-no" title="statement not covered" >        this.weekday_id = weekday_id;</span>
+    constructor ({appointment_id, user_id, object_name, weekday_id, weight_kg}) {
+        this.id = appointment_id;
+        this.user_id = user_id;
+        this.object_name = object_name;
+        this.weight_kg = weight_kg;
+        this.weekday_id = weekday_id;
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getAll() {
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM appointments");</span>
-<span class="cstat-no" title="statement not covered" >        return response.rows.map(<span class="fstat-no" title="function not covered" >a </span>=&gt; <span class="cstat-no" title="statement not covered" >new Appointment(a))</span>;</span>
+    static async getAll() {
+        const response = await db.query("SELECT * FROM appointments");
+        return response.rows.map(a =&gt; new Appointment(a));
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async getOneById(id) {
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("SELECT * FROM appointments WHERE appointment_id = $1", [id]);</span>
-<span class="cstat-no" title="statement not covered" >        if (response.rows.length != 1) {</span>
+    static async getOneById(id) {
+        const response = await db.query("SELECT * FROM appointments WHERE appointment_id = $1", [id]);
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (response.rows.length != 1) {
 <span class="cstat-no" title="statement not covered" >            throw new Error("Unable to locate appointment_id.");</span>
         }
-<span class="cstat-no" title="statement not covered" >        return new Appointment(response.rows[0]);</span>
+        return new Appointment(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    st</span>atic async create(data) {
-        const { user_id, object_name, weekday_id, weight_kg } = <span class="cstat-no" title="statement not covered" >data;</span>
-        let response = <span class="cstat-no" title="statement not covered" >await db.query("INSERT INTO appointments (user_id, object_name, weekday_id, weight_kg) VALUES ($1, $2, $3, $4) RETURNING *;", [user_id, object_name, weekday_id, weight_kg]);</span>
-<span class="cstat-no" title="statement not covered" >        return new Appointment(response.rows[0]);</span>
+    static async create(data) {
+        const { user_id, object_name, weekday_id, weight_kg } = data;
+        let response = await db.query("INSERT INTO appointments (user_id, object_name, weekday_id, weight_kg) VALUES ($1, $2, $3, $4) RETURNING *;", [user_id, object_name, weekday_id, weight_kg]);
+        return new Appointment(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync destroy() {
-        let response = <span class="cstat-no" title="statement not covered" >await db.query("DELETE FROM appointments WHERE appointment_id = $1 RETURNING *;", [this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new Appointment(response.rows[0]);</span>
+    async destroy() {
+        let response = await db.query("DELETE FROM appointments WHERE appointment_id = $1 RETURNING *;", [this.id]);
+        return new Appointment(response.rows[0]);
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync update(data) {        
-        const {user_id, object_name, weekday_id, weight_kg} = <span class="cstat-no" title="statement not covered" >data;        </span>
-        const response = <span class="cstat-no" title="statement not covered" >await db.query("UPDATE appointments SET weight_kg = $1, user_id = $2, object_name = $3, weekday_id = $4 WHERE appointment_id = $5 RETURNING *;", [weight_kg, user_id, object_name, weekday_id, this.id]);</span>
-<span class="cstat-no" title="statement not covered" >        return new Appointment(response.rows[0]);</span>
+    async update(data) {        
+        const {user_id, object_name, weekday_id, weight_kg} = data;        
+        const response = await db.query("UPDATE appointments SET weight_kg = $1, user_id = $2, object_name = $3, weekday_id = $4 WHERE appointment_id = $5 RETURNING *;", [weight_kg, user_id, object_name, weekday_id, this.id]);
+        return new Appointment(response.rows[0]);
     }
 }
 module.exports = Appointment;
@@ -196,7 +196,7 @@ module.exports = Appointment;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-05T17:20:18.712Z
+                at 2023-07-06T00:55:24.200Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

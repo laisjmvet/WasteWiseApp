@@ -50,9 +50,9 @@ Users may input proposed waste, such as 'Cardboard pizza box' into a search box 
 The website also allows the user to book a collection for large items which do not fit into the provided bins such as furniture. This will come as a cost extra. 
 
 ### Key Features
-- There are now more bins per household in Florin than ever before. It can be tricky for our users to know when their bins are going so this app will help distuingish area codes and how this decides your collection days.
+- There are now more bins per household in Florin than ever before. It can be tricky for our users to know when their bins are going so this app will help distinguish area codes and how this decides your collection days.
 - Users can register for the app and virtually place items into a bin. The user can then collect points based off the items disposed of which will later translate into physical rewards at a local sponsoring supermarket.
-- Users may also use this page to organise the collection of bulky waste which could include (but not limited to) sofa, fridge etc but this will come at a cost.
+- Users may also use this page to organise the collection of bulky waste which could include (but not limited to) sofa, fridge etc but this will come at an extra cost.
 - Additonal features include the ability for users to change their address and their corresponding collection date will change accordingly.
 - There is Admin page which allows items to be updated as well as residential details.
 

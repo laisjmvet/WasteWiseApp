@@ -43,7 +43,8 @@ form[name="password_form"],
 form[name="address_form"],
 form[name="create_address_form"],
 form[name="delete_address_form"],
-form[name="residents_form"] {
+form[name="resident_admin_form"],
+form[name="resident_delete_form"] {
     display:grid;
     place-items: center;
 }

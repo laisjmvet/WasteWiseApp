@@ -1031,34 +1031,39 @@ async function deleteUser(e) {
             try {
                 const data = await fetch(`http://localhost:3000/users/findDuplicate/${e.target.delete_input.value}`)
                 const userData = await data.json()
-                console.log(userData)
-                if(userData.isAdmin) {
-                    alert("You do not have permission to delete an admin")
+                if(data.status == 404) {
+                    alert("user was not found")
                     document.getElementsByName("pop_up_container")[0].remove()
-                } else {
-                    try {
-                        const options = {
-                            method:"DELETE",
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/json'
+                } else if(data.status == 200) {
+                    if(userData.isAdmin) {
+                        alert("You do not have permission to delete an admin")
+                        document.getElementsByName("pop_up_container")[0].remove()
+                    } else {
+                        try {
+                            const options = {
+                                method:"DELETE",
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                }
                             }
+    
+                            const response = await fetch(`http://localhost:3000/users/${userData.id}`, options)
+                            if(response.status == 204) {
+                                alert(`'${e.target.delete_input.value}' was successfully deleted.`)
+                                document.getElementsByName("resident_delete_form")[0].reset() 
+                                document.getElementsByName("pop_up_container")[0].remove()
+                            } else {
+                                alert("Delete was unsuccessful")
+                            }
+    
+                        } catch(e) {
+                            console.log(e)
                         }
-
-                        const response = await fetch(`http://localhost:3000/users/${userData.id}`, options)
-                        if(response.status == 204) {
-                            alert(`'${e.target.delete_input.value}' was successfully deleted.`)
-                            document.getElementsByName("delete_address_form")[0].reset() 
-                            document.getElementsByName("pop_up_container")[0].remove()
-                        } else {
-                            alert("Delete was unsuccessful")
-                        }
-
-                    } catch(e) {
-                        console.log(e)
                     }
+                } else {
+                    console.log("An error with the api request as occured")
                 }
-
             } catch(e) {
                 console.log(e)
             }

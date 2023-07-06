@@ -32,7 +32,7 @@ async function showOneById (req, res) {
 
 async function showOneByUserInput (req, res) {
     try {
-        const data = req.body;
+        const data = req.params;
         const address = await Address.getOneByUserInput(data);
         res.status(200).json(address);
     } catch (err) {

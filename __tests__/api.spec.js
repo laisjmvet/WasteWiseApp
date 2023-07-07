@@ -466,13 +466,13 @@ describe("backend", () => {
         })
 
         //GET ONE BY NAME
-        // it("should get a bin with name", async () => {
-        //     const response = await request(app)
-        //         .get(`/bin/`)//wait for route update
-        //         .expect(200)
+        it("should get a bin with name", async () => {
+            const response = await request(app)
+                .get(`/bin/name/${newBin.bin_type_name}`)
+                .expect(200)
 
-        //     expect(response.body.bin_type_name).toEqual(newBin.bin_type_name)
-        // })
+            expect(response.body.bin_type_name).toEqual(newBin.bin_type_name)
+        })
 
         //UPDATE BY ID
         it("should update a bin with id", async () => {

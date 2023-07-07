@@ -33,7 +33,6 @@ async function showByZoneId (req, res) {
     try {
         const id = parseInt(req.params.id);
         const collectDays = await CollectDays.getByZoneId(id);
-        console.log(collectDays + "<<<<<<<<<<<<<<<<<<<<<")
         res.status(200).json(collectDays);
     } catch (err) {
         res.status(404).json({"error": err.message});

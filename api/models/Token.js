@@ -18,14 +18,14 @@ class Token {
         }    
     };
 
-    static async getOneById(token_id) {
-        try {
-            const response =  await db.query("SELECT * FROM token WHERE token_id = $1", [token_id]);
-            return new Token(response.rows[0]);            
-        } catch (error) {
-            console.log(error);
-        }    
-    };
+    // static async getOneById(token_id) {
+    //     try {
+    //         const response =  await db.query("SELECT * FROM token WHERE token_id = $1", [token_id]);
+    //         return new Token(response.rows[0]);            
+    //     } catch (error) {
+    //         console.log(error);
+    //     }    
+    // };
 
     static async getOneByUserId(user_id) {
         try {

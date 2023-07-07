@@ -117,11 +117,9 @@ async function updatePassword(req, res) {
     try {
         const data = req.params;
         const body = req.body;
-        console.log(data, body)
         const user = await User.getOneByUsername(data.username);
         const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS));
         body.password = await bcrypt.hash(body.password, salt);
-        console.log(user.id)
         const result = await user.updatePassword(parseInt(user.id), body.password);
         res.status(200).json(result);        
     } catch (error) {

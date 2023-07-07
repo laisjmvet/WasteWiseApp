@@ -132,7 +132,37 @@ describe("backend", () => {
             expect(response.body.address_id).toEqual(addressId)
         })
 
-        //LOGOUT NEEDS FIXING??
+        //UPDATE USERNAME
+        it("should update a users username", async () => {
+            const oldUsername = username
+            username = "newtestusername"
+            body = {
+                username: username
+            }
+            const response = await request(app)
+                .patch(`/users/username/${oldUsername}`)
+                .send(body)
+                .expect(200)
+
+            expect(response.body.username).toEqual(username)
+        })
+
+        //UPDATE PASSWORD
+        it("should update a users password", async () => {
+            password = "newtestpassword"
+            body = {
+                password: password
+            }
+            
+            const response = await request(app)
+                .patch(`/users/password/${username}`)
+                .send(body)
+                .expect(200)
+
+            
+        })
+
+        //LOGOUT
         // it("should logout the user", async () => {
         //     const res = await db.query("SELECT token FROM token WHERE user_id = $1", [user_id])
         //     const token = res.rows[0]
@@ -328,13 +358,14 @@ describe("backend", () => {
         })
 
         //GET BY ZONE ID
-        // it("should return by zone id", async () => {
-        //     const response = await request(app)
-        //         .get(`/collectDay/zone/${newCollectDay.zone_id}`)
-        //         .expect(200)
+        it("should return by zone id", async () => {
+            const response = await request(app)
+                .get(`/collectDay/zone/${newCollectDay.zone_id}`)
+                .expect(200)
 
-        //     expect(response.body).toEqual(expect.arrayContaining(newCollectDay))
-        // })
+            expect(Array.isArray(response.body)).toBe(true)
+            expect(response.body.length).toBeGreaterThan(0)
+        })
 
         //GET BY ID
         it("should return by collectId", async () => {

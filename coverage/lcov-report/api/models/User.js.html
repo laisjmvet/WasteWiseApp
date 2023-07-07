@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>34/50</span>
+                <span class='fraction'>40/50</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.34% </span>
+                <span class="strong">79.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/49</span>
+                <span class='fraction'>39/49</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -171,12 +171,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,9 +198,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -244,18 +244,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,19 +347,19 @@ class User {
         } 
     };
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync updatePassword(user, data) {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const response =  <span class="cstat-no" title="statement not covered" >await db.query("UPDATE user_account SET password = $1 WHERE user_id = $2 RETURNING *;", [data, user]);</span>
-<span class="cstat-no" title="statement not covered" >            return new User(response.rows[0]);            </span>
+    async updatePassword(user, data) {
+        try {
+            const response =  await db.query("UPDATE user_account SET password = $1 WHERE user_id = $2 RETURNING *;", [data, user]);
+            return new User(response.rows[0]);            
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >            console.log(error);</span>
         } 
     };
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync updateUsername(data) {
-<span class="cstat-no" title="statement not covered" >        try {</span>
-            const response =  <span class="cstat-no" title="statement not covered" >await db.query("UPDATE user_account SET username = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);</span>
-<span class="cstat-no" title="statement not covered" >            return new User(response.rows[0]);            </span>
+    async updateUsername(data) {
+        try {
+            const response =  await db.query("UPDATE user_account SET username = $1 WHERE user_id = $2 RETURNING *;", [data, this.id]);
+            return new User(response.rows[0]);            
         } catch (error) {
 <span class="cstat-no" title="statement not covered" >            console.log(error);</span>
         } 
@@ -382,7 +382,7 @@ module.exports = User;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-06T16:40:35.213Z
+                at 2023-07-07T09:54:25.715Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

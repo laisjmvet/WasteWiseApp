@@ -13,7 +13,7 @@ async function register(req, res) {
         const result = await User.create(data, validAddress.id);
         res.status(201).json(result);        
         }else {
-            console.log("ERROR!!!!!!!!!")
+            console.log("ERROR! Address not found")
         }        
     } catch (error) {
         res.status(400).json({"error": error.message})
@@ -42,14 +42,14 @@ async function logout(req, res) {
         const userToken = req.headers.authorization;
         const token = userToken
         if (!userToken) {
-            throw new Error('User not authenticated??');
+            throw new Error('User not authenticated!');
         } else {
             const getToken = await Token.getOneByToken(token);
             await getToken.deleteByToken();
             res.status(200).json({ message: 'You logged out.' });
         }
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
@@ -155,15 +155,19 @@ async function showAll (req, res) {
 async function destroy (req, res) {
     try {
         const id = parseInt(req.params.id);
-        const user = await User.getOneById(id);     
+        const user = await User.getOneById(id);             
         const token = await Token.getOneByUserId(id);
+        let result;
+        if(token) {
             await token.deleteByToken();  
-            const result = await user.destroy();
-            res.status(204).json(result);       
-    } catch (err) {
-        res.status(404).json({"error": err.message});
+            result = await user.destroy();
+        }else{
+            result = await user.destroy();
+        }
+        
+        res.status(204).json(result);       
+    } catch (error) {
+        res.status(404).json({"error": error.message});
     }
-}
-    
-
+};
 module.exports = {register, login, logout, getUserByUsername, updateIsAdmin, updatePoints, updateAddressId, getUserById, destroy, showAll, updateUsername, updatePassword};

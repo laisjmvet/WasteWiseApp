@@ -54,11 +54,12 @@ async function setUpPage(userData) {
         const adminButton = document.createElement("button")
         adminButton.name = "admin_button"
         adminButton.textContent= "admin"
+        adminButton.id = "drop_down_btn"
         adminButton.addEventListener("click", () => {
             window.location.assign(`admin.html?username=${userData.username}`)
         })
         
-        const buttonsDiv = document.getElementsByName("main_buttons")[0]
+        const buttonsDiv = document.getElementsByName("user_dropdown_content")[0]
         buttonsDiv.appendChild(adminButton)   
     }
 }
@@ -82,7 +83,7 @@ async function displayBins (data) {
 
     const binInfo = document.createElement("p")
     binInfo.id= "bin_info"
-    binInfo.textContent = `Your bins will be collected on ${weekday}.`
+    binInfo.textContent = `The following bins will be collected on ${weekday}:`
     binCollectionBox.appendChild(binInfo)
 
     const binImg = document.createElement("img")
@@ -416,11 +417,12 @@ async function openBulkyWastePopup() {
     const title = document.createElement("p")
     title.setAttribute("name", "title")
     title.textContent = "Book a collection for bulky waste"
-    bulkyWasteForm.appendChild(title)
+    bulkyWasteMenu.appendChild(title)
 
     const itemLabel = document.createElement("label")
     itemLabel.setAttribute("name", "item_label")
     itemLabel.textContent = "What item do you want to have collected?"
+    itemLabel.setAttribute("id", "form_label")
     bulkyWasteForm.appendChild(itemLabel)
 
     const itemInput = document.createElement("input")
@@ -436,6 +438,7 @@ async function openBulkyWastePopup() {
     const weightLabel = document.createElement("label")
     weightLabel.setAttribute("name", "weight_label")
     weightLabel.textContent = `How heavy is the item? (kg)`
+    weightLabel.setAttribute("id", "form_label")
     weightFormSection.appendChild(weightLabel)
     
     const weights = [30, 60, 100, 101]
@@ -452,6 +455,7 @@ async function openBulkyWastePopup() {
         const weightLabel = document.createElement("label")
         weightLabel.setAttribute("name", `${weights[i]}_label`)
         weightLabel.textContent = `<${weights[i]}`
+        weightLabel.setAttribute("id", "form_label")
         weightLabel.setAttribute("for", `${weights[i]}`)
 
         weightDiv.appendChild(weightInput)
@@ -472,6 +476,7 @@ async function openBulkyWastePopup() {
     weightLabel2.setAttribute("name", `${weights[3]}_label`)
     weightLabel2.textContent = `>100`
     weightLabel2.setAttribute("for", `${weights[3]}`)
+    weightLabel2.setAttribute("id", "form_label")
     weightDiv.appendChild(weightInput)
     weightDiv.appendChild(weightLabel2)
     weightFormSection.appendChild(weightDiv)
@@ -483,6 +488,7 @@ async function openBulkyWastePopup() {
 
     const dateLabel = document.createElement("label")
     dateLabel.setAttribute("name", "date_label")
+    dateLabel.setAttribute("id", "form_label")
     dateLabel.textContent = `When would you like it collected?`
     dateFormSection.appendChild(dateLabel)
 
@@ -500,6 +506,7 @@ async function openBulkyWastePopup() {
         const weekdayLabel = document.createElement("label")
         weekdayLabel.setAttribute("name", `${weekdays[i]}_label`)
         weekdayLabel.textContent = `${weekdays[i]}`
+        weekdayLabel.setAttribute("id", "form_label")
         weekdayLabel.setAttribute("for", `${weekdays[i]}`)
 
         weekdayDiv.appendChild(dateInput)
@@ -512,6 +519,7 @@ async function openBulkyWastePopup() {
 
     const bulkyWasteSubmit = document.createElement("button")
     bulkyWasteSubmit.name = "bulky_waste_submit_button"
+    bulkyWasteSubmit.setAttribute("id", "confirm_button_settings")
     bulkyWasteSubmit.textContent = "Book Collection"
     bulkyWasteForm.appendChild(bulkyWasteSubmit)
     
@@ -693,18 +701,21 @@ async function loadUserSettings(e) {
 
     const userFormLabel = document.createElement("label")
     userFormLabel.setAttribute("name", "user_form_label")
+    userFormLabel.setAttribute("id", "form_label")
     userFormLabel.textContent = "Change Username"
     usernameForm.appendChild(userFormLabel)
 
     const userFormInput = document.createElement("input")
     userFormInput.type = "text"
     userFormInput.placeholder = "username"
+    userFormInput.setAttribute("id", "text_input")
     userFormInput.name = "user_form_input"
     usernameForm.appendChild(userFormInput)
 
     const userFormButton = document.createElement("button")
     userFormButton.name = "user_form_button"
     userFormButton.type = "submit"
+    userFormButton.setAttribute("id", "confirm_button_settings")
     userFormButton.textContent = "Change Username"
     usernameForm.appendChild(userFormButton)
 
@@ -716,16 +727,19 @@ async function loadUserSettings(e) {
     const passwordFormLabel = document.createElement("label")
     passwordFormLabel.setAttribute("name", "password_form_label")
     passwordFormLabel.textContent = "Change Password"
+    passwordFormLabel.setAttribute("id", "form_label")
     passwordForm.appendChild(passwordFormLabel)
 
     const passwordFormInput = document.createElement("input")
     passwordFormInput.type = "password"
+    passwordFormInput.setAttribute("id", "text_input")
     passwordFormInput.placeholder = "password"
     passwordFormInput.name = "password_form_input"
     passwordForm.appendChild(passwordFormInput)
 
     const passwordFormInput2 = document.createElement("input")
     passwordFormInput2.type = "password"
+    passwordFormInput2.setAttribute("id", "text_input")
     passwordFormInput2.placeholder = "repeat password"
     passwordFormInput2.name = "password_form_input2"
     passwordForm.appendChild(passwordFormInput2)
@@ -733,6 +747,7 @@ async function loadUserSettings(e) {
     const passwordFormButton = document.createElement("button")
     passwordFormButton.name = "password_form_button"
     passwordFormButton.type = "submit"
+    passwordFormButton.setAttribute("id", "confirm_button_settings")
     passwordFormButton.textContent = "Change Password"
     passwordForm.appendChild(passwordFormButton)
 
@@ -744,21 +759,25 @@ async function loadUserSettings(e) {
     const addressFormLabel = document.createElement("label")
     addressFormLabel.setAttribute("name", "address_form_label")
     addressFormLabel.textContent = "Change Address"
+    addressFormLabel.setAttribute("id", "form_label")
     addressForm.appendChild(addressFormLabel)
 
     const numberInput = document.createElement("input")
     numberInput.type = "text"
+    numberInput.setAttribute("id", "text_input")
     numberInput.placeholder = "House Number"
     numberInput.name = "house_number"
 
     const streetName = document.createElement("input")
     streetName.type = "text"
     streetName.placeholder = "Street"
+    streetName.setAttribute("id", "text_input")
     streetName.name = "street_name"
 
     const postcode = document.createElement("input")
     postcode.type = "text"
     postcode.placeholder = "Postcode"
+    postcode.setAttribute("id", "text_input")
     postcode.name = "postcode"
     
     addressForm.appendChild(numberInput)
@@ -768,6 +787,7 @@ async function loadUserSettings(e) {
     const addressFormButton = document.createElement("button")
     addressFormButton.name = "address_form_button"
     addressFormButton.type = "submit"
+    addressFormButton.setAttribute("id", "confirm_button_settings")
     addressFormButton.textContent = "Change Address"
     addressForm.appendChild(addressFormButton)
     

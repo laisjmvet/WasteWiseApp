@@ -25,9 +25,6 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Homepage</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
@@ -35,59 +32,40 @@
         <link rel="stylesheet" href="./assets/homepage.css">
         <script src="./assets/homepage.js" defer></script>
 </head>
-    <div>
-        <nav class="navbar navbar-light bg-light static-top">
-            <div class="container">
-                <p>WasteWise</p>
-                <div name="user_dropdown">
-                    <button style="background:#E0B1A9;color:white;" class = "btn btn-primary" name="UsernameDropdown"></button>
-                    <div name = "user_dropdown_content">
-                        <button style="background:hsl(146, 92%, 33%);color:white;" name="Settings" class = "btn btn-primary">Settings</button>
-                        <button style="background:hsl(146, 92%, 33%);color:white;" name="points_button" class = "btn btn-primary"></button>
-                        <button style="background:hsl(357, 75%, 46%);color:white;" name="Log_out" class = "btn btn-primary">Logout</button>
-                    </div>
-                </div>               
+<body>
+    <div name = "whole_page">
+        <div id = "florin_and_user">
+            <div name="wastewise">
+                <p>Florin Council</p>
             </div>
-        </nav>
-        <!-- Masthead-->
-        <header class="masthead">
-            <div class="container position-relative">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6">
-                        <div  class="text-center text-white" name = "bin_and_user" style = "position:relative; top:-150px">
-                            <!-- Page heading-->
-                            <h1 class="mb-5">Lookout</h1>                            
-                        </div>
-                    </div>
+            <p name = "wastewise">WasteWise</p>
+
+            <p name="big_title">Lookout</p>
+            <div name="user_dropdown">
+                <button  name="UsernameDropdown" id = "drop_down_btn"></button>
+                <div name = "user_dropdown_content">
+                    <button name="Settings"  id = "drop_down_btn">Settings</button>
+                    <button name="points_button" id = "drop_down_btn"></button>
+                    <button name="Log_out" id = "drop_down_btn">Logout</button>
                 </div>
-            </div>
-        </header>
-        <section class="features-icons bg-light text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">                        
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><button style="background:hsl(357, 75%, 46%);color:white;" class="btn btn-primary btn-success" name="RecyclingButton">WasteWise</button></div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex"><button style="background:hsl(357, 75%, 46%);color:white;" class="btn btn-block" name="BulkyWaste">Bulky Waste</button></div>                            
-                        </div>
-                    </div>
-                    <div class="col-lg-4">                        
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3" >
-                            <div class="features-icons-icon d-flex" name = "main_buttons"></div>
-                        </div>
-                    </div>                    
-                </div>
-            </div>
-        </section>        
+            </div>               
+        </div>
+
+        <div name = "image">
+            <img src="./assets/images/background.png" alt="green trees" name = "image">
+        </div>
+
+        <div id = "bin_and_user" name = "bin_and_user"></div>
+
+        <div name="main_buttons">
+            <button name="RecyclingButton" id = "function_button">Wastewise</button>
+            <button name="BulkyWaste" id = "function_button">Bulky Waste</button>
+        </div>
     </div>   
 
-    <footer class="footer bg-light">
-        <div class="container">                   
-            <p class="text-muted small mb-4 mb-lg-0 text-center">&copy; Recycle Bin 2023. All Rights Reserved.</p>
+    <footer id ="footer">
+        <div>                   
+            <p>&copy; Recycle Bin 2023. All Rights Reserved.</p>
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>

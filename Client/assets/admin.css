@@ -108,21 +108,33 @@ form[name="resident_admin_form"],
 form[name="resident_delete_form"] {
     display:grid;
     place-items: center;
-    position:absolute
+    position:absolute;
+}
+
+form[name="username_form"]{
+    top:28%;
+}
+
+form[name="password_form"]{
+    top:42%;
+}
+
+form[name="address_form"] {
+    top:60%
 }
 
 form[name="delete_address_form"]{
-    top:61%;
+    top:58%;
 }
 
 form[name="create_address_form"] {
     position:absolute;
-    top:33%
+    top:30%
 }
 
 form[name="resident_admin_form"] {
     position:absolute;
-    top:40%;
+    top:39%;
 }
 
 form[name="resident_delete_form"] {
@@ -184,7 +196,7 @@ div[name="pop_up"] {
 p[name="title"] {
     font-size: 30px;
     position: absolute;
-    top:23%;
+    top:19%;
 
 
 }
@@ -296,7 +308,26 @@ div[name="wastewise"] {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#confirm_button:hover {
+#confirm_button_settings {
+    background-color: white;
+    font-size: 16px;
+    color:#198754;
+    border-color:#198754;
+    border-right: solid #198754;
+    border-bottom: solid #198754;
+    box-shadow: none;
+    border-radius: 10px;
+    width: 155px;
+    height: 38px ;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#confirm_button:hover,
+#confirm_button_settings:hover {
     background-color: #198754;
     color: white;
     border-color: transparent;
@@ -418,8 +449,23 @@ tr {
     font-size: 18px;
 }
 
+button[name="Log_out"]{
+    color:#dc3545 !important;
+    border-color:#dc3545 !important;;
+    border-right: solid #dc3545 !important;;
+    border-bottom: solid #dc3545 !important;;
+}
 
+button[name="Log_out"]:hover {
+    background-color:#dc3545 !important;
+    color: white !important;
+}
 
+#footer{
+    position:absolute;
+    bottom: 5%;
+    left:11%;
+  }
 
 
 

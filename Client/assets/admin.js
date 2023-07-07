@@ -84,18 +84,21 @@ async function loadUserSettings(e) {
 
     const userFormLabel = document.createElement("label")
     userFormLabel.setAttribute("name", "user_form_label")
+    userFormLabel.setAttribute("id", "form_label")
     userFormLabel.textContent = "Change Username"
     usernameForm.appendChild(userFormLabel)
 
     const userFormInput = document.createElement("input")
     userFormInput.type = "text"
     userFormInput.placeholder = "username"
+    userFormInput.setAttribute("id", "text_input")
     userFormInput.name = "user_form_input"
     usernameForm.appendChild(userFormInput)
 
     const userFormButton = document.createElement("button")
     userFormButton.name = "user_form_button"
     userFormButton.type = "submit"
+    userFormButton.setAttribute("id", "confirm_button_settings")
     userFormButton.textContent = "Change Username"
     usernameForm.appendChild(userFormButton)
 
@@ -107,16 +110,19 @@ async function loadUserSettings(e) {
     const passwordFormLabel = document.createElement("label")
     passwordFormLabel.setAttribute("name", "password_form_label")
     passwordFormLabel.textContent = "Change Password"
+    passwordFormLabel.setAttribute("id", "form_label")
     passwordForm.appendChild(passwordFormLabel)
 
     const passwordFormInput = document.createElement("input")
     passwordFormInput.type = "password"
+    passwordFormInput.setAttribute("id", "text_input")
     passwordFormInput.placeholder = "password"
     passwordFormInput.name = "password_form_input"
     passwordForm.appendChild(passwordFormInput)
 
     const passwordFormInput2 = document.createElement("input")
     passwordFormInput2.type = "password"
+    passwordFormInput2.setAttribute("id", "text_input")
     passwordFormInput2.placeholder = "repeat password"
     passwordFormInput2.name = "password_form_input2"
     passwordForm.appendChild(passwordFormInput2)
@@ -124,6 +130,7 @@ async function loadUserSettings(e) {
     const passwordFormButton = document.createElement("button")
     passwordFormButton.name = "password_form_button"
     passwordFormButton.type = "submit"
+    passwordFormButton.setAttribute("id", "confirm_button_settings")
     passwordFormButton.textContent = "Change Password"
     passwordForm.appendChild(passwordFormButton)
 
@@ -135,21 +142,25 @@ async function loadUserSettings(e) {
     const addressFormLabel = document.createElement("label")
     addressFormLabel.setAttribute("name", "address_form_label")
     addressFormLabel.textContent = "Change Address"
+    addressFormLabel.setAttribute("id", "form_label")
     addressForm.appendChild(addressFormLabel)
 
     const numberInput = document.createElement("input")
     numberInput.type = "text"
+    numberInput.setAttribute("id", "text_input")
     numberInput.placeholder = "House Number"
     numberInput.name = "house_number"
 
     const streetName = document.createElement("input")
     streetName.type = "text"
     streetName.placeholder = "Street"
+    streetName.setAttribute("id", "text_input")
     streetName.name = "street_name"
 
     const postcode = document.createElement("input")
     postcode.type = "text"
     postcode.placeholder = "Postcode"
+    postcode.setAttribute("id", "text_input")
     postcode.name = "postcode"
     
     addressForm.appendChild(numberInput)
@@ -159,6 +170,7 @@ async function loadUserSettings(e) {
     const addressFormButton = document.createElement("button")
     addressFormButton.name = "address_form_button"
     addressFormButton.type = "submit"
+    addressFormButton.setAttribute("id", "confirm_button_settings")
     addressFormButton.textContent = "Change Address"
     addressForm.appendChild(addressFormButton)
     

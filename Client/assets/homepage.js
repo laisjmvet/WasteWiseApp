@@ -131,16 +131,18 @@ async function openRecyclingMenu() {
     const recyclingTitle = document.createElement("p")
     recyclingTitle.setAttribute("name", "title")
     recyclingTitle.textContent = "Disposal Help"
-    recyclingForm.appendChild(recyclingTitle)
+    recyclingMenu.appendChild(recyclingTitle)
 
     const searchLabel = document.createElement("label")
     searchLabel.setAttribute("name", "search_label")
+    searchLabel.setAttribute("id", "form_label")
     searchLabel.textContent = "Search for something"
 
     const searchBar = document.createElement("input")
     searchBar.type = "text"
     searchBar.placeholder = "Search..."
     searchBar.name = "search_bar"
+    searchBar.setAttribute("id", "text_input")
     searchBar.addEventListener('keyup', obtainRecycleItems)
     searchBar.addEventListener('focus', resetForm)
 
@@ -148,6 +150,7 @@ async function openRecyclingMenu() {
     disposeButton.textContent = "WasteWise this item"
     disposeButton.value = "submit"
     disposeButton.name = "dispose_button"
+    disposeButton.setAttribute("id", "confirm_button_settings")
     recyclingForm.addEventListener("submit", disposeItem)
 
     const dropdownSection = document.createElement("div")
@@ -197,7 +200,8 @@ async function obtainRecycleItems(e) {
                     let dropdownOption = document.createElement('button')
                     dropdownOption.name = "dropdown_option"
                     dropdownOption.textContent = searchItems[i].name
-                    dropdownOption.id = searchItems[i].object_id
+                    dropdownOption.setAttribute("id", "confirm_button_dropdown")
+                    dropdownOption.class = searchItems[i].object_id
                     dropdownOption.addEventListener("click", fillItem)
                     let dropdownContent = document.getElementsByName("dropdown_content")[0]
                     dropdownContent.appendChild(dropdownOption)
@@ -230,7 +234,7 @@ async function fillItem(e) {
     let dropdownContent = document.getElementsByName("dropdown_content")[0]
     dropdownContent.style = "display:none;"
     let text = e.target.textContent
-    let id = e.target.id
+    let id = e.target.class
     let searchBar = document.getElementsByName("search_bar")
     searchBar.id = id
     document.getElementsByName("recycling_form")[0].search_bar.value = text
@@ -429,6 +433,7 @@ async function openBulkyWastePopup() {
     itemInput.type = "text"
     itemInput.placeholder = "fridge"
     itemInput.name = "item_input"
+    itemInput.setAttribute("id", "text_input")
     itemInput.addEventListener('blur', checkFormFull)
     bulkyWasteForm.appendChild(itemInput)
 
@@ -455,7 +460,6 @@ async function openBulkyWastePopup() {
         const weightLabel = document.createElement("label")
         weightLabel.setAttribute("name", `${weights[i]}_label`)
         weightLabel.textContent = `<${weights[i]}`
-        weightLabel.setAttribute("id", "form_label")
         weightLabel.setAttribute("for", `${weights[i]}`)
 
         weightDiv.appendChild(weightInput)
@@ -476,7 +480,6 @@ async function openBulkyWastePopup() {
     weightLabel2.setAttribute("name", `${weights[3]}_label`)
     weightLabel2.textContent = `>100`
     weightLabel2.setAttribute("for", `${weights[3]}`)
-    weightLabel2.setAttribute("id", "form_label")
     weightDiv.appendChild(weightInput)
     weightDiv.appendChild(weightLabel2)
     weightFormSection.appendChild(weightDiv)
@@ -506,7 +509,6 @@ async function openBulkyWastePopup() {
         const weekdayLabel = document.createElement("label")
         weekdayLabel.setAttribute("name", `${weekdays[i]}_label`)
         weekdayLabel.textContent = `${weekdays[i]}`
-        weekdayLabel.setAttribute("id", "form_label")
         weekdayLabel.setAttribute("for", `${weekdays[i]}`)
 
         weekdayDiv.appendChild(dateInput)

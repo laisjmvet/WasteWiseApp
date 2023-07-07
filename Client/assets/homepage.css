@@ -178,14 +178,25 @@ button[name="back_button"]:hover{
   border-color: transparent;
 }
 
-form[name="recycling_form"],
-form[name="bulky_waste_form"],
+form[name="bulky_waste_form"]
 form[name="username_form"],
 form[name="password_form"],
 form[name="address_form"] {
     display:grid;
     place-items: center;
     position:absolute;
+}
+
+form[name="recycling_form"]{
+  display: grid;
+  place-items: center;
+  position:absolute;
+  width:200px;
+  height: 500px;
+}
+
+form[name="bulky_waste_form"]{
+  top:33%;
 }
 
 form[name="username_form"]{
@@ -322,6 +333,18 @@ form[name="address_form"] {
   font-size:20px;
 }
 
+input[name="item_input"]{
+  margin-bottom: 40px !important;
+}
+
+div[name="101_radio_container"]{
+  margin-bottom: 40px;
+}
+
+div[name="Friday_radio_container"]{
+  margin-bottom: 30px;
+}
+
 p[name="title"] {
   font-size: 30px;
   position: absolute;
@@ -356,16 +379,53 @@ div[name = "popup_buttons"] {
 }
 
 div[name = "dropdown_section"] {
-    position: relative;
+    position: absolute;
     display: inline-block;
+    top:10%;
+    left:50%;
+    margin-left: -100px;
 }
 
 div[name = "dropdown_content"] {
-    display:block;
+    display:none;
     position: absolute;
     z-index: 1;
     max-height:200px;
     overflow:scroll;
+}
+
+input[name="search_bar"]{
+  width: 80% !important;
+}
+
+#confirm_button_dropdown {
+  background-color: white;
+  font-size: 16px;
+  color:black;
+  border-color:black;
+  border-right: solid black;
+  border-bottom: solid black;
+  box-shadow: none;
+  border-radius: 10px;
+  width: 180px;
+  height: 42px ;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#confirm_button_dropdown:hover{
+  background-color:black;
+  color: white;
+  border-color: transparent;
+}
+
+button[name="dispose_button"]{
+  position: absolute;
+  bottom:0%;
+  width: 180px !important;
 }
 
 div[name="user_dropdown"] {

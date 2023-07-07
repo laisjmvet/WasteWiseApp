@@ -146,6 +146,7 @@ async function openRecyclingMenu() {
     searchBar.addEventListener('keyup', obtainRecycleItems)
     searchBar.addEventListener('focus', resetForm)
 
+
     const disposeButton = document.createElement("button")
     disposeButton.textContent = "WasteWise this item"
     disposeButton.value = "submit"
@@ -183,6 +184,7 @@ async function obtainRecycleItems(e) {
     const searchContents = document.getElementsByName("search_bar")[0].value
     if(searchContents == ""){
         const buttonsForDelete = document.getElementsByName("dropdown_option")
+        dropdownContent.style = "display:none;"
         for(let j=buttonsForDelete.length-1; j>=0; j--){
             buttonsForDelete[j].remove()
         }
@@ -247,6 +249,7 @@ async function fillItem(e) {
                 const rawBinData = await fetch(`http://localhost:3000/bin/${itemData.bin_type_id}`)
                 if(rawBinData.ok) {
                     const binData = await rawBinData.json()
+                    console.log(binData)
                     const bin = binData.bin_type_name
 
                     let whichBinText = document.createElement("p")
@@ -268,6 +271,14 @@ async function fillItem(e) {
                         whichBinText.textContent = `This item belongs in the ${bin.toLowerCase()} bin.`
                         document.getElementsByName("dropdown_section")[0].appendChild(whichBinText)
                     }  
+
+                    let binImg = document.createElement("img")
+                    binImg.alt = `${bin}`
+                    binImg.src = `./assets/images/${bin}.png`
+                    binImg.id = "bin_img_form"
+                    binImg.setAttribute("name", "bin")
+                    document.getElementsByName("dropdown_section")[0].appendChild(binImg)
+
                 }
             } catch(e){
                 console.log(e)
@@ -285,6 +296,8 @@ const resetForm = () => {
         dropdownContent.style = "display:block;"
         let binText = document.getElementsByName("which_bin_text")[0]
         binText.remove()
+        let binImg = document.getElementsByName("bin")[0]
+        binImg.remove()
     } 
 }
 
@@ -313,27 +326,31 @@ async function checkIfTheyMeanIt(itemData) {
     popUp.setAttribute("name", "pop_up")
 
     const areYouSure = document.createElement("p")
-    areYouSure.setAttribute("name", "title")
+    areYouSure.setAttribute("name", "title_popup")
     areYouSure.textContent = "Are You Sure?"
 
     const moralCheck = document.createElement("p")
     moralCheck.setAttribute("name", "body")
+    moralCheck.id = "form_label_popup"
     moralCheck.textContent = `By clicking 'Confirm' you confirm you disposed of this '${itemData[0].name.toLowerCase()}' correctly.`
 
     const backButton = document.createElement("button")
     backButton.name = "back_button_popup"
     backButton.textContent = "Back"
+    backButton.id = "defirm_button"
     backButton.addEventListener("click", deletePopUp)
 
     const confirmButton = document.createElement("button")
     confirmButton.name = "confirm_button_popup"
     confirmButton.textContent = "Confirm"
+    confirmButton.id = "confirm_button"
     confirmButton.addEventListener("click", submitItem)
 
     const buttonSection = document.createElement("div")
     buttonSection.setAttribute("name", "popup_buttons")
-    buttonSection.appendChild(backButton)
     buttonSection.appendChild(confirmButton)
+    buttonSection.appendChild(backButton)
+    
 
     popUp.appendChild(areYouSure)
     popUp.appendChild(moralCheck)
@@ -816,21 +833,24 @@ async function changeUsername(e) {
     popUp.setAttribute("name", "pop_up")
 
     const areYouSure = document.createElement("p")
-    areYouSure.setAttribute("name", "title")
+    areYouSure.setAttribute("name", "title_popup")
     areYouSure.textContent = "Are You Sure?"
 
     const popUpText = document.createElement("p")
     popUpText.setAttribute("name", "body")
+    popUpText.id = "form_label_popup"
     popUpText.textContent = `Your username will be changed to ${e.target.user_form_input.value}.`
 
     const backButton = document.createElement("button")
     backButton.name = "back_button_popup"
     backButton.textContent = "Back"
+    backButton.id = "defirm_button"
     backButton.addEventListener("click", deletePopUp)
 
     const confirmButton = document.createElement("button")
     confirmButton.name = "confirm_button_popup"
     confirmButton.textContent = "Confirm"
+    confirmButton.id = "confirm_button"
     confirmButton.addEventListener("click", async function () {
         const username = [...new URLSearchParams(window.location.search).values()][0]
         try {
@@ -874,8 +894,9 @@ async function changeUsername(e) {
 
     const buttonSection = document.createElement("div")
     buttonSection.setAttribute("name", "popup_buttons")
-    buttonSection.appendChild(backButton)
     buttonSection.appendChild(confirmButton)
+    buttonSection.appendChild(backButton)
+    
 
     popUp.appendChild(areYouSure)
     popUp.appendChild(popUpText)
@@ -900,21 +921,24 @@ async function changePassword(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
         popUpText.textContent = `Your password will be changed.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
+        backButton.id = "defirm_button"
         backButton.textContent = "Back"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
         confirmButton.textContent = "Confirm"
+        confirmButton.id = "confirm_button"
         confirmButton.addEventListener("click", async function () {
             const username = [...new URLSearchParams(window.location.search).values()][0]
             try {
@@ -947,8 +971,9 @@ async function changePassword(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)
@@ -975,21 +1000,24 @@ async function changeAddress(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
         popUpText.textContent = `Your address will be changed to ${address}.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
         backButton.textContent = "Back"
+        backButton.id = "defirm_button"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
         confirmButton.textContent = "Confirm"
+        confirmButton.id = "confirm_button"
         confirmButton.addEventListener("click", async function () {
             const username = [...new URLSearchParams(window.location.search).values()][0]
             try {
@@ -1033,8 +1061,9 @@ async function changeAddress(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)
@@ -1047,4 +1076,65 @@ async function changeAddress(e) {
         alert("Postcode is invalid")
     }
     
+}
+
+const howTo = document.getElementsByName("How")[0]
+howTo.addEventListener("click", openHowTo)
+
+async function openHowTo(e) {
+    e.preventDefault()
+    const popUpContainer = document.createElement("div")
+    popUpContainer.setAttribute("name", "pop_up_container")
+
+    const popUp = document.createElement("div")
+    popUp.setAttribute("name", "pop_up_howto")
+
+    const areYouSure = document.createElement("p")
+    areYouSure.setAttribute("name", "title_popup_howto")
+    areYouSure.textContent = "How To Use Site"
+
+    const list = document.createElement("ul")
+    list.setAttribute("name", "list")
+
+    const popUpText = document.createElement("li")
+    popUpText.setAttribute("name", "body")
+    popUpText.id = "form_label_popup"
+    popUpText.textContent = `Click the "Wastewise" button to find out what to do with an item.`
+
+    const popUpText2 = document.createElement("li")
+    popUpText2.setAttribute("name", "body")
+    popUpText2.id = "form_label_popup"
+    popUpText2.textContent = `Click the "Bulky Waste" button to book an appointment for a collection of a large item.`
+
+    const popUpText3 = document.createElement("li")
+    popUpText3.setAttribute("name", "body")
+    popUpText3.id = "form_label_popup"
+    popUpText3.textContent = `Hover over your name in the top right corner to access extra features such as; settings, view your points and logout.`
+
+
+    list.appendChild(popUpText)
+    list.appendChild(popUpText2)
+    list.appendChild(popUpText3)
+
+    const backButton = document.createElement("button")
+    backButton.name = "back_button_popup"
+    backButton.textContent = "Back"
+    backButton.id = "defirm_button"
+    backButton.setAttribute("class","back_button_howto")
+    backButton.addEventListener("click", deletePopUp)
+
+    
+
+    const buttonSection = document.createElement("div")
+    buttonSection.setAttribute("name", "popup_buttons")
+    //buttonSection.appendChild(backButton)
+    
+
+    popUp.appendChild(areYouSure)
+    popUp.appendChild(list)
+    popUp.appendChild(backButton)
+    popUpContainer.appendChild(popUp)
+
+    const body = document.querySelector('body')
+    body.appendChild(popUpContainer)
 }

@@ -197,21 +197,24 @@ async function changeUsername(e) {
     popUp.setAttribute("name", "pop_up")
 
     const areYouSure = document.createElement("p")
-    areYouSure.setAttribute("name", "title")
+    areYouSure.setAttribute("name", "title_popup")
     areYouSure.textContent = "Are You Sure?"
 
     const popUpText = document.createElement("p")
     popUpText.setAttribute("name", "body")
+    popUpText.id = "form_label_popup"
     popUpText.textContent = `Your username will be changed to ${e.target.user_form_input.value}.`
 
     const backButton = document.createElement("button")
     backButton.name = "back_button_popup"
     backButton.textContent = "Back"
+    backButton.id = "defirm_button"
     backButton.addEventListener("click", deletePopUp)
 
     const confirmButton = document.createElement("button")
     confirmButton.name = "confirm_button_popup"
     confirmButton.textContent = "Confirm"
+    confirmButton.id = "confirm_button"
     confirmButton.addEventListener("click", async function () {
         const username = [...new URLSearchParams(window.location.search).values()][0]
         try {
@@ -255,8 +258,9 @@ async function changeUsername(e) {
 
     const buttonSection = document.createElement("div")
     buttonSection.setAttribute("name", "popup_buttons")
-    buttonSection.appendChild(backButton)
     buttonSection.appendChild(confirmButton)
+    buttonSection.appendChild(backButton)
+    
 
     popUp.appendChild(areYouSure)
     popUp.appendChild(popUpText)
@@ -281,21 +285,24 @@ async function changePassword(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
         popUpText.textContent = `Your password will be changed.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
+        backButton.id = "defirm_button"
         backButton.textContent = "Back"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
         confirmButton.textContent = "Confirm"
+        confirmButton.id = "confirm_button"
         confirmButton.addEventListener("click", async function () {
             const username = [...new URLSearchParams(window.location.search).values()][0]
             try {
@@ -328,8 +335,9 @@ async function changePassword(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)
@@ -345,83 +353,93 @@ async function changePassword(e) {
 
 async function changeAddress(e) {
     e.preventDefault()
-    const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
 
-    const popUpContainer = document.createElement("div")
-    popUpContainer.setAttribute("name", "pop_up_container")
+    if(checkValidPostcode(e.target.postcode.value.toUpperCase())){
+        const address = e.target.house_number.value + " " + e.target.street_name.value + ", " + e.target.postcode.value.toUpperCase()
 
-    const popUp = document.createElement("div")
-    popUp.setAttribute("name", "pop_up")
+        const popUpContainer = document.createElement("div")
+        popUpContainer.setAttribute("name", "pop_up_container")
 
-    const areYouSure = document.createElement("p")
-    areYouSure.setAttribute("name", "title")
-    areYouSure.textContent = "Are You Sure?"
+        const popUp = document.createElement("div")
+        popUp.setAttribute("name", "pop_up")
 
-    const popUpText = document.createElement("p")
-    popUpText.setAttribute("name", "body")
-    popUpText.textContent = `Your address will be changed to ${address}.`
+        const areYouSure = document.createElement("p")
+        areYouSure.setAttribute("name", "title_popup")
+        areYouSure.textContent = "Are You Sure?"
 
-    const backButton = document.createElement("button")
-    backButton.name = "back_button_popup"
-    backButton.textContent = "Back"
-    backButton.addEventListener("click", deletePopUp)
+        const popUpText = document.createElement("p")
+        popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
+        popUpText.textContent = `Your address will be changed to ${address}.`
 
-    const confirmButton = document.createElement("button")
-    confirmButton.name = "confirm_button_popup"
-    confirmButton.textContent = "Confirm"
-    confirmButton.addEventListener("click", async function () {
-        const username = [...new URLSearchParams(window.location.search).values()][0]
-        try {
-            const rawAddressData = await fetch(`http://localhost:3000/address/user/${e.target.house_number.value}&${e.target.postcode.value.toUpperCase()}`)
-            if(rawAddressData.ok){
-                const addressData = await rawAddressData.json()
-                console.log(addressData)
+        const backButton = document.createElement("button")
+        backButton.name = "back_button_popup"
+        backButton.textContent = "Back"
+        backButton.id = "defirm_button"
+        backButton.addEventListener("click", deletePopUp)
 
-                const addressIdData = {
-                    address_id: addressData.id
-                }
+        const confirmButton = document.createElement("button")
+        confirmButton.name = "confirm_button_popup"
+        confirmButton.textContent = "Confirm"
+        confirmButton.id = "confirm_button"
+        confirmButton.addEventListener("click", async function () {
+            const username = [...new URLSearchParams(window.location.search).values()][0]
+            try {
+                const rawAddressData = await fetch(`http://localhost:3000/address/user/${e.target.house_number.value}&${e.target.postcode.value.toUpperCase()}`)
+                if(rawAddressData.ok){
+                    const addressData = await rawAddressData.json()
+                    console.log(addressData)
 
-                const options = {
-                    method:"PATCH",
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(addressIdData)
-                }
-
-                try {
-                    const response = await fetch(`http://localhost:3000/users/address/${username}`, options) 
-                    const data = response.json()
-
-                    if (response.status == 200) {
-                        let popUp = document.getElementsByName('pop_up_container')[0]
-                        popUp.remove()
-                        document.getElementsByName("address_form")[0].reset()
-                        alert("Address Changed Successfully")
+                    const addressIdData = {
+                        address_id: addressData.id
                     }
-                } catch(e) {
-                    console.log(e)
+
+                    const options = {
+                        method:"PATCH",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(addressIdData)
+                    }
+
+                    try {
+                        const response = await fetch(`http://localhost:3000/users/address/${username}`, options) 
+                        const data = response.json()
+
+                        if (response.status == 200) {
+                            let popUp = document.getElementsByName('pop_up_container')[0]
+                            popUp.remove()
+                            document.getElementsByName("address_form")[0].reset()
+                            alert("Address Changed Successfully")
+                        }
+                    } catch(e) {
+                        console.log(e)
+                    }
                 }
+
+            }catch(e) {
+                console.log(e)
             }
-            
-        }catch(e) {
-            console.log(e)
-        }
-    })
+        })
 
-    const buttonSection = document.createElement("div")
-    buttonSection.setAttribute("name", "popup_buttons")
-    buttonSection.appendChild(backButton)
-    buttonSection.appendChild(confirmButton)
+        const buttonSection = document.createElement("div")
+        buttonSection.setAttribute("name", "popup_buttons")
+        buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
-    popUp.appendChild(areYouSure)
-    popUp.appendChild(popUpText)
-    popUp.appendChild(buttonSection)
-    popUpContainer.appendChild(popUp)
+        popUp.appendChild(areYouSure)
+        popUp.appendChild(popUpText)
+        popUp.appendChild(buttonSection)
+        popUpContainer.appendChild(popUp)
 
-    const body = document.querySelector('body')
-    body.appendChild(popUpContainer)
+        const body = document.querySelector('body')
+        body.appendChild(popUpContainer)
+    } else {
+        alert("Postcode is invalid")
+    }
+    
 }
 
 const homeButton = document.getElementsByName("home_button")[0]
@@ -740,20 +758,23 @@ async function createAnAddress(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
         popUpText.textContent = `You will add '${address}' to the database.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
+        backButton.id = "defirm_button"
         backButton.textContent = "Back"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
+        confirmButton.id = "confirm_button"
         confirmButton.textContent = "Confirm"
         confirmButton.addEventListener("click", async function () {
             const username = [...new URLSearchParams(window.location.search).values()][0]
@@ -790,8 +811,9 @@ async function createAnAddress(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)
@@ -818,20 +840,23 @@ async function deleteAnAddress(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
         popUpText.textContent = `You will delete '${address}' from the database.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
+        backButton.id = "defirm_button"
         backButton.textContent = "Back"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
+        confirmButton.id = "confirm_button"
         confirmButton.textContent = "Confirm"
         confirmButton.addEventListener("click", async function () {
             const username = [...new URLSearchParams(window.location.search).values()][0]
@@ -868,8 +893,9 @@ async function deleteAnAddress(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)
@@ -974,20 +1000,23 @@ async function makeUserAdmin(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_popup"
         popUpText.textContent = `You will make ${e.target.admin_input.value} an admin.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
+        backButton.id = "defirm_button"
         backButton.textContent = "Back"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
+        confirmButton.id = "confirm_button"
         confirmButton.textContent = "Confirm"
         confirmButton.addEventListener("click", async function () {
             try {
@@ -1020,8 +1049,9 @@ async function makeUserAdmin(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)
@@ -1041,20 +1071,23 @@ async function deleteUser(e) {
         popUp.setAttribute("name", "pop_up")
 
         const areYouSure = document.createElement("p")
-        areYouSure.setAttribute("name", "title")
+        areYouSure.setAttribute("name", "title_popup")
         areYouSure.textContent = "Are You Sure?"
 
         const popUpText = document.createElement("p")
         popUpText.setAttribute("name", "body")
+        popUpText.id = "form_label_input"
         popUpText.textContent = `You will delete ${e.target.delete_input.value}'s account.`
 
         const backButton = document.createElement("button")
         backButton.name = "back_button_popup"
+        backButton.id = "defirm_button"
         backButton.textContent = "Back"
         backButton.addEventListener("click", deletePopUp)
 
         const confirmButton = document.createElement("button")
         confirmButton.name = "confirm_button_popup"
+        confirmButton.id = "confirm_button"
         confirmButton.textContent = "Confirm"
         confirmButton.addEventListener("click", async function () {
             try {
@@ -1100,8 +1133,9 @@ async function deleteUser(e) {
 
         const buttonSection = document.createElement("div")
         buttonSection.setAttribute("name", "popup_buttons")
-        buttonSection.appendChild(backButton)
         buttonSection.appendChild(confirmButton)
+        buttonSection.appendChild(backButton)
+        
 
         popUp.appendChild(areYouSure)
         popUp.appendChild(popUpText)

@@ -430,12 +430,12 @@ async function loadAppointmentsMenu() {
 
     const backButton = document.createElement("button")
     backButton.textContent = "Back"
-    backButton.name = "back_button"
+    backButton.name = "back_button_appointments"
     backButton.addEventListener("click", returnHome)
     appointmentMenu.appendChild(backButton)
 
     const appointmentTitle = document.createElement("p")
-    appointmentTitle.setAttribute("name", "title")
+    appointmentTitle.setAttribute("name", "title_appointments")
     appointmentTitle.textContent = "Collection Appointments"
     appointmentMenu.appendChild(appointmentTitle)
 
@@ -488,7 +488,7 @@ async function loadAppointmentsMenu() {
                             const data = await fetch(`http://localhost:3000/address/${userAddressId}`)
                             if(data.ok) {
                                 addressData = await data.json()
-                                address = addressData.house_number + " " + addressData.street_name + ", " +addressData.postcode
+                                address = addressData.house_number + " " + addressData.street_name
 
                             }
                         }catch(e) {
@@ -517,7 +517,7 @@ async function loadAppointmentsMenu() {
                 } catch(e) {
                     console.log(e)
                 }
-                const appointmentArr = [weekday, address, what, weight, value]
+                const appointmentArr = [address, weekday, what, weight, value]
                 let appointmentRow = document.createElement("tr")
                 appointmentRow.setAttribute("name", `appointment_row${i}`)
                 appointmentTable.appendChild(appointmentRow)
@@ -624,27 +624,32 @@ async function openAddressPopup() {
 
     const addressFormLabel = document.createElement("label")
     addressFormLabel.setAttribute("name", "address_form_label")
+    addressFormLabel.setAttribute("id", "form_label")
     addressFormLabel.textContent = "Create Address"
     createAddressForm.appendChild(addressFormLabel)
 
     const numberInput = document.createElement("input")
     numberInput.type = "text"
     numberInput.placeholder = "House Number"
+    numberInput.setAttribute("id", "text_input")
     numberInput.name = "house_number"
 
     const streetName = document.createElement("input")
     streetName.type = "text"
     streetName.placeholder = "Street"
+    streetName.setAttribute("id", "text_input")
     streetName.name = "street_name"
 
     const postcode = document.createElement("input")
     postcode.type = "text"
     postcode.placeholder = "Postcode"
+    postcode.setAttribute("id", "text_input")
     postcode.name = "postcode"
 
     const zoneNumber = document.createElement("input")
     zoneNumber.type = "text"
     zoneNumber.placeholder = "Zone Number"
+    zoneNumber.setAttribute("id", "text_input")
     zoneNumber.name = "zone"
     
     createAddressForm.appendChild(numberInput)
@@ -655,6 +660,7 @@ async function openAddressPopup() {
     const addressFormButton = document.createElement("button")
     addressFormButton.name = "address_form_button"
     addressFormButton.type = "submit"
+    addressFormButton.setAttribute("id", "confirm_button")
     addressFormButton.textContent = "Create Address"
     createAddressForm.appendChild(addressFormButton)
 
@@ -665,26 +671,31 @@ async function openAddressPopup() {
 
     const addressFormLabel2 = document.createElement("label")
     addressFormLabel2.setAttribute("name", "address_form_label")
+    addressFormLabel2.setAttribute("id", "form_label")
     addressFormLabel2.textContent = "Delete Address"
     deleteAddressForm.appendChild(addressFormLabel2)
 
     const numberInput2 = document.createElement("input")
     numberInput2.type = "text"
     numberInput2.placeholder = "House Number"
+    numberInput2.setAttribute("id", "text_input")
     numberInput2.name = "house_number"
 
     const streetName2 = document.createElement("input")
     streetName2.type = "text"
     streetName2.placeholder = "Street"
+    streetName2.setAttribute("id", "text_input")
     streetName2.name = "street_name"
 
     const postcode2 = document.createElement("input")
     postcode2.type = "text"
+    postcode2.setAttribute("id", "text_input")
     postcode2.placeholder = "Postcode"
     postcode2.name = "postcode"
 
     const addressFormButton2 = document.createElement("button")
     addressFormButton2.name = "address_form_button"
+    addressFormButton2.setAttribute("id", "defirm_button")
     addressFormButton2.type = "submit"
     addressFormButton2.textContent = "Delete Address"
     
@@ -888,6 +899,7 @@ async function openResidentsPopup() {
 
     const adminLabel = document.createElement("label")
     adminLabel.setAttribute("name", "admin_label")
+    adminLabel.setAttribute("id", "form_label")
     adminLabel.textContent = "Make a user an admin"
     residentAdminForm.appendChild(adminLabel)
 
@@ -895,11 +907,13 @@ async function openResidentsPopup() {
     adminInput.name = "admin_input"
     adminInput.type = "text"
     adminInput.placeholder = "username"
+    adminInput.setAttribute("id", "text_input")
     residentAdminForm.appendChild(adminInput)
 
     const adminButton = document.createElement("button")
     adminButton.name = "admin_button"
     adminButton.textContent = "Make Admin"
+    adminButton.setAttribute("id", "confirm_button")
     residentAdminForm.appendChild(adminButton)
 
 
@@ -910,6 +924,7 @@ async function openResidentsPopup() {
 
     const deleteLabel = document.createElement("label")
     deleteLabel.setAttribute("name", "delete_label")
+    deleteLabel.setAttribute("id", "form_label")
     deleteLabel.textContent = "Delete a user"
     residentDeleteForm.appendChild(deleteLabel)
 
@@ -917,11 +932,13 @@ async function openResidentsPopup() {
     deleteInput.name = "delete_input"
     deleteInput.type = "text"
     deleteInput.placeholder = "username"
+    deleteInput.setAttribute("id", "text_input")
     residentDeleteForm.appendChild(deleteInput)
 
     const deleteButton = document.createElement("button")
     deleteButton.name = "delete_button"
     deleteButton.textContent = "Delete User"
+    deleteButton.setAttribute("id", "defirm_button")
     residentDeleteForm.appendChild(deleteButton)
 
     residentMenu.appendChild(residentAdminForm)

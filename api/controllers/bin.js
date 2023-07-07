@@ -11,8 +11,7 @@ async function showAll (req, res) {
 
 async function showOneByName (req, res) {
     try {
-        const name = (req.params.name).slice(0,3);   
-        console.log(name)     
+        const name = (req.params.name).slice(0,3);
         const bin = await Bin.getOneByName(name);
         
         res.status(200).json(bin);

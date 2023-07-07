@@ -18,7 +18,7 @@ class Bin {
     static async getOneByName(name) {
         try {
             const response = await db.query("SELECT * FROM bin_types WHERE bin_type_name ILIKE '%' || $1 || '%'", [name]);
-            return response.rows;
+            return response.rows[0];
         } catch (error) {
             
         }

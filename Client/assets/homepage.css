@@ -57,10 +57,11 @@ div[name="wastewise"] {
 
 p[name="wastewise"] {
   font-family: var(--bs-body-font-family);
-  font-size: 20px;
-  position:absolute;
-  top:4%;
-  left:45.25%;
+    font-size: 20px;
+    position:absolute;
+    top:4%;
+    left:50%;
+    margin-left: -47.93px;
 }
 
 p[name="big_title"] {
@@ -178,18 +179,32 @@ button[name="back_button"]:hover{
   border-color: transparent;
 }
 
-form[name="recycling_form"],
-form[name="bulky_waste_form"],
+form[name="bulky_waste_form"]
 form[name="username_form"],
 form[name="password_form"],
 form[name="address_form"] {
-    display:grid;
+    display: grid !important;
     place-items: center;
-    position:absolute;
+    position: absolute !important;
+}
+
+form[name="recycling_form"]{
+  display: grid;
+  place-items: center;
+  position:absolute;
+  width:200px;
+  height: 500px;
+}
+
+form[name="bulky_waste_form"]{
+  top:33%;
 }
 
 form[name="username_form"]{
   top:28%;
+  display: grid !important;
+    place-items: center;
+    position: absolute !important;
 }
 
 form[name="password_form"]{
@@ -322,11 +337,50 @@ form[name="address_form"] {
   font-size:20px;
 }
 
+input[name="item_input"]{
+  margin-bottom: 40px !important;
+}
+
+div[name="101_radio_container"]{
+  margin-bottom: 40px;
+}
+
+div[name="Friday_radio_container"]{
+  margin-bottom: 30px;
+}
+
 p[name="title"] {
   font-size: 30px;
   position: absolute;
   top:19%;
 }
+
+p[name="title_popup"] {
+  font-size: 30px;
+  position: absolute;
+  top:33%;
+}
+
+p[name="title_popup_howto"] {
+  font-size: 30px;
+  position: absolute;
+  top:27%;
+}
+
+#form_label_popup {
+  font-size:20px;
+  position: absolute;
+  top:42%;
+  text-align: center;
+  width: 30%;
+}
+
+div[name = "popup_buttons"] {
+  display:grid;
+  position: absolute;
+  top:55%;
+}
+
 
 div[name="pop_up_container"] {
     position: fixed;
@@ -350,22 +404,75 @@ div[name="pop_up"] {
     place-items: center;
 }
 
-
-div[name = "popup_buttons"] {
-    display:grid;
+div[name="pop_up_howto"] {
+  display: grid;
+  min-height: 50%;
+  width: 30%; 
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid black;
+  place-items: center;
 }
 
+
+
+
 div[name = "dropdown_section"] {
-    position: relative;
+    position: absolute;
     display: inline-block;
+    top:10%;
+    left:50%;
+    margin-left: -100px;
 }
 
 div[name = "dropdown_content"] {
-    display:block;
+    display:none;
     position: absolute;
     z-index: 1;
     max-height:200px;
     overflow:scroll;
+}
+
+#bin_img_form {
+  position:absolute;
+  width:100px;
+  left:50%;
+  margin-left: -60px;
+  
+}
+
+input[name="search_bar"]{
+  width: 80% !important;
+}
+
+#confirm_button_dropdown {
+  background-color: white;
+  font-size: 16px;
+  color:black;
+  border-color:black;
+  border-right: solid black;
+  border-bottom: solid black;
+  box-shadow: none;
+  border-radius: 10px;
+  width: 180px;
+  height: 42px ;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#confirm_button_dropdown:hover{
+  background-color:black;
+  color: white;
+  border-color: transparent;
+}
+
+button[name="dispose_button"]{
+  position: absolute;
+  bottom:0%;
+  width: 180px !important;
 }
 
 div[name="user_dropdown"] {
@@ -393,6 +500,25 @@ button[name="Log_out"]{
 button[name="Log_out"]:hover {
   background-color:#dc3545 !important;
   color: white !important;
+}
+
+ul {
+  position:absolute;
+  top:15%;
+  width: 300px;
+  height: 500px;
+  display: block;
+}
+
+li {
+  width:100% !important;
+  height:15% !important;
+  position: relative !important;
+}
+
+.back_button_howto {
+    position: absolute;
+    top:67% !important;
 }
 
 #footer{

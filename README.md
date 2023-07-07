@@ -6,8 +6,6 @@ We're all members of the [La Fosse Academy](https://www.lafosseacademy.com/). An
 
 We decided to make a waste management app called **WasteWise** where the residents of Florin will be able to organise their household waste into divided spaces via new bins provided by the local authority. Residents can now contribute to their hometown and relieve the desperate shortages on local services by doing their part!
 
-You can see it live at: [tester.com](http://blahblahsswerfs.com/)
-
 You can see a copy of our project presentation slides [here](https://github.com/SumeetChoat/RecycleBin).
 
 ## Table of Contents
@@ -55,7 +53,6 @@ The website also allows the user to book a collection for large items which do n
 - Users may also use this page to organise the collection of bulky waste which could include (but not limited to) sofa, fridge etc but this will come at an extra cost.
 - Additonal features include the ability for users to change their address and their corresponding collection date will change accordingly.
 - There is Admin page which allows items to be updated as well as residential details.
-
 
 ## Technology Used
 

@@ -47,10 +47,14 @@ The website allows the user to login/register and will be shown relevant informa
 
 Users may input proposed waste, such as 'Cardboard pizza box' into a search box and the webpage will output information about which bin will be suitable for them.
 
-The website also allows the user to book a collection for large items which do not fit into the provided bins such as furniture. This will come as a cost extra. 
+The website also allows the user to book a collection for large items which do not fit into the provided bins such as furniture. This will come as an extra cost.  
 
 ### Key Features
-
+- There are now more bins per household in Florin than ever before. It can be tricky for our users to know when their bins are going so this app will help distinguish area codes and how this decides your collection days.
+- Users can register for the app and virtually place items into a bin. The user can then collect points based off the items disposed of which will later translate into physical rewards at a local sponsoring supermarket.
+- Users may also use this page to organise the collection of bulky waste which could include (but not limited to) sofa, fridge etc but this will come at an extra cost.
+- Additonal features include the ability for users to change their address and their corresponding collection date will change accordingly.
+- There is Admin page which allows items to be updated as well as residential details.
 
 
 ## Technology Used
@@ -73,8 +77,6 @@ The website also allows the user to book a collection for large items which do n
 		- supertest: for HTTP integration testing.
 		- uuid: for generating unique identifiers.
 
-### blshblahddv.com
-
 
 
 ## Our Process
@@ -82,5 +84,6 @@ The website also allows the user to book a collection for large items which do n
 Our group focussed on getting some back end functionality for the website before looking at detail on the front-end. This meant being able to add to a user json file and being able to fetch the questions. 
 
 ## Other Issues
+- Points system is incomplete which means that there is no leaderboard functionality. Points cannot be redeemed against rewards which was the whole point of them.
 
 

@@ -449,5 +449,3 @@ INSERT INTO collect_days (bin_type_id, weekday_id, zone_id) VALUES
 
 INSERT INTO appointments (user_id, object_name, weekday_id, weight_kg) VALUES
 (1, 'sofa', 2, 60);
-
-

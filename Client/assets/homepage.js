@@ -58,7 +58,7 @@ async function setUpPage(userData) {
             window.location.assign(`admin.html?username=${userData.username}`)
         })
         
-        const buttonsDiv = document.getElementsByName("main_buttons")[0]
+        const buttonsDiv = document.getElementsByName("user_dropdown_content")[0]
         buttonsDiv.appendChild(adminButton)   
     }
 }

@@ -187,7 +187,7 @@ div[name="pop_up"] {
     display: grid;
     min-height: 30%;
     width: 30%; 
-    background-color: var(--bs-card-bg);
+    background-color: white;
     border-radius: 25px;
     border: 1px solid black;
     place-items: center;
@@ -205,7 +205,8 @@ p[name="title_appointments"] {
     font-size: 30px;
     position: absolute;
     top:28%;
-    left: 35%;
+    left: 50%;
+    margin-left: -163.65px;
 
 
 }
@@ -213,9 +214,10 @@ p[name="title_appointments"] {
 p[name="big_title"] {
     font-size: 48px;
     position:absolute;
-    left: 42.5%;
+    left: 50%;
     top: 12%;
     z-index: 1;
+    margin-left: -68.9px;
     color:white;
 
 }
@@ -257,8 +259,29 @@ p[name="wastewise"] {
     font-size: 20px;
     position:absolute;
     top:4%;
-    left:45.25%;
+    left:50%;
+    margin-left: -47.93px;
 }
+
+p[name="title_popup"] {
+    font-size: 30px;
+    position: absolute;
+    top:33%;
+  }
+  
+  #form_label_popup {
+    font-size:20px;
+    position: absolute;
+    top:42%;
+    text-align: center;
+    width: 30%;
+  }
+  
+  div[name = "popup_buttons"] {
+    display:grid;
+    position: absolute;
+    top:55%;
+  }
 
 div[name="wastewise"] {
     position:absolute;

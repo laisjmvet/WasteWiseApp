@@ -57,10 +57,11 @@ div[name="wastewise"] {
 
 p[name="wastewise"] {
   font-family: var(--bs-body-font-family);
-  font-size: 20px;
-  position:absolute;
-  top:4%;
-  left:45.25%;
+    font-size: 20px;
+    position:absolute;
+    top:4%;
+    left:50%;
+    margin-left: -47.93px;
 }
 
 p[name="big_title"] {
@@ -182,9 +183,9 @@ form[name="bulky_waste_form"]
 form[name="username_form"],
 form[name="password_form"],
 form[name="address_form"] {
-    display:grid;
+    display: grid !important;
     place-items: center;
-    position:absolute;
+    position: absolute !important;
 }
 
 form[name="recycling_form"]{
@@ -201,6 +202,9 @@ form[name="bulky_waste_form"]{
 
 form[name="username_form"]{
   top:28%;
+  display: grid !important;
+    place-items: center;
+    position: absolute !important;
 }
 
 form[name="password_form"]{
@@ -351,6 +355,33 @@ p[name="title"] {
   top:19%;
 }
 
+p[name="title_popup"] {
+  font-size: 30px;
+  position: absolute;
+  top:33%;
+}
+
+p[name="title_popup_howto"] {
+  font-size: 30px;
+  position: absolute;
+  top:27%;
+}
+
+#form_label_popup {
+  font-size:20px;
+  position: absolute;
+  top:42%;
+  text-align: center;
+  width: 30%;
+}
+
+div[name = "popup_buttons"] {
+  display:grid;
+  position: absolute;
+  top:55%;
+}
+
+
 div[name="pop_up_container"] {
     position: fixed;
     top: 0;
@@ -373,10 +404,18 @@ div[name="pop_up"] {
     place-items: center;
 }
 
-
-div[name = "popup_buttons"] {
-    display:grid;
+div[name="pop_up_howto"] {
+  display: grid;
+  min-height: 50%;
+  width: 30%; 
+  background-color: white;
+  border-radius: 25px;
+  border: 1px solid black;
+  place-items: center;
 }
+
+
+
 
 div[name = "dropdown_section"] {
     position: absolute;
@@ -392,6 +431,14 @@ div[name = "dropdown_content"] {
     z-index: 1;
     max-height:200px;
     overflow:scroll;
+}
+
+#bin_img_form {
+  position:absolute;
+  width:100px;
+  left:50%;
+  margin-left: -60px;
+  
 }
 
 input[name="search_bar"]{
@@ -453,6 +500,25 @@ button[name="Log_out"]{
 button[name="Log_out"]:hover {
   background-color:#dc3545 !important;
   color: white !important;
+}
+
+ul {
+  position:absolute;
+  top:15%;
+  width: 300px;
+  height: 500px;
+  display: block;
+}
+
+li {
+  width:100% !important;
+  height:15% !important;
+  position: relative !important;
+}
+
+.back_button_howto {
+    position: absolute;
+    top:67% !important;
 }
 
 #footer{

@@ -82,7 +82,7 @@ Our group focussed on getting some back end functionality for the website before
 
 ## Other Issues
 - Points system is incomplete which means that there is no leaderboard functionality. Points cannot be redeemed against rewards which was the whole point of them.
-- 
+
 ## Future Features
 - Add pay functionality to bulky waste.
 - More Admin editing features.

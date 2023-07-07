@@ -6,8 +6,6 @@ We're all members of the [La Fosse Academy](https://www.lafosseacademy.com/). An
 
 We decided to make a waste management app called **WasteWise** where the residents of Florin will be able to organise their household waste into divided spaces via new bins provided by the local authority. Residents can now contribute to their hometown and relieve the desperate shortages on local services by doing their part!
 
-You can see it live at: [tester.com](http://blahblahsswerfs.com/)
-
 You can see a copy of our project presentation slides [here](https://github.com/SumeetChoat/RecycleBin).
 
 ## Table of Contents
@@ -19,10 +17,10 @@ You can see a copy of our project presentation slides [here](https://github.com/
 - [Technology Used](#technology-used)
 - [Our Process](#our-process)
 - [Other Issues](#other-issues)
+- [Future Features](#future-features)
 
 ## Known Bugs
-- example.
-- example
+- Bins not showing for some users.
 
 ## Install and Run This Project Locally
 
@@ -56,7 +54,6 @@ The website also allows the user to book a collection for large items which do n
 - Additonal features include the ability for users to change their address and their corresponding collection date will change accordingly.
 - There is Admin page which allows items to be updated as well as residential details.
 
-
 ## Technology Used
 
 - HTML
@@ -86,4 +83,7 @@ Our group focussed on getting some back end functionality for the website before
 ## Other Issues
 - Points system is incomplete which means that there is no leaderboard functionality. Points cannot be redeemed against rewards which was the whole point of them.
 
-
+## Future Features
+- Add pay functionality to bulky waste.
+- More Admin editing features.
+- Complete points functionality.

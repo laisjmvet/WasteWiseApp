@@ -17,6 +17,7 @@ You can see a copy of our project presentation slides [here](https://github.com/
 - [Technology Used](#technology-used)
 - [Our Process](#our-process)
 - [Other Issues](#other-issues)
+- [Future Features](#future-features)
 
 ## Known Bugs
 - Bins not showing for some users.
@@ -79,12 +80,10 @@ The website also allows the user to book a collection for large items which do n
 
 Our group focussed on getting some back end functionality for the website before looking at detail on the front-end. This meant being able to add to a user json file and being able to fetch the questions. 
 
+## Other Issues
+- Points system is incomplete which means that there is no leaderboard functionality. Points cannot be redeemed against rewards which was the whole point of them.
+- 
 ## Future Features
 - Add pay functionality to bulky waste.
 - More Admin editing features.
 - Complete points functionality.
-
-## Other Issues
-- Points system is incomplete which means that there is no leaderboard functionality. Points cannot be redeemed against rewards which was the whole point of them.
-
-
